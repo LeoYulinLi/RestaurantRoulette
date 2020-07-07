@@ -1,16 +1,38 @@
 // src/components/main/main_page.js
 
-import React from "react";
+import React, { useSelector, useState, useEffect, useDispatch } from "react";
+import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
 
-class MainPage extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>A Twitter Clone that I need to change the name of at some point</h1>
-        <footer>Copyright &copy; 2019 app name I need to change at some point</footer>
-      </div>
-    );
+function MainPage() {
+
+  const [categories, setCategories] = useState("");
+  const [[latitude, longitude], setLocation] = useState([37.78, -122.39]);
+
+  function selectRestaurant(state) {
+    return state.generatedRestaurant;
   }
+
+  const restaurant = useSelector(selectRestaurant);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchYelpRestaurant({}));
+  }, []);
+
+  return (
+    <div>
+      <h1>RR Incorporated</h1>
+
+      <div>
+        {categories}
+        {restaurant.name}
+        <input value={categories} onChange={e => setCategories(e.target.value)}></input>
+      </div>
+      
+      <footer>Copyright &copy; 2020 Restaurant Roulette</footer>
+    </div>
+  );
 }
 
 export default MainPage;

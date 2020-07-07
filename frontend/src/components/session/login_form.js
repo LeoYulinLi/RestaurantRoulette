@@ -6,21 +6,14 @@ class LoginForm extends React.Component {
     super(props);
 
     this.state = {
-      email: '',
+      username: '',
       password: '',
       errors: {}
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDemoLogin = this.handleDemoLogin.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUser === true) {
-      this.props.history.push('/tweets');
-    }
-
-    this.setState({errors: nextProps.errors})
   }
 
   update(field) {
@@ -33,11 +26,16 @@ class LoginForm extends React.Component {
     e.preventDefault();
 
     let user = {
-      email: this.state.email,
+      username: this.state.username,
       password: this.state.password
     };
 
     this.props.login(user); 
+  }
+
+  handleDemoLogin(e) {
+    e.preventDefault();
+    this.props.login({username: 'bilbo', password:'123456'})
   }
 
   renderErrors() {
@@ -59,9 +57,9 @@ class LoginForm extends React.Component {
           <div>
             <br/>
               <input type="text"
-                value={this.state.email}
-                onChange={this.update('email')}
-                placeholder="Email"
+              value={this.state.username}
+              onChange={this.update('username')}
+              placeholder="username"
               />
             <br/>
               <input type="password"
@@ -73,6 +71,7 @@ class LoginForm extends React.Component {
             <input type="submit" value="Submit" />
             {this.renderErrors()}
           </div>
+          <button type='button' onClick={this.handleDemoLogin}>Demo Login</button>
         </form>
       </div>
     );

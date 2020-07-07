@@ -1,12 +1,12 @@
 {
-  "name": "chirper",
+  "name": "restaurant-roulette",
   "version": "1.0.0",
-  "description": "A Twitter clone built with the MERN stack",
+  "description": "Randomly pick a restaurant based on user preferences",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "server": "nodemon app.js",
-    "debug": "node --inspect app.js",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "debug": "node --inspect server.js",
     "frontend-install": "npm install --prefix frontend",
     "frontend": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run frontend\""

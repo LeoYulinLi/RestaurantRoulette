@@ -15,8 +15,8 @@ router.get(
   (req, res) => {
     res.json({
       id: req.user.id,
-      handle: req.user.handle,
-      email: req.user.email,
+      username: req.user.username,
+      // email: req.user.email,
     });
   }
 );
@@ -29,17 +29,17 @@ router.post("/register", (req, res) => {
   }
 
   // Check to make sure nobody has already registered with a duplicate email
-  User.findOne({ email: req.body.email }).then((user) => {
+  User.findOne({ username: req.body.username }).then((user) => {
     if (user) {
-      // Throw a 400 error if the email address already exists
+      // Throw a 400 error if the username address already exists
       return res
         .status(400)
-        .json({ email: "A user has already registered with this address" });
+        .json({ username: "A user has already registered with this address" });
     } else {
       // Otherwise create a new user
       const newUser = new User({
-        handle: req.body.handle,
-        email: req.body.email,
+        username: req.body.username,
+        // email: req.body.email,
         password: req.body.password,
       });
 
@@ -66,12 +66,12 @@ router.post("/login", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  const email = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
 
-  User.findOne({ email }).then((user) => {
+  User.findOne({ username }).then((user) => {
     if (!user) {
-      return res.status(404).json({ email: "This user does not exist" });
+      return res.status(404).json({ username: "This user does not exist" });
     }
 
     bcrypt.compare(password, user.password).then((isMatch) => {
