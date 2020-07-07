@@ -25,8 +25,8 @@ class NavBar extends React.Component {
     } else {
       return (
         <div className="button-group">
-          <Link to={"/signup"} className="button button-theme">Signup</Link>
-          <Link to={"/login"} className="button button-secondary">Login</Link>
+         <button onClick={() => this.props.openModal('signup')} className="button button-theme">Signup</button>
+         <button onClick={() => this.props.openModal('login')} className="button button-secondary">login</button>
         </div>
       );
     }
