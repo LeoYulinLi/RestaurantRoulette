@@ -35,8 +35,10 @@ class NavBar extends React.Component {
   render() {
     return (
       <div className="main-nav-container">
-        <Link to="/">Restaurant Roulette</Link>
-        {this.getLinks()}
+        <div className="main-nav-content">
+          <Link to="/">Restaurant Roulette</Link>
+          {this.getLinks()}
+        </div>
       </div>
     );
   }

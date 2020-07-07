@@ -7,19 +7,23 @@
     left: 0;
     background: white;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
     .button-group {
         display: flex;
         flex-direction: row;
     }
-    & > a {
-        color: $text-default;
-        text-decoration: none;
-        :hover {
-            color: $text-default-secondary;
+    .main-nav-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        max-width: 80rem;
+        margin: auto;
+        & > a {
+            color: $text-default;
             text-decoration: none;
+            :hover {
+                color: $text-default-secondary;
+                text-decoration: none;
+            }
         }
     }
 }
