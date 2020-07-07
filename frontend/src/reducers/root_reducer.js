@@ -8,7 +8,7 @@ import generatedRestaurant from './generated_reducer';
 const RootReducer = combineReducers({
   session,
   errors,
-  generatedRestaurant
+  generatedRestaurant,
 });
 
 export default RootReducer;
