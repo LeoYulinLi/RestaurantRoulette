@@ -10,9 +10,12 @@ import LoginFormContainer from "./session/login_form_container";
 import SignupFormContainer from "./session/signup_form_container";
 import ProfileContainer from "./profile/profile_container";
 
+import "./app.scss"
+
 const App = () => (
-  <div>
+  <>
     <NavBarContainer />
+    <div className="app">
     <Switch>
       <ProtectedRoute exact path="/" component={MainPage} />
       <AuthRoute exact path="/login" component={LoginFormContainer} />
@@ -20,7 +23,8 @@ const App = () => (
 
       <ProtectedRoute exact path="/profile" component={ProfileContainer} />
     </Switch>
-  </div>
+    </div>
+  </>
 );
 
 export default App;

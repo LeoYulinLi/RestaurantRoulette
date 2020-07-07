@@ -7,6 +7,8 @@ import { fetchCategories } from "../../actions/category_actions"
 import { useSelector, useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
 
+import "./main_page.scss"
+
 function MainPage() {
   const dispatch = useDispatch();
 
@@ -55,7 +57,7 @@ function MainPage() {
   }
 
   return (
-    <div>
+    <div className="main-page">
       <h1>RR Incorporated</h1>
 
       <div>
