@@ -13,7 +13,7 @@ import ProfileContainer from "./profile/profile_container";
 import "./app.scss"
 
 const App = () => (
-  <div>
+  <>
     <NavBarContainer />
     <Switch>
       <ProtectedRoute exact path="/" component={MainPage} />
@@ -22,7 +22,7 @@ const App = () => (
 
       <ProtectedRoute exact path="/profile" component={ProfileContainer} />
     </Switch>
-  </div>
+  </>
 );
 
 export default App;
