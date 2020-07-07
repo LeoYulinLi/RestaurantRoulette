@@ -3,27 +3,35 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
 import { fetchYelpAutoCompletion } from "../../util/restaurant_api_util";
+import { fetchCategories } from "../../actions/category_actions"
 import { useSelector, useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
 
 function MainPage() {
+  const dispatch = useDispatch();
 
-  const [categories, setCategories] = useState("");
+  const [categoryInput, setCategoryInput] = useState("");
   const [[latitude, longitude], setLocation] = useState([37.78, -122.39]);
   const [autoComplete, setAutoComplete] = useState([]);
-
+  
   function selectRestaurant(state) {
     return state.generatedRestaurant;
   }
-
+  function selectCategories(state) {
+    return state.categories;
+  }
+  
   const restaurant = useSelector(selectRestaurant);
-
-  const dispatch = useDispatch();
-
+  const categories = useSelector(selectCategories);
+  
   useEffect(() => {
     dispatch(fetchYelpRestaurant({ categories, latitude, longitude }));
+    
+    if (!categories.length) {
+      dispatch(fetchCategories());
+    }
   }, []);
-
+  
   function handleSubmit(event) {
     event.preventDefault();
     dispatch(fetchYelpRestaurant({ categories, latitude, longitude }));
@@ -42,7 +50,7 @@ function MainPage() {
 
   function handleAutoCompleteSelection(e) {
     if (e.key === 'Enter') {
-      setCategories(e.target.value.toLowerCase())
+      setCategoryInput(e.target.value.toLowerCase())
     }
   }
 
@@ -64,8 +72,8 @@ function MainPage() {
         
         <form onSubmit={handleSubmit}>
           <input
-            value={categories}
-            onChange={e => setCategories(e.target.value.toLowerCase())}
+            value={categoryInput}
+            onChange={e => setCategoryInput(e.target.value.toLowerCase())}
           />
 
           <ul>
@@ -74,7 +82,7 @@ function MainPage() {
                 return (
                   <li
                     key={category}
-                    onClick={ (e) => setCategories(e.target.value.toLowerCase()) }
+                    onClick={ (e) => setCategoryInput(e.target.value.toLowerCase()) }
                     onKeyPress={handleAutoCompleteSelection}
                   >
                     {category}

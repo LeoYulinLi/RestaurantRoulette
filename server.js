@@ -13,6 +13,7 @@ const passport = require('passport');
 
 
 const users = require("./routes/api/users");
+const categories = require("./routes/api/categories");
 
 mongoose
   .connect(db, { useNewUrlParser: true })
@@ -28,6 +29,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/api/users", users);
+app.use("/api/categories", categories);
+
 
 app.post("/api/fetchYelpRestaurant", async (req, res) => {
   const { categories, latitude, longitude } = req.body;
