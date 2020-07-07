@@ -1,4 +1,5 @@
-import { RECEIEVE_YELP_RESTAURANT } from "../actions/restaurant_actions";
+import { RECEIVE_YELP_RESTAURANT } from "../actions/restaurant_actions";
+import { RECEIVE_USER_LOGOUT } from '../actions/session_actions'
 
 const initialState = {
   id: "",
