@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
-import { fetchYelpAutoCompletion } from "../../util/restaurant_api_util";
 import { fetchCategories } from "../../actions/category_actions"
 import { useSelector, useDispatch } from "react-redux";
 import debounce from "lodash.debounce";
@@ -17,37 +16,65 @@ function MainPage() {
   function selectRestaurant(state) {
     return state.generatedRestaurant;
   }
+
   function selectCategories(state) {
     return state.categories;
   }
   
   const restaurant = useSelector(selectRestaurant);
   const categories = useSelector(selectCategories);
-  
+
   useEffect(() => {
-    dispatch(fetchYelpRestaurant({ categories, latitude, longitude }));
+    dispatch(fetchYelpRestaurant({
+      categories: categoryInput, latitude, longitude
+    }));
     
-    if (!categories.length) {
+    if (!Object.values(categories).length) {
       dispatch(fetchCategories());
     }
   }, []);
-  
-  function handleSubmit(event) {
-    event.preventDefault();
-    dispatch(fetchYelpRestaurant({ categories, latitude, longitude }));
-  }
 
-  const updateAutoComplete = useCallback(debounce((text) => {
-    fetchYelpAutoCompletion({ text })
-      .then(res => console.log(res.data));
+  const updateAutoComplete = useCallback(debounce((input, categories) => {
+    if (input.length && Object.values(categories).length) {
+      const similarCategories = [];
+
+      for (let title in categories) {
+        const alias = categories[title].alias;
+        if (title.toLowerCase().includes(input.toLowerCase())) {
+          similarCategories.push(alias);
+        }
+      }
+
+      setAutoComplete(similarCategories);
+    }
+
+    return input;
   }, 500), []);
 
-  // const updateAutoComplete2 = debounce(updateAutoComplete, 500);
-
   useEffect(() => {
-    updateAutoComplete(categories);
-  }, [categories]);
+    updateAutoComplete(categoryInput, categories);
+  }, [categoryInput, categories]);
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    dispatch(fetchYelpRestaurant({ 
+      categories: categoryInput, latitude, longitude
+    }));
+  }
+  
+  function handleAutoCompleteClick(e) {
+    // this.setState({ categoryInput: e.target.textContent }, () => {
+    //   dispatch(fetchYelpRestaurant({
+    //     categories: categoryInput, latitude, longitude
+    //   }));
+    // });
+
+    setCategoryInput(e.target.textContent)
+    dispatch(fetchYelpRestaurant({
+      categories: e.target.textContent, latitude, longitude
+    }));
+  }
+  
   function handleAutoCompleteSelection(e) {
     if (e.key === 'Enter') {
       setCategoryInput(e.target.value.toLowerCase())
@@ -78,14 +105,14 @@ function MainPage() {
 
           <ul>
             {
-              autoComplete.map( category => {
+              autoComplete.map( categoryAlias => {
                 return (
                   <li
-                    key={category}
-                    onClick={ (e) => setCategoryInput(e.target.value.toLowerCase()) }
+                    key={categoryAlias}
+                    onClick={handleAutoCompleteClick}
                     onKeyPress={handleAutoCompleteSelection}
                   >
-                    {category}
+                    {categoryAlias}
                   </li>
                 )
               })
