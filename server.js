@@ -65,16 +65,14 @@ app.post("/api/fetchYelpRestaurant", async (req, res) => {
 });
 
 
-app.post("/api/fetchYelpAutoCompletion", async (req, res) => {
-  const { text } = req.body;
-  const thing = await axios.get(
-    `https://api.yelp.com/v3/autocomplete?text=${text}`,
-    config
-  );
-  res.json(thing.data.categories);
-
-
-});
+// app.post("/api/fetchYelpAutoCompletion", async (req, res) => {
+//   const { text } = req.body;
+//   const thing = await axios.get(
+//     `https://api.yelp.com/v3/autocomplete?text=${text}`,
+//     config
+//   );
+//   res.json(thing.data.categories);
+// });
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
