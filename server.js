@@ -1,4 +1,5 @@
 const axios = require('axios');
+const path = require('path');
 const yelp = require('./config/keys').yelp;
 const config = {
   headers: { Authorization: `Bearer ${yelp}` }
@@ -14,6 +15,13 @@ const passport = require('passport');
 
 const users = require("./routes/api/users");
 const categories = require("./routes/api/categories");
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  })
+}
 
 mongoose
   .connect(db, { useNewUrlParser: true })
