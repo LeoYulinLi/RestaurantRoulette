@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import "./sessions.scss";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -52,28 +53,46 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <br/>
-              <input type="text"
-              value={this.state.username}
-              onChange={this.update('username')}
-              placeholder="username"
-              />
-            <br/>
-              <input type="password"
-                value={this.state.password}
-                onChange={this.update('password')}
-                placeholder="Password"
-              />
-            <br/>
-            <input type="submit" value="Submit" />
-            {this.renderErrors()}
-          </div>
-          <button type='button' onClick={this.handleDemoLogin}>Demo Login</button>
+      <div className="session-form-container">
+        <form onSubmit={this.handleSubmit} className="form">
+          <header>
+            <div className="form-header">
+              <h1>Log in to Restaurant Roulette</h1>
+            </div>
+          </header>
 
-         
+          <div>
+            <br />
+            <input
+              className="input"
+              type="text"
+              value={this.state.username}
+              onChange={this.update("username")}
+              placeholder="Username"
+            />
+            <br />
+            <input
+              className="input"
+              type="password"
+              value={this.state.password}
+              onChange={this.update("password")}
+              placeholder="Password"
+            />
+          </div>
+            <br />
+            <button className="form-button" onClick={this.handleSubmit}>
+              Log in
+            </button>
+            {this.renderErrors()}
+          <button
+            type="button"
+            onClick={this.handleDemoLogin}
+            className="demo-login">
+            Demo Login
+          </button>
+           <div className="form-link" onClick={() => this.props.openModal('signup')}>
+              <div className='to-other-form'>New to Restaurant Roulette? Sign up</div>
+           </div>
         </form>
       </div>
     );
