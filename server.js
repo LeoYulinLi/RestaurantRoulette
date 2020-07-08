@@ -1,13 +1,13 @@
 const axios = require('axios');
 const path = require('path');
-const yelp = require('./config/keys_dev').yelp;
+const yelp = require('./config/keys').yelp;
 const config = {
   headers: { Authorization: `Bearer ${yelp}` }
 };
 
 const express = require("express");
 const app = express();
-const db = require('./config/keys_dev').mongoURI;
+const db = require('./config/keys').mongoURI;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
