@@ -18,7 +18,7 @@ const Welcome = () => {
 }
 
 const App = () => (
-  <div>
+  <>
     <Modal/>
     <NavBarContainer />
     <div className="app">
@@ -30,7 +30,7 @@ const App = () => (
       <Redirect to="/" />
     </Switch>
     </div>
-  </div>
+  </>
 );
 
 export default App;
