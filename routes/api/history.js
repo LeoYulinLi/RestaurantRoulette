@@ -1,13 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const History = require("../../models/History");
+const jwt = require("jsonwebtoken");
+const keys = require("../../config/keys");
+const passport = require("passport");
 
-router.get("/", async (req, res) => {
-//   res.json({ restaurants: await History.find() });
+router.get("/",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
     History
-    .find()
-    .then(restaurants => {
-        res.json(restaurants)
+    .find({user: req.user.id})
+    .then(histories => {
+        res.json(histories)
     })
     .catch(err => res.status(400).json(err))
 });

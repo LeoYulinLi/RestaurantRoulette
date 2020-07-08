@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Types = require("mongoose").Types;
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema(
@@ -7,14 +8,13 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    // email: {
-    //   type: String,
-    //   required: true,
-    // },
     password: {
       type: String,
       required: true,
     },
+    rolled_restaurant: {
+      type: String
+    }
   },
   {
     timestamps: true,

@@ -13,6 +13,7 @@ const users = require("./routes/api/users");
 const categories = require("./routes/api/categories");
 const history = require("./routes/api/history");
 const yelp = require("./routes/api/yelp");
+const acceptRestaurant = require("./routes/api/acceptRestaurant");
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -38,6 +39,8 @@ app.use("/api/users", users);
 app.use("/api/categories", categories);
 app.use("/api/history", history);
 app.use("/api/fetchYelpRestaurant", yelp);
+
+app.use("/api/acceptRestaurant", acceptRestaurant);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${ port }`));

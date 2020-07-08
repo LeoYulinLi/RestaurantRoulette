@@ -1,13 +1,21 @@
+const Restaurant = require("../../models/Restaurant");
+
 const yelp = require("../../config/keys").yelp;
 const express = require("express");
 const router = express.Router();
 const axios = require('axios');
+const passport = require("passport");
+const User = require("../../models/User");
+
 
 const config = {
     headers: { Authorization: `Bearer ${yelp}` }
 };
 
-router.post("/", async (req, res) => {
+router.post("/",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const user = await User.findById(req.user.id);
     const { categories, latitude, longitude } = req.body;
     const initialOffset = Math.floor(Math.random() * 1000);
     const result1 = await axios.get(
@@ -18,20 +26,37 @@ router.post("/", async (req, res) => {
       }
     )
 
+
     if (result1.data.businesses.length === 0) {
         const total = result1.data.total;
         const offset = Math.floor(Math.random() * total);
         const result2 = await axios.get(
-          "https://api.yelp.com/v3/businesses/search",
-          {
-              ...config,
-              params: { categories, latitude, longitude, open_now: true, offset, limit: 1 }
-          }
+            "https://api.yelp.com/v3/businesses/search",
+            {
+                ...config,
+                params: { categories, latitude, longitude, open_now: true, offset, limit: 1 }
+            }
         )
-        res.json(result2.data);
+      const business = result2.data.businesses[0];
+      const restaurant = new Restaurant({ ...business, yelp_id: business.id });
+      await restaurant.save();
+      await User.findOneAndUpdate(
+        { _id: req.user.id },
+        { $set: { rolled_restaurant: business.id }},
+        { new: true });
+      res.json(business);
     } else {
-        res.json(result1.data);
+      const business = result1.data.businesses[0];
+      console.log(business);
+      const restaurant = new Restaurant({ ...business, yelp_id: business.id });
+      await restaurant.save();
+      await User.findOneAndUpdate(
+        { _id: req.user.id },
+        { $set: { rolled_restaurant: business.id }},
+        { new: true });
+      res.json(business);
     }
+    console.log(user);
 
 });
 
@@ -49,5 +74,5 @@ module.exports = router;
  *   ajax call to the yelp database (yelp.js)
  *   This will return a bunch of restaurants
  *   Use a promise chain to check if that restaurant matches our filters
- * 
+ *
  */
