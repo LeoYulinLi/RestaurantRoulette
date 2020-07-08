@@ -1,7 +1,8 @@
 @import "src/styles/vars";
 
 .main-nav-container {
-    position: fixed;
+    height: 3rem;
+    position: sticky;
     width: 100%;
     top: 0;
     left: 0;
@@ -12,9 +13,10 @@
         flex-direction: row;
     }
     .main-nav-content {
+        height: 100%;
         display: flex;
         justify-content: space-between;
-        align-items: baseline;
+        align-items: center;
         max-width: 80rem;
         margin: auto;
         & > a {
