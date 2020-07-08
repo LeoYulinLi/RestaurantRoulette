@@ -1,9 +1,5 @@
 const axios = require('axios');
 const path = require('path');
-const yelp = require('./config/keys').yelp;
-const config = {
-  headers: { Authorization: `Bearer ${ yelp }` }
-};
 
 const express = require("express");
 const app = express();
@@ -16,6 +12,7 @@ const passport = require('passport');
 const users = require("./routes/api/users");
 const categories = require("./routes/api/categories");
 const history = require("./routes/api/history");
+const yelp = require("./routes/api/yelp");
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -40,34 +37,7 @@ app.use(bodyParser.json());
 app.use("/api/users", users);
 app.use("/api/categories", categories);
 app.use("/api/history", history);
-
-app.post("/api/fetchYelpRestaurant", async (req, res) => {
-  const { categories, latitude, longitude } = req.body;
-  const initialOffset = Math.floor(Math.random() * 1000);
-  const result1 = await axios.get(
-    `https://api.yelp.com/v3/businesses/search`,
-    {
-      ...config,
-      params: { categories, latitude, longitude, open_now: true, offset: initialOffset, limit: 1 }
-    }
-  )
-
-  if (result1.data.businesses.length === 0) {
-    const total = result1.data.total;
-    const offset = Math.floor(Math.random() * total);
-    const result2 = await axios.get(
-      `https://api.yelp.com/v3/businesses/search`,
-      {
-        ...config,
-        params: { categories, latitude, longitude, open_now: true, offset, limit: 1 }
-      }
-    )
-    res.json(result2.data);
-  } else {
-    res.json(result1.data);
-  }
-
-});
+app.use("/api/fetchYelpRestaurant", yelp);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${ port }`));
