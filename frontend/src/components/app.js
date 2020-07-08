@@ -14,7 +14,7 @@ import ProfileContainer from "./profile/profile_container";
 import "./app.scss"
 
 const App = () => (
-  <>
+  <div>
     <Modal/>
     <NavBarContainer />
     <div className="app">
@@ -26,7 +26,7 @@ const App = () => (
       <ProtectedRoute exact path="/profile" component={ProfileContainer} />
     </Switch>
     </div>
-  </>
+  </div>
 );
 
 export default App;
