@@ -7,10 +7,10 @@ const initialState = {
   url: "",
   review_count: null,
   categories: [],
-  "rating": null,
-  "coordinates": {
-      "latitude": null,
-      "longitude": null
+  rating: null,
+  coordinates: {
+      latitude: null,
+      longitude: null
   },
   price: "",
   location: {
@@ -23,7 +23,7 @@ const initialState = {
       state: "",
       display_address: []
   },
-  "display_phone": ""
+  display_phone: ""
 };
 
 export default function (state = initialState, action) {
