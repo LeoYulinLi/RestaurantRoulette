@@ -49,7 +49,7 @@ function MainPage() {
     }
 
     return input;
-  }, 500), []);
+  }, 350), []);
 
   useEffect(() => {
     updateAutoComplete(categoryInput, categories);
