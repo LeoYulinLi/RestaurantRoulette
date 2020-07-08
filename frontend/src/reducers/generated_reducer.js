@@ -9,8 +9,8 @@ const initialState = {
   categories: [],
   rating: null,
   coordinates: {
-      latitude: null,
-      longitude: null
+    latitude: null,
+    longitude: null
   },
   price: "",
   location: {

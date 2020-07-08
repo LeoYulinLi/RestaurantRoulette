@@ -3,8 +3,16 @@ const router = express.Router();
 const Category = require("../../models/Category");
 
 router.get("/", async (req, res) => {
-    res.json({categories: await Category.find()});
-  }
-);
+  const categoryDB = await Category.find()
+  const categories = categoryDB.reduce( (obj, item) => {
+      const { title, alias } = item;
+      return {
+        ...obj,
+        [title]: {title, alias}
+      }
+    }, {});
+  
+  res.json({ categories: categories });
+});
 
 module.exports = router;
