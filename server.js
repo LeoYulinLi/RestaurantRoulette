@@ -64,8 +64,6 @@ app.post("/api/fetchYelpRestaurant", async (req, res) => {
 //     config
 //   );
 //   res.json(thing.data.categories);
-
-
 // });
 
 const port = process.env.PORT || 5000;

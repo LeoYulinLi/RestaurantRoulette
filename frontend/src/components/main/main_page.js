@@ -55,20 +55,14 @@ function MainPage() {
     updateAutoComplete(categoryInput, categories);
   }, [categoryInput, categories]);
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit(e) {
+    e.preventDefault();
     dispatch(fetchYelpRestaurant({ 
       categories: categoryInput, latitude, longitude
     }));
   }
   
   function handleAutoCompleteClick(e) {
-    // this.setState({ categoryInput: e.target.textContent }, () => {
-    //   dispatch(fetchYelpRestaurant({
-    //     categories: categoryInput, latitude, longitude
-    //   }));
-    // });
-
     setCategoryInput(e.target.textContent)
     dispatch(fetchYelpRestaurant({
       categories: e.target.textContent, latitude, longitude
