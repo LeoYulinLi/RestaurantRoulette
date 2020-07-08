@@ -23,7 +23,7 @@ class Profile extends React.Component {
     } else {
       history = 
         <div>
-          <h2>Your Spins</h2>
+          <h2 className='history-title'>Your Past Spins</h2>
           <div className='restaurant-history'>
             {
               this.props.restaurants.map((restaurant, idx) => <RestaurantHistory key={ idx } restaurant={restaurant}/>)
@@ -33,7 +33,7 @@ class Profile extends React.Component {
     }
    return (
      <>
-        <div className="home-link"><Link to={"/"}>Home</Link></div>
+        {/* <div className="home-link"><Link to={"/"}>Home</Link></div> */}
         {history}
       </>
    );

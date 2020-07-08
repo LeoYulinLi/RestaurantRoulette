@@ -4,8 +4,13 @@
     margin: 20px;
 }
 
+.history-title {
+    margin: 25px;
+}
+
 .h-restaurant-container {
-    height: 200px;
+    height: 150px;
+    margin-bottom: 25px;
     width: -webkit-fill-available;
     border: 1px solid #dedddd;
     padding: 20px;
@@ -17,27 +22,165 @@
 .h-restaurant-picture {
     height: 150px;
     width: 150px;
-    border: .5px solid grey;
+    // border: .5px solid grey;
     float: left;
     margin-right: 20px;
     border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #49adad;
 }
 
 .h-restaurant-name {
-font-family: sans-serif;
+    font-family: sans-serif;
     font-weight: 700;
-    font-size: 17px;
+    font-size: 19px;
     letter-spacing: 0.3px;
     padding-top: 2px;
     padding-bottom: 2px;
+    margin-bottom: 3px;
+    font-family: Poppins,Helvetica Neue,Helvetica,Arial,sans-serif;
+font-weight: 900;
 }
 
 .h-restaurant-rating {
     float: left;
+    font-size: 17px;
     margin-right: 10px;
+    margin-bottom: 5px;
+    color: #f43939
+}
+
+.h-restaurant-price {
+margin-bottom: 10px;
+    margin-right: 10px;
+    border: 2px solid #4CAF50;
+    color: #4CAF50;
+    border-radius: 28px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    padding-top: 5px;
+    letter-spacing: 1.5px;
+}
+
+
+.h-restaurant-price:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.h-restaurant-price:active {
+    background-color: #f43939;
+    color: white;
+    border: 2px solid #f43939;
 }
 
 .h-restaurant-reviews {
-    font-size: 15px;
-    color: #747280
+    font-size: 14px;
+    color: #737180;
+    margin-top: 2px;
+}
+
+.h-restaurant-categories {
+    display: flex;
+    list-style: none;
+    margin-top: 9px;
+}
+
+.category {
+margin-bottom: 10px;
+    margin-right: 10px;
+    border: 2px solid #f43939;
+    color: #f43939;
+    border-radius: 28px;
+    padding: 6px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.category:hover {
+    background-color: #f43939;
+    color: white;
+}
+
+.category:active {
+    background-color: #49adae;
+    color: white;
+    border: 2px solid #49adae;
+}
+
+.temp-map {
+    color: #f43939;
+    font-size: 60px;
+}
+
+.yelp-icon {
+    color: #d32324;
+    /* background-color: pink; */
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1%;
+    font-size: 28px;
+}
+
+.yelp {
+    background-color: #f43939;
+    color: white;
+    border-radius: 34px;
+    padding: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    cursor: pointer;
+}
+
+.yelp-text {
+    font-size: 18px;
+    padding-right: 55px;
+    position: absolute;
+    color: white;
+    padding-top: 8px;
+    text-decoration: none;
+}
+.yelp:hover {
+    color: #f43939;
+    width: 241px;
+}
+
+.yelp-two {
+    font-size:25px;
+}
+
+.contact {
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 170px;
+    font-size: 13px;
+    color: #737180;
+    text-transform: capitalize;
+}
+
+.restaurant-phone {
+    
+}
+
+.restaurant-address {
+
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: .5;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
