@@ -2,7 +2,7 @@ const axios = require('axios');
 const path = require('path');
 const yelp = require('./config/keys').yelp;
 const config = {
-  headers: { Authorization: `Bearer ${yelp}` }
+  headers: { Authorization: `Bearer ${ yelp }` }
 };
 
 const express = require("express");
@@ -44,19 +44,23 @@ app.use("/api/history", history);
 app.post("/api/fetchYelpRestaurant", async (req, res) => {
   const { categories, latitude, longitude } = req.body;
   const initialOffset = Math.floor(Math.random() * 1000);
-  const result1 = await axios.get( 
-    `https://api.yelp.com/v3/businesses/search?categories=${categories}&latitude=${latitude}&longitude=${longitude}&open_now=true&offset=${initialOffset}&limit=1`,
-    // {params: categories, latitude, longitude },
-    config
+  const result1 = await axios.get(
+    `https://api.yelp.com/v3/businesses/search`,
+    {
+      ...config,
+      params: { categories, latitude, longitude, open_now: true, offset: initialOffset, limit: 1 }
+    }
   )
 
   if (result1.data.businesses.length === 0) {
     const total = result1.data.total;
     const offset = Math.floor(Math.random() * total);
-    const result2 = await axios.get( 
-      `https://api.yelp.com/v3/businesses/search?categories=${categories}&latitude=${latitude}&longitude=${longitude}&open_now=true&offset=${offset}&limit=1`,
-      // {params: categories, latitude, longitude },
-      config
+    const result2 = await axios.get(
+      `https://api.yelp.com/v3/businesses/search`,
+      {
+        ...config,
+        params: { categories, latitude, longitude, open_now: true, offset, limit: 1 }
+      }
     )
     res.json(result2.data);
   } else {
@@ -65,15 +69,5 @@ app.post("/api/fetchYelpRestaurant", async (req, res) => {
 
 });
 
-
-// app.post("/api/fetchYelpAutoCompletion", async (req, res) => {
-//   const { text } = req.body;
-//   const thing = await axios.get(
-//     `https://api.yelp.com/v3/autocomplete?text=${text}`,
-//     config
-//   );
-//   res.json(thing.data.categories);
-// });
-
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server is running on port ${port}`));
+app.listen(port, () => console.log(`Server is running on port ${ port }`));
