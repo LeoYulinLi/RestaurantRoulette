@@ -1,4 +1,4 @@
-import { yelp } from "../config/keys";
+import { yelp } from "../config/keys_dev";
 import axios from "axios";
 
 const config = {

@@ -1,18 +1,26 @@
 const axios = require('axios');
-const yelp = require('./config/keys').yelp;
+const path = require('path');
+const yelp = require('./config/keys_dev').yelp;
 const config = {
   headers: { Authorization: `Bearer ${yelp}` }
 };
 
 const express = require("express");
 const app = express();
-const db = require('./config/keys').mongoURI;
+const db = require('./config/keys_dev').mongoURI;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
 
 const users = require("./routes/api/users");
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  })
+}
 
 mongoose
   .connect(db, { useNewUrlParser: true })
