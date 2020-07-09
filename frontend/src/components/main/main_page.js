@@ -15,7 +15,7 @@ function MainPage() {
   const [categoryInput, setCategoryInput] = useState("");
   const [categoryDisplay, setCategoryDisplay] = useState("");
   const [category, setCategory] = useState("");
-  const [[latitude, longitude], setLocation] = useState([37.78, -122.39]);
+  const [[latitude, longitude], setLocation] = useState([]);
   const [autoComplete, setAutoComplete] = useState([]);
 
   function selectCategories(state) {
@@ -27,8 +27,19 @@ function MainPage() {
   useEffect(() => {
     if (!Object.values(categories).length) {
       dispatch(fetchCategories());
+    } 
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) =>
+        setLocation([position.coords.latitude, position.coords.longitude]),
+        () => dispatch(openModal('geo'))
+      );  
     }
+    else {
+      dispatch(openModal('geo'))
+    }
+    ;
   }, []);
+
 
   const updateAutoComplete = (input, categories) => {
     if (input.length && Object.values(categories).length) {
@@ -52,6 +63,8 @@ function MainPage() {
     updateAutoComplete(categoryInput, categories);
   }, [categoryInput]);
 
+
+
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(fetchYelpRestaurant({ 
@@ -59,6 +72,7 @@ function MainPage() {
     }));
     dispatch(openModal('restaurant'));
   }
+
   
   function handleAutoCompleteClick(category) {
     return (e) => {
@@ -86,7 +100,7 @@ function MainPage() {
       />
 
       <h1>RR Incorporated</h1>
-
+       
       <div>
         <div>
           Category: {`${categoryDisplay}`}
