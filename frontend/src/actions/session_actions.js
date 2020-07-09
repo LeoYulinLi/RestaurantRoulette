@@ -33,7 +33,6 @@ export const signup = (user) => (dispatch) =>
     })
     .catch((err) => {
       dispatch(receiveErrors(err.response.data));
-      throw err;
     });
 
 export const login = (user) => (dispatch) =>
@@ -43,12 +42,12 @@ export const login = (user) => (dispatch) =>
       localStorage.setItem("jwtToken", token);
       APIUtil.setAuthToken(token);
       const decoded = jwt_decode(token);
-      dispatch(receiveCurrentUser(decoded));
+      dispatch(receiveCurrentUser(decoded))
       dispatch(closeModal());
     })
     .catch((err) => {
+      debugger
       dispatch(receiveErrors(err.response.data));
-      throw err
     });
 
 

@@ -10,10 +10,6 @@ import ProfileContainer from "./profile/profile_container";
 
 import "./app.scss"
 
-const Welcome = () => {
-  return <h1>Welcome</h1>
-}
-
 const App = () => (
   <>
     <NavBarContainer />

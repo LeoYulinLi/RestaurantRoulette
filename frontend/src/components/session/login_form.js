@@ -17,6 +17,7 @@ class LoginForm extends React.Component {
   }
 
   componentWillUnmount() {
+    debugger
     this.props.clearErrors();
   }
 
@@ -42,7 +43,6 @@ class LoginForm extends React.Component {
   handleDemoLogin(e) {
     e.preventDefault();
     this.props.login({ username: "bilbo", password: "123456" });
-    this.props.closeModal();
   }
 
   renderErrors() {
@@ -59,13 +59,14 @@ class LoginForm extends React.Component {
  
     return (
       <div className="session-form-container">
-          <div className="form-exit-button">
-            <button
-              className="close-button"
-              onClick={() => this.props.closeModal()}
-            >X
-            </button>
-          </div>
+        <div className="form-exit-button">
+          <button
+            className="close-button"
+            onClick={() => this.props.closeModal()}
+          >X
+          </button>
+        </div>
+        
         <form onSubmit={this.handleSubmit} className="form">
           <header>
             <div className="form-header">

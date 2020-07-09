@@ -1,6 +1,6 @@
 // src/components/main/main_page.js
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
 import { fetchCategories } from "../../actions/category_actions"

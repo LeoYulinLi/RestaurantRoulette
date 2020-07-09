@@ -1,21 +1,32 @@
 .restaurant-generator.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 600px;
+  min-width: 600px;
   padding: 25px;
   background-color: white;
   border-radius: 5px;
 }
 
+.restaurant-generator.restaurant-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.restaurant-generator.close-modal-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .restaurant-generator.close-modal-button {
-  background-color: #f43939;
-  border-color: none;
+  font-size: 13px;
+  color: whitesmoke;
+  border: none;
   border-radius: 2.5px;
+  background-color: #f43939;
+  cursor: pointer;
+  outline: none;
 }
 
 .restaurant-generator.restaurant-name {
-  // color: #F43939;
   font-family: Poppins,Helvetica Neue,Helvetica,Arial,sans-serif;
   font-size: 32px;
   font-weight: 900;
@@ -69,8 +80,29 @@
 }
 
 .restaurant-generator.button-container {
-  
   margin: 15px;
+  & button {
+    font-family: inherit;
+    font-size: 18px;
+    outline: none;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.75em 1.25em;
+    line-height: 1;
+    cursor: pointer;
+    margin: 0.25em;
+    text-decoration: none;
+    font-weight: normal;
+    white-space: nowrap;
+  }
+}
+
+.restaurant-generator.accept button {
+  background-color: #f43939;
+}
+.restaurant-generator.reroll button {
+  background-color: #f43939;
 }
 
 a {
