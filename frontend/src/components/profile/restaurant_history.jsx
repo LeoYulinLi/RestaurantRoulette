@@ -15,7 +15,7 @@ class RestaurantHistory extends React.Component {
     // let stars = Number(this.props.restaurant.rating)
     //  debugger
     let rating = [...Array(stars).keys()].map((i) => (
-      <FontAwesomeIcon icon={faStar} />
+      <FontAwesomeIcon key={i} icon={faStar} />
     ));
     
 
@@ -42,12 +42,12 @@ class RestaurantHistory extends React.Component {
             <div className="restaurant-phone">
               {this.props.restaurant.display_phone}
             </div>
-            {/* <div className="restaurant-address">
+            <div className="restaurant-address">
               {this.props.restaurant.location.address1},&nbsp;
               {this.props.restaurant.location.city},&nbsp;
               {this.props.restaurant.location.state},&nbsp;
               {this.props.restaurant.location.country}
-            </div> */}
+            </div>
           </div>
           <div className="yelp-icon">
             <a className="yelp-text" href="https://www.yelp.com">
