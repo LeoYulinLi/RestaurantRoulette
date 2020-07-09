@@ -1,74 +1,72 @@
 // src/components/main/main_page.js
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
 import { fetchCategories } from "../../actions/category_actions"
-import { useSelector, useDispatch } from "react-redux";
-import debounce from "lodash.debounce";
+import Modal from "../modal/modal";
+import { openModal } from "../../actions/modal_actions";
 
 import "./main_page.scss"
 
 function MainPage() {
   const dispatch = useDispatch();
-
+  
   const [categoryInput, setCategoryInput] = useState("");
+  const [categoryDisplay, setCategoryDisplay] = useState("");
+  const [category, setCategory] = useState("");
   const [[latitude, longitude], setLocation] = useState([37.78, -122.39]);
   const [autoComplete, setAutoComplete] = useState([]);
-  
-  function selectRestaurant(state) {
-    return state.generatedRestaurant;
-  }
 
   function selectCategories(state) {
     return state.categories;
   }
   
-  const restaurant = useSelector(selectRestaurant);
   const categories = useSelector(selectCategories);
 
   useEffect(() => {
-    dispatch(fetchYelpRestaurant({
-      categories: categoryInput, latitude, longitude
-    }));
-    
     if (!Object.values(categories).length) {
       dispatch(fetchCategories());
     }
   }, []);
 
-  const updateAutoComplete = useCallback(debounce((input, categories) => {
+  const updateAutoComplete = (input, categories) => {
     if (input.length && Object.values(categories).length) {
       const similarCategories = [];
-
       for (let title in categories) {
         const alias = categories[title].alias;
-        if (title.toLowerCase().includes(input.toLowerCase())) {
-          similarCategories.push(alias);
+        const includeTitle = title.toLowerCase().includes(input.toLowerCase());
+        const includeAlias = alias.toLowerCase().includes(input.toLowerCase());
+        if (includeTitle || includeAlias) {
+          similarCategories.push(categories[title]);
         }
       }
-
+      
       setAutoComplete(similarCategories);
     }
 
     return input;
-  }, 350), []);
+  };
 
   useEffect(() => {
     updateAutoComplete(categoryInput, categories);
-  }, [categoryInput, categories]);
+  }, [categoryInput]);
 
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(fetchYelpRestaurant({ 
-      categories: categoryInput, latitude, longitude
+      categories: category, latitude, longitude
     }));
+    dispatch(openModal('restaurant'));
   }
   
-  function handleAutoCompleteClick(e) {
-    setCategoryInput(e.target.textContent)
-    dispatch(fetchYelpRestaurant({
-      categories: e.target.textContent, latitude, longitude
-    }));
+  function handleAutoCompleteClick(category) {
+    return (e) => {
+      setAutoComplete([]);
+      setCategoryInput('');
+      setCategoryDisplay(e.target.textContent);
+      setCategory(`${category.alias}`);
+    }
   }
   
   function handleAutoCompleteSelection(e) {
@@ -79,21 +77,22 @@ function MainPage() {
 
   return (
     <div className="main-page">
+      <Modal
+        reroll={() => {
+          dispatch(fetchYelpRestaurant({ 
+            categories: category, latitude, longitude
+          }));
+        }}
+      />
+
       <h1>RR Incorporated</h1>
 
       <div>
-        Name: { restaurant.name }
-        <br />
-
-        Categories:
-        {
-          restaurant.categories.map( category => {
-            return <li key={category.alias}>{category.title}</li>;
-          })
-        }
-        <br />
+        <div>
+          Category: {`${categoryDisplay}`}
+        </div>
         
-        <form onSubmit={handleSubmit}>
+        <form>
           <input
             value={categoryInput}
             onChange={e => setCategoryInput(e.target.value.toLowerCase())}
@@ -101,20 +100,24 @@ function MainPage() {
 
           <ul>
             {
-              autoComplete.map( categoryAlias => {
+              autoComplete.map( category => {
                 return (
                   <li
-                    key={categoryAlias}
-                    onClick={handleAutoCompleteClick}
+                    key={category.title}
+                    onClick={handleAutoCompleteClick(category)}
                     onKeyPress={handleAutoCompleteSelection}
                   >
-                    {categoryAlias}
+                    {`${category.title} (${category.alias})`}
                   </li>
                 )
               })
             }
           </ul>
         </form>
+
+        <button onClick={handleSubmit}>
+            Spin the Wheel
+        </button>
       </div>
       
       <footer>Copyright &copy; 2020 Restaurant Roulette</footer>
