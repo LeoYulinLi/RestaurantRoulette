@@ -1,8 +1,76 @@
+.restaurant-generator.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+  padding: 25px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.restaurant-generator.close-modal-button {
+  background-color: #f43939;
+  border-color: none;
+  border-radius: 2.5px;
+}
+
 .restaurant-generator.restaurant-name {
-  color: #F43939;
+  // color: #F43939;
   font-family: Poppins,Helvetica Neue,Helvetica,Arial,sans-serif;
-  font-size: 48px;
+  font-size: 32px;
   font-weight: 900;
+}
+
+.restaurant-generator.details-container {
+  display: flex;
+  margin: 10px 0px;
+}
+
+.restaurant-generator.category {
+  margin: 0px 10px 0px 0px;
+  border: 2px solid #f43939;
+  color: #f43939;
+  border-radius: 28px;
+  padding: 6px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.restaurant-generator.price-container {
+  display: flex;
+  align-items: center;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+  border-radius: 28px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  padding-bottom: 2px;
+  letter-spacing: 1.5px;
+  &.gray {
+    border-color: #c0c6d1;
+  }
+}
+
+.restaurant-generator.price-denominator {
+  color: #c0c6d1;
+}
+
+.restaurant-generator.contact-details-container {
+  margin: 10px 0px;
+}
+
+.restaurant-generator.buttons-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.restaurant-generator.button-container {
+  
+  margin: 15px;
 }
 
 a {

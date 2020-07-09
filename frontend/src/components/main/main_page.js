@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import debounce from "lodash.debounce";
 import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
 import { fetchCategories } from "../../actions/category_actions"
+import Modal from "../modal/modal";
 import { openModal } from "../../actions/modal_actions";
 
 import "./main_page.scss"
@@ -30,7 +30,7 @@ function MainPage() {
     }
   }, []);
 
-  const updateAutoComplete = useCallback(debounce((input, categories) => {
+  const updateAutoComplete = (input, categories) => {
     if (input.length && Object.values(categories).length) {
       const similarCategories = [];
       for (let title in categories) {
@@ -46,7 +46,7 @@ function MainPage() {
     }
 
     return input;
-  }, 350), []);
+  };
 
   useEffect(() => {
     updateAutoComplete(categoryInput, categories);
@@ -77,6 +77,14 @@ function MainPage() {
 
   return (
     <div className="main-page">
+      <Modal
+        reroll={() => {
+          dispatch(fetchYelpRestaurant({ 
+            categories: category, latitude, longitude
+          }));
+        }}
+      />
+
       <h1>RR Incorporated</h1>
 
       <div>
