@@ -15,6 +15,10 @@ class Profile extends React.Component {
     this.props.fetchRestaurantHistory();
   }
 
+  componentWillUnmount() {
+    this.props.clearRestaurantHistory();
+  }
+
   render() {
     let history;
 

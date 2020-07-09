@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchRestaurantHistory: () => dispatch(fetchRestaurantHistory()),
+    clearRestaurantHistory: () => dispatch({ type: "CLEAR_HISTORY" }),
   };
 };
 

@@ -30,6 +30,8 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case RECEIVE_RESTAURANT_HISTORY:
       return action.restaurants;
+    case 'CLEAR_HISTORY':
+      return initialState;
     case RECEIVE_USER_LOGOUT:
       return initialState;
     default:
