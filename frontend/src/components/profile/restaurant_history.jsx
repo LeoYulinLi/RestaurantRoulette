@@ -30,7 +30,26 @@ class RestaurantHistory extends React.Component {
         } else {
             toggleClass = 'yelp-text'
         }
-  
+
+    let priceDenominator;
+    let priceBorder = "";
+    if (this.props.restaurant.price) {
+      priceDenominator = "$$$$".slice(this.props.restaurant.price.length);
+    } else {
+      priceDenominator = "$$$$";
+      priceBorder = "gray";
+    }
+
+    let price = 
+    <div className={`restaurant-generator price-container ${priceBorder}`}>
+      <div>
+        {this.props.restaurant.price ? `${this.props.restaurant.price}` : ""}
+      </div>
+
+      <div className="restaurant-generator price-denominator">
+        {`${priceDenominator}`}
+      </div>
+    </div>;
 
     return (
       <>
@@ -51,8 +70,8 @@ class RestaurantHistory extends React.Component {
                 </li>
               );
             })}
-            <div className="h-restaurant-price">
-              {this.props.restaurant.price}
+            <div id="h-restaurant-price">
+               {price}
             </div>
           </div>
           <div className="contact">
@@ -66,17 +85,15 @@ class RestaurantHistory extends React.Component {
               {this.props.restaurant.location.country}
             </div>
           </div>
-          <div className="yelp-icon" >
-            <div className={toggleClass} >
-              read more on yelp &nbsp;
-            </div>
-            <a href="https://www.yelp.com">
-                <FontAwesomeIcon
-                    className="yelp"
-                    icon={faYelp}
-                    onMouseEnter={this.toggleHover}
-                    onMouseLeave={this.toggleHover}
-                />
+          <div className="yelp-icon">
+            <div className={toggleClass}>read more on yelp &nbsp;</div>
+            <a href={this.props.restaurant.url}>
+              <FontAwesomeIcon
+                className="yelp"
+                icon={faYelp}
+                onMouseEnter={this.toggleHover}
+                onMouseLeave={this.toggleHover}
+              />
             </a>
           </div>
         </div>

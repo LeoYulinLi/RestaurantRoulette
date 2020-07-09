@@ -35,11 +35,11 @@ class Profile extends React.Component {
           </div>
         </div>
     }
+
    return (
      <>
-        {/* <div className="home-link"><Link to={"/"}>Home</Link></div> */}
-        {history}
-      </>
+       {history}
+     </>
    );
   }
 }
