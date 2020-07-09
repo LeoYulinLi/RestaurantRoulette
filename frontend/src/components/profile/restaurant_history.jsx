@@ -11,11 +11,11 @@ class RestaurantHistory extends React.Component {
   }
 
   render() {
-   
-    let stars = Number(this.props.restaurant.rating)
+   let stars = 5
+    // let stars = Number(this.props.restaurant.rating)
     //  debugger
     let rating = [...Array(stars).keys()].map((i) => (
-      <FontAwesomeIcon icon={faStar} />
+      <FontAwesomeIcon key={i} icon={faStar} />
     ));
     
 
@@ -32,7 +32,7 @@ class RestaurantHistory extends React.Component {
           </div>
           <div className="h-restaurant-categories">
             {this.props.restaurant.categories.map((category) => {
-              return <li className="category">{category}</li>;
+              return <li className="category">{category.title}</li>;
             })}
             <div className="h-restaurant-price">
               {this.props.restaurant.price}

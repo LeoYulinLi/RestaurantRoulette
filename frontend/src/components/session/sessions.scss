@@ -83,3 +83,26 @@
   margin-bottom: 6px;
   font-weight: lighter;
 }
+
+.form-exit-button{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -22px;
+  margin-bottom: 22px;
+  margin-right: -22px;
+}
+
+.close-button {
+  background-color: #f43939;
+  border-radius: 2.5px;
+  color: whitesmoke;
+  outline: none;
+  border: none;
+  font-size: 13px;
+
+}
+
+.close-button:hover{
+  cursor: pointer;
+  filter: brightness(80%)
+}

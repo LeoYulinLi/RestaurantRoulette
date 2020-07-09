@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchYelpRestaurant = (filters) => {
   return axios.post('/api/fetchYelpRestaurant', filters)
-    .then(res => res.data.businesses[0]);
+    .then(res => res.data);
 };
 
 /**
