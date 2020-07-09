@@ -52,8 +52,16 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div className="session-form-container">
+            <div className="form-exit-button">
+              <button
+                className="close-button"
+                onClick={() => this.props.closeModal()}
+              >X
+              </button>
+            </div>
         <form onSubmit={this.handleSubmit} className="form">
           <div className="signup-form">
+
             <header>
               <div className="form-header">
                 <h1>Sign up for Restaurant Roulette</h1>
