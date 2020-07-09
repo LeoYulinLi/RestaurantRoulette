@@ -8,16 +8,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class RestaurantHistory extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { hover: false };
+    this.toggleHover = this.toggleHover.bind(this)
+  }
+
+  toggleHover() {
+    this.setState({ hover: !this.state.hover });
   }
 
   render() {
-   let stars = 5
+    let stars = 5;
     // let stars = Number(this.props.restaurant.rating)
     //  debugger
     let rating = [...Array(stars).keys()].map((i) => (
       <FontAwesomeIcon key={i} icon={faStar} />
     ));
-    
+
+     let toggleClass;
+        if (!this.state.hover) {
+            toggleClass = 'yelp-text-off'
+        } else {
+            toggleClass = 'yelp-text'
+        }
+  
 
     return (
       <>
@@ -31,8 +44,12 @@ class RestaurantHistory extends React.Component {
             based on {this.props.restaurant.review_count} Yelp reviews
           </div>
           <div className="h-restaurant-categories">
-            {this.props.restaurant.categories.map((category) => {
-              return <li className="category">{category.title}</li>;
+            {this.props.restaurant.categories.map((category, idx) => {
+              return (
+                <li className="category" key={idx}>
+                  {category.title}
+                </li>
+              );
             })}
             <div className="h-restaurant-price">
               {this.props.restaurant.price}
@@ -49,12 +66,18 @@ class RestaurantHistory extends React.Component {
               {this.props.restaurant.location.country}
             </div>
           </div>
-          <div className="yelp-icon">
-            <a className="yelp-text" href="https://www.yelp.com">
-              read more on Yelp &nbsp;
-              <FontAwesomeIcon className="yelp-two" icon={faYelp} />
+          <div className="yelp-icon" >
+            <div className={toggleClass} >
+              read more on yelp &nbsp;
+            </div>
+            <a href="https://www.yelp.com">
+                <FontAwesomeIcon
+                    className="yelp"
+                    icon={faYelp}
+                    onMouseEnter={this.toggleHover}
+                    onMouseLeave={this.toggleHover}
+                />
             </a>
-            <FontAwesomeIcon className="yelp" icon={faYelp} />
           </div>
         </div>
       </>

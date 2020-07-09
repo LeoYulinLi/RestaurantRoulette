@@ -121,13 +121,14 @@ margin-bottom: 10px;
     font-size: 60px;
 }
 
-.yelp-icon {
-    color: #d32324;
-    /* background-color: pink; */
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1%;
-    font-size: 28px;
+
+.contact {
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 170px;
+    font-size: 13px;
+    color: #737180;
+    text-transform: capitalize;
 }
 
 .yelp {
@@ -139,48 +140,48 @@ margin-bottom: 10px;
     padding-right: 14px;
     cursor: pointer;
 }
+.yelp:active {
+    color: rgb(247, 199, 7);
+}
+
+.yelp-icon {
+    color: #d32324;
+    /* background-color: pink; */
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1%;
+    font-size: 28px;
+}
+
 
 .yelp-text {
-    font-size: 18px;
-    padding-right: 55px;
-    position: absolute;
+    background-color: #f43939;
     color: white;
-    padding-top: 8px;
-    text-decoration: none;
-}
-.yelp:hover {
-    color: #f43939;
-    width: 241px;
-}
-
-.yelp-two {
-    font-size:25px;
-}
-
-.contact {
+    border-radius: 34px 38px 38px 34px;
+    padding: 10px;
+    padding-left: 14px;
+    padding-right: 40px;
     position: absolute;
-    margin-top: 20px;
-    margin-left: 170px;
-    font-size: 13px;
-    color: #737180;
-    text-transform: capitalize;
+    z-index: -1;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    padding-top: 15px;
+    height: 23px;
+    // animation: fadeInRight .5s;
 }
-
-.restaurant-phone {
-    
-}
-
-.restaurant-address {
-
+.yelp-text-off {
+    display: none;
 }
 
 
-@keyframes fadeIn {
-    from {
-        opacity: .5;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
+// @keyframes fadeInRight {
+//    0% {
+//       opacity: .5;
+//       transform: translateX(5px);
+//    }
+//    100% {
+//       opacity: 1;
+//       transform: translateX(5px);
+//    }
+// } 
