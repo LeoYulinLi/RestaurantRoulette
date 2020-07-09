@@ -17,7 +17,6 @@ class LoginForm extends React.Component {
   }
 
   componentWillUnmount() {
-    debugger
     this.props.clearErrors();
   }
 
@@ -96,14 +95,14 @@ class LoginForm extends React.Component {
           <button className="form-button" onClick={this.handleSubmit}>
             Log in
           </button>
-          {this.renderErrors()}
           <button
             type="button"
             onClick={this.handleDemoLogin}
             className="demo-login"
-          >
+            >
             Demo Login
           </button>
+          {this.renderErrors()}
 
           <div
             className="form-link"

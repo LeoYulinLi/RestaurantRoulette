@@ -46,7 +46,6 @@ export const login = (user) => (dispatch) =>
       dispatch(closeModal());
     })
     .catch((err) => {
-      debugger
       dispatch(receiveErrors(err.response.data));
     });
 
