@@ -10,10 +10,14 @@ class SignupForm extends React.Component {
     this.state = {
       username: "",
       password: "",
-      password2: ""
+      password2: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.clearedErrors = false;
+    this.renderErrors = this.renderErrors.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.props.clearErrors();
   }
 
   update(field) {
@@ -84,10 +88,13 @@ class SignupForm extends React.Component {
             </button>
             {this.renderErrors()}
           </div>
-          <div className="form-link" onClick={() => this.props.openModal("login")}>
-             <div className="to-other-form">
+          <div
+            className="form-link"
+            onClick={() => this.props.openModal("login")}
+          >
+            <div className="to-other-form">
               Already on Restaurant Roulette? Log in
-             </div>
+            </div>
           </div>
         </form>
       </div>

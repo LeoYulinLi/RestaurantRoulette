@@ -3,3 +3,4 @@ module.exports = {
   secretOrKey: process.env.SECRET_OR_KEY,
   yelp: process.env.YELP
 }
+
