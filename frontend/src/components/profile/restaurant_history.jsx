@@ -87,7 +87,7 @@ class RestaurantHistory extends React.Component {
           </div>
           <div className="yelp-icon">
             <div className={toggleClass}>read more on yelp &nbsp;</div>
-            <a href="https://www.yelp.com">
+            <a href={this.props.restaurant.url}>
               <FontAwesomeIcon
                 className="yelp"
                 icon={faYelp}
