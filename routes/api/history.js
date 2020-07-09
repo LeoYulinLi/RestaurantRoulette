@@ -18,8 +18,6 @@ async function fetchRestaurants(disjointYelpId) {
   return results.map(result => result.data);
 }
 
-// TODO: see if this can be done with in 1 query
-// TODO: fetch from yelp if not found (expired) in database
 async function fetchHistory(yelp_ids) {
   const databaseRestaurants = await Restaurant.find({ yelp_id: { $in: yelp_ids} });
   const databaseRestaurantsIds = databaseRestaurants.map(r => r.yelp_id);
@@ -27,7 +25,7 @@ async function fetchHistory(yelp_ids) {
   const fetchedRestaurants = await fetchRestaurants(idsToFetch);
   const unsorted = databaseRestaurants.concat(fetchedRestaurants);
   let obj = {};
-  unsorted.forEach(x => obj[x.yelp_id] = x)
+  unsorted.forEach(x => obj[x.yelp_id || x.id] = x)
   let ordered = yelp_ids.map(key => obj[key])
   return ordered;
 }
