@@ -31,8 +31,8 @@ class RestaurantHistory extends React.Component {
             based on {this.props.restaurant.review_count} Yelp reviews
           </div>
           <div className="h-restaurant-categories">
-            {this.props.restaurant.categories.map((category) => {
-              return <li className="category">{category.title}</li>;
+            {this.props.restaurant.categories.map((category, idx) => {
+              return <li className="category" key={ idx }>{category.title}</li>;
             })}
             <div className="h-restaurant-price">
               {this.props.restaurant.price}
