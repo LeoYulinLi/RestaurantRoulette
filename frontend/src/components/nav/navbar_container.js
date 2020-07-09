@@ -7,8 +7,9 @@ import {
   closeModal,
 } from "../../actions/modal_actions";
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state,ownProps) => ({
   loggedIn: state.session.isAuthenticated,
+  onProfile: state.historyRestaurant
 });
 
 const mapDispatchToProps = (dispatch) => {

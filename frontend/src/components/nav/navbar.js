@@ -15,24 +15,57 @@ class NavBar extends React.Component {
   }
 
   getLinks() {
-    if (this.props.loggedIn) {
+
+    if (this.props.loggedIn && this.props.onProfile.length === 0) {
       return (
         <div className="button-group">
           <Link to={"/profile"} className="button button-secondary">Profile</Link>
           <button onClick={this.logoutUser} className="button button-primary">Logout</button>
         </div>
       );
+    } else if (this.props.loggedIn && this.props.onProfile.length !== 0) {
+        return (
+          <div className="button-group">
+            <Link to={"/"} className="button button-secondary">Home</Link>
+            <button onClick={this.logoutUser} className="button button-primary">Logout</button>
+          </div>
+        );
     } else {
-      return (
-        <div className="button-group">
-         <button onClick={() => this.props.openModal('signup')} className="button button-theme">Signup</button>
-         <button onClick={() => this.props.openModal('login')} className="button button-secondary">login</button>
-        </div>
-      );
-    }
+        return (
+          <div className="button-group">
+            <button
+              onClick={() => this.props.openModal("signup")}
+              className="button button-theme"
+            >
+              Signup
+            </button>
+            <button
+              onClick={() => this.props.openModal("login")}
+              className="button button-secondary"
+            >
+              Login
+            </button>
+          </div>
+        );
+      }
   }
+ 
 
   render() {
+    //  let button;
+    //  if (sdfsdf) {
+    //    button = (
+    //    <Link to={"/"} className="button button-secondary">
+    //      Home
+    //    </Link>
+    //    );
+    //  } else {
+    //    button = (
+    //      <Link to={"/profile"} className="button button-secondary">
+    //        Profile
+    //      </Link>
+    //    );
+    //  }
     return (
       <div className="main-nav-container">
         <div className="main-nav-content">
