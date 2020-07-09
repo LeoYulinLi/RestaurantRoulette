@@ -6,7 +6,7 @@ import SignupFormContainer from "../session/signup_form_container";
 import Restaurant from "../restaurant/restaurant";
 import "./modal.scss"
 
-function Modal({ modal, closeModal, restaurant, reroll }) {
+function Modal({ modal, closeModal, clearRestaurant, restaurant, reroll }) {
   if (!modal) {
     return null;
   }
@@ -22,6 +22,7 @@ function Modal({ modal, closeModal, restaurant, reroll }) {
       component = 
       <Restaurant
         closeModal={closeModal}
+        clearRestaurant={clearRestaurant}
         restaurant={restaurant}
         reroll={reroll}
       />
@@ -49,9 +50,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     closeModal: () => dispatch(closeModal()),
     clearRestaurant: () => dispatch({ type: 'CLEAR_RESTAURANT' }),
-    reroll: () => {
-      dispatch({ type: 'CLEAR_RESTAURANT' });
-      ownProps.reroll()
+    reroll: async () => {
+      await dispatch({ type: 'CLEAR_RESTAURANT' });
+      await ownProps.reroll()
     }
   };
 };
