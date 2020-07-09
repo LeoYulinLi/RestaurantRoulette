@@ -8,23 +8,17 @@ class SignupForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // email: "",
       username: "",
       password: "",
       password2: "",
-      errors: {},
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.clearedErrors = false;
+    this.renderErrors = this.renderErrors.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.signedIn === true) {
-      this.props.history.push("/login");
-    }
-
-    this.setState({ errors: nextProps.errors });
+  componentWillUnmount() {
+    this.props.clearErrors();
   }
 
   update(field) {
@@ -37,20 +31,19 @@ class SignupForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let user = {
-      // email: this.state.email,
       username: this.state.username,
       password: this.state.password,
       password2: this.state.password2,
     };
 
-    this.props.signup(user, this.props.history);
+    this.props.signup(user);
   }
 
   renderErrors() {
     return (
       <ul>
-        {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>{this.state.errors[error]}</li>
+        {Object.keys(this.props.errors).map((error, i) => (
+          <li key={`error-${i}`}>{this.props.errors[error]}</li>
         ))}
       </ul>
     );
@@ -96,10 +89,13 @@ class SignupForm extends React.Component {
             </button>
             {this.renderErrors()}
           </div>
-          <div className="form-link" onClick={() => this.props.openModal("login")}>
-             <div className="to-other-form">
+          <div
+            className="form-link"
+            onClick={() => this.props.openModal("login")}
+          >
+            <div className="to-other-form">
               Already on Restaurant Roulette? Log in
-             </div>
+            </div>
           </div>
         </form>
       </div>
