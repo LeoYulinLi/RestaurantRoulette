@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
-import { signup } from "../../actions/session_actions";
+import { signup, clearErrors } from "../../actions/session_actions";
 import SignupForm from "./signup_form";
-import { openModal, closeModal,toggleSessionModal,} from "../../actions/modal_actions";
+import { openModal, closeModal } from "../../actions/modal_actions";
 
 const mapStateToProps = (state) => {
   return {
@@ -12,10 +12,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    // signup: (user) => dispatch(signup(user)),
-    signup: (user) => dispatch(signup(user)).then(ownProps.closeModal),
-    toggleSessionModal: () => dispatch(toggleSessionModal()),
+    clearErrors: () => dispatch(clearErrors()),
+    signup: (user) => dispatch(signup(user)),
     openModal: (modal) => dispatch(openModal(modal)),
+    closeModal: () => dispatch(closeModal()),
   };
 };
 
