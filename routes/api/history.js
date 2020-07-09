@@ -1,27 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const History = require("../../models/History");
+const Restaurant = require("../../models/Restaurant");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
 
+// TODO: see if this can be done with in 1 query
+// TODO: fetch from yelp if not found (expired) in database
+async function fetchHistory(yelp_id) {
+  return Restaurant.find({ yelp_id });
+}
+
 router.get("/",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    History
-    .find({user: req.user.id})
-    .then(histories => {
-        res.json(histories)
-    })
-    .catch(err => res.status(400).json(err))
-});
-
-// router.get("/profile", (req, res) => {
-//     // res.json( {history: History.find({ user: req.params.id }).then((history) => res.json(history)))
-//       res.json({ history: await History.find() });
-// });
-
-
+    const histories = await History.find({ user: req.user.id });
+    const historiesYelpIds = histories.map(history => history.yelp_id);
+    const restaurants = await Promise.all(historiesYelpIds.map(id => fetchHistory(id)));
+    res.json(...restaurants);
+  });
 
 module.exports = router;
 

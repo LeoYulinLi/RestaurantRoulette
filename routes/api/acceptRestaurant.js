@@ -8,10 +8,14 @@ router.post("/",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const user = await User.findById(req.user.id);
-    console.log(user);
-    const history = new History({ user, yelp_id: user.rolled_restaurant });
-    await history.save();
-    res.json({ msg: "ok" });
+    if (user.rolled_restaurant) {
+        const history = new History({ user, yelp_id: user.rolled_restaurant });
+        await history.save();
+        await user.update({ $set: { rolled_restaurant: null }});
+        res.json({ msg: "ok" });
+    } else {
+        res.status(400).json({ msg: "not rolled" });
+    }
   }
 );
 
