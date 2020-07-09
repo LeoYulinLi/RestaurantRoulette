@@ -4,7 +4,6 @@ import { logout } from "../../actions/session_actions";
 import NavBar from "./navbar";
 import {
   openModal,
-  closeModal,
 } from "../../actions/modal_actions";
 
 const mapStateToProps = (state) => ({
@@ -14,7 +13,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: (user) => dispatch(logout(user)),
-    openModal: (modal) => dispatch(openModal(modal)),
+    openModal: (modal) => dispatch(openModal(modal))
   };
 };
 

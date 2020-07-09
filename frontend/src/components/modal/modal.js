@@ -3,9 +3,10 @@ import { closeModal } from "../../actions/modal_actions";
 import { connect } from "react-redux";
 import LoginFormContainer from "../session/login_form_container";
 import SignupFormContainer from "../session/signup_form_container";
+import Restaurant from "../restaurant/restaurant";
 import "./modal.scss"
 
-function Modal({ modal, closeModal }) {
+function Modal({ modal, closeModal, restaurant }) {
   if (!modal) {
     return null;
   }
@@ -16,6 +17,9 @@ function Modal({ modal, closeModal }) {
       break;
     case "signup":
       component = <SignupFormContainer closeModal={closeModal} />;
+      break;
+    case "restaurant":
+      component = <Restaurant closeModal={closeModal} restaurant={restaurant} />
       break;
     default:
       return null;
@@ -32,6 +36,7 @@ function Modal({ modal, closeModal }) {
 const mapStateToProps = (state) => {
   return {
     modal: state.ui.modal,
+    restaurant: state.generatedRestaurant
   };
 };
 

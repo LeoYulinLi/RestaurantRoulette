@@ -8,8 +8,7 @@ class LoginForm extends React.Component {
 
     this.state = {
       username: '',
-      password: '',
-      errors: {}
+      password: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,7 +30,7 @@ class LoginForm extends React.Component {
       password: this.state.password
     };
 
-    this.props.login(user); 
+    this.props.login(user);
   }
 
   handleDemoLogin(e) {
@@ -42,9 +41,9 @@ class LoginForm extends React.Component {
   renderErrors() {
     return(
       <ul>
-        {Object.keys(this.state.errors).map((error, i) => (
+        {Object.keys(this.props.errors).map((error, i) => (
           <li key={`error-${i}`}>
-            {this.state.errors[error]}
+            {this.props.errors[error]}
           </li>
         ))}
       </ul>
