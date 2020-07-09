@@ -40,13 +40,13 @@ router.post("/",
       const business = result2.data.businesses[0];
       const restaurant = new Restaurant({ ...business, yelp_id: business.id });
       restaurant.save();
-      user.update({ $set: { rolled_restaurant: business.id }});
+      await user.update({ $set: { rolled_restaurant: business.id }});
       res.json(business);
     } else {
       const business = result1.data.businesses[0];
       const restaurant = new Restaurant({ ...business, yelp_id: business.id });
       restaurant.save();
-      user.update({ $set: { rolled_restaurant: business.id }});
+      await user.update({ $set: { rolled_restaurant: business.id }});
       res.json(business);
     }
 
