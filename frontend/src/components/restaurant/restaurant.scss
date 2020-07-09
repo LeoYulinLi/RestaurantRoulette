@@ -32,6 +32,47 @@
   font-weight: 900;
 }
 
+.restaurant-generator.rating-container {
+  margin-bottom: 10px;
+}
+
+.stars {
+  height: 37px;
+  width: 200px;
+  background-size: 100%;
+  margin-bottom: 10px;
+  &.n0 {
+    background-image: url('/0_stars.png');
+  }
+  &.n1 {
+    background-image: url('/1_stars.png');
+  }
+  &.n1-5 {
+    background-image: url('/1_half_stars.png');
+  }
+  &.n2 {
+    background-image: url('/2_stars.png');
+  }
+  &.n2-5 {
+    background-image: url('/2_half_stars.png');
+  }
+  &.n3 {
+    background-image: url('/3_stars.png');
+  }
+  &.n3-5 {
+    background-image: url('/3_half_stars.png');
+  }
+  &.n4 {
+    background-image: url('/4_stars.png');
+  }
+  &.n4-5 {
+    background-image: url('/4_half_stars.png');
+  }
+  &.n5 {
+    background-image: url('/5_stars.png');
+  }
+}
+
 .restaurant-generator.details-container {
   display: flex;
   margin: 10px 0px;
@@ -47,6 +88,11 @@
   padding-left: 10px;
   font-size: 12px;
   font-weight: 600;
+  cursor: auto;
+  &:hover {
+    background-color: white;
+    color: #f43939;
+  }
 }
 
 .restaurant-generator.price-container {
@@ -87,7 +133,7 @@
     outline: none;
     color: white;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: 8px;
     padding: 0.75em 1.25em;
     line-height: 1;
     cursor: pointer;
@@ -95,6 +141,9 @@
     text-decoration: none;
     font-weight: normal;
     white-space: nowrap;
+    &:hover {
+      filter: brightness(110%);
+    }
   }
 }
 

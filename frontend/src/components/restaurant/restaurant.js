@@ -3,7 +3,7 @@ import React/* , { useState, useEffect, useCallback } */ from "react";
 import { acceptRestaurant } from '../../util/restaurant_api_util';
 import "./restaurant.scss"
 
-function Restaurant({ restaurant, reroll, closeModal }) {
+function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
   if (!restaurant.name.length) return null;
   // if (!restaurant.name.length) {
   //   return (
@@ -12,8 +12,12 @@ function Restaurant({ restaurant, reroll, closeModal }) {
   // }
   
   function handleAccept() {
-    acceptRestaurant()
-      .then( () => closeModal() );
+    acceptRestaurant().then(close);
+  }
+
+  async function close() {
+    await clearRestaurant();
+    await closeModal();
   }
 
   let priceDenominator;
@@ -30,12 +34,11 @@ function Restaurant({ restaurant, reroll, closeModal }) {
       <div className="restaurant-generator close-modal-button-container">
         <button
           className="restaurant-generator close-modal-button"
-          onClick={closeModal}
+          onClick={close}
         >X</button>
       </div>
       
       <div className="restaurant-generator restaurant-container">
-
         <div className="restaurant-generator restaurant-name">
           <a href={`${restaurant.url}`}>
             {`${restaurant.name}`}
@@ -43,8 +46,10 @@ function Restaurant({ restaurant, reroll, closeModal }) {
         </div>
 
         <div className="restaurant-generator rating-container">
-          {/* rating: null, */}
-          {`${restaurant.rating}` }
+          <div
+            className=
+              {`stars n${restaurant.rating.toString().split('.').join('-')}`}>
+          </div>
           {` based on ${restaurant.review_count} Yelp reviews`}
         </div>
 
