@@ -10,8 +10,12 @@ function Geo({ closeModal }) {
         </button>
       </div>
 
-      <div>This site have been blocked from </div>
-      <div>tracking your location on this page </div>
+      <div className='geo-box'>
+        <div>This site have been blocked from</div>
+        <div>tracking your location on this page </div>
+        <br/>
+        <div className="geo-box-text">Enable Geolocation in order to access</div>
+      </div>
     </div>
   );
 }
