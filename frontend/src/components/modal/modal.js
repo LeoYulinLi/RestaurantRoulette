@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import LoginFormContainer from "../session/login_form_container";
 import SignupFormContainer from "../session/signup_form_container";
 import Restaurant from "../restaurant/restaurant";
+import Geo from "../geo/geo";
 import "./modal.scss"
 
 function Modal({ modal, closeModal, restaurant, reroll }) {
@@ -25,6 +26,9 @@ function Modal({ modal, closeModal, restaurant, reroll }) {
         restaurant={restaurant}
         reroll={reroll}
       />
+      break;
+    case "geo":
+      component = <Geo closeModal={closeModal}/>;
       break;
     default:
       return null;
