@@ -174,13 +174,13 @@ a {
   align-items: center;
 }
 
-.restaurant-generrestator.restaurant-content {
+.restaurant-generator.restaurant-content {
   display: flex;
   justify-content: space-between;
   margin-top: 16px;
 }
 
-.restaurant-generrestator.restaurant-map {
+.restaurant-generator.location-container {
   margin-right: 25px;
   box-shadow: 0 0 5px rgba(0,0,0,0.3);
 }
@@ -196,7 +196,6 @@ a {
   flex-direction: column;
   align-items: flex-start;
   width: 292px;
-  // margin-top: 36px;
 }
 
 .restaurant-generator.restaurant-info {
