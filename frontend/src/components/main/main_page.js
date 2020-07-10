@@ -18,7 +18,7 @@ function MainPage() {
   const [category, setCategory] = useState("");
   const [[latitude, longitude], setLocation] = useState([]);
   const [autoCompleteCategories, setAutoCompleteCategories] = useState([]);
-  const [autoCompleteDisplay, toggleAutoCompleteDisplay] = useState('hide')
+  const [autoCompleteDisplay, toggleAutoCompleteDisplay] = useState('hidden')
   const [autoCompleteIdList, setAutoCompleteIdList] = useState([]);
   const [autoCompleteFocusId, setAutoCompleteFocusId] = useState('');
   const [spinToggle, setSpinToggle] = useState(false);
@@ -34,7 +34,7 @@ function MainPage() {
 
   function hideAutoComplete(e) {
     if (!e.target.className.includes('autocomplete')) {
-      toggleAutoCompleteDisplay('hide');
+      toggleAutoCompleteDisplay('hidden');
     }
   }
 
@@ -54,7 +54,7 @@ function MainPage() {
       dispatch(openModal('geo'))
     }
     
-    document.addEventListener("click", hideAutoComplete);
+    document.addEventListener('click', hideAutoComplete);
 
     return function cleanup() {
       document.removeEventListener('click', hideAutoComplete)

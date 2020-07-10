@@ -14,8 +14,9 @@ a{
 /*WRAPPER*/
 #wrapper{ 
 	margin: 40px auto 0;	
-	width:266px; 
-	position:relative;
+	width: 266px; 
+	position: relative;
+	z-index: 1;
 }
 
 #txt{

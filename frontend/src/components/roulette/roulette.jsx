@@ -26,14 +26,14 @@ class Roulette extends React.Component {
         <div id="wrapper">
           <div id="wheel">
             <div id={this.props.style ? this.props.style : this.props.class}>
-              <div class="sec">{/* <span class="fa fa-beer"></span> */}</div>
-              <div class="sec">
+              <div className="sec">{/* <span class="fa fa-beer"></span> */}</div>
+              <div className="sec">
                 {/* <span class="fas fa-cocktail"></span> */}
               </div>
-              <div class="sec">{/* <span class="fa fa-smile-o"></span> */}</div>
-              <div class="sec">{/* <span class="fa fa-heart-o"></span> */}</div>
-              <div class="sec">{/* <span class="fa fa-star-o"></span> */}</div>
-              <div class="sec">
+              <div className="sec">{/* <span class="fa fa-smile-o"></span> */}</div>
+              <div className="sec">{/* <span class="fa fa-heart-o"></span> */}</div>
+              <div className="sec">{/* <span class="fa fa-star-o"></span> */}</div>
+              <div className="sec">
                 {/* <span class="fa fa-lightbulb-o"></span> */}
               </div>
             </div>
