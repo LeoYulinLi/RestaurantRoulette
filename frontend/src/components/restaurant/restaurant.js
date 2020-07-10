@@ -55,8 +55,8 @@ function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
           </a>
         </div>
 
-        <div className="restaurant-generrestator restaurant-content">
-          <div className="restaurant-generrestator restaurant-map">
+        <div className="restaurant-generator restaurant-content">
+          <div className="restaurant-generator location-container">
             <div className="restaurant-generator map">
               <GoogleMapReact
                 bootstrapURLKeys={{
