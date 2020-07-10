@@ -77,10 +77,11 @@
 .restaurant-generator.details-container {
   display: flex;
   margin: 10px 0px;
+  flex-wrap: wrap;
 }
 
 .restaurant-generator.category {
-  margin: 0px 10px 0px 0px;
+  margin: 0px 10px 5px 0px;
   border: 2px solid #f43939;
   color: #f43939;
   border-radius: 28px;
@@ -127,7 +128,7 @@
 }
 
 .restaurant-generator.button-container {
-  margin: 15px;
+  margin: 15px 15px 15px 0px;
   & button {
     font-family: inherit;
     font-size: 18px;
@@ -150,6 +151,7 @@
 
 .restaurant-generator.accept button {
   background-color: #f43939;
+  margin-right: 24px;
 }
 .restaurant-generator.reroll button {
   background-color: #f43939;
@@ -159,3 +161,50 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+.restaurant-generator.map {
+  height: 190px;
+  width: 295px;
+}
+
+
+.restaurant-generator.restaurant-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.restaurant-generrestator.restaurant-content {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.restaurant-generrestator.restaurant-map {
+  margin-right: 25px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+.restaurant-generator.restaurant-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.restaurant-generator.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 292px;
+  // margin-top: 36px;
+}
+
+.restaurant-generator.restaurant-info {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.restaurant-generator.contact-details-container {
+  margin-left: 12px;
+}
+
