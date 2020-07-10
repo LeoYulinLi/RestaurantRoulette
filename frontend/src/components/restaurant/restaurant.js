@@ -1,8 +1,7 @@
 import React/* , { useState, useEffect, useCallback } */ from "react";
 // import { useSelector, useDispatch } from "react-redux";
 import { acceptRestaurant } from '../../util/restaurant_api_util';
-import "./restaurant.scss";
-import GoogleMapReact from "google-map-react";
+import "./restaurant.scss"
 // import Roulette from '../roulette/roulette.jsx'
 
 function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
@@ -39,9 +38,7 @@ function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
         <button
           className="restaurant-generator close-modal-button"
           onClick={close}
-        >
-          X
-        </button>
+        >X</button>
       </div>
 
       <div className="restaurant-generator restaurant-container">
@@ -70,18 +67,6 @@ function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
             {` based on ${restaurant.review_count} Yelp reviews`}
           </div>
 
-          <div className="restaurant-generator restaurant-map">
-            <GoogleMapReact
-              bootstrapURLKeys={{
-                key: "AIzaSyAIn0asMMg9dj0Uz7Bc5MdKknWqBad78DE",
-              }}
-              defaultCenter={{
-                lat: restaurant.coordinates.latitude,
-                lng: restaurant.coordinates.longitude,
-              }}
-              defaultZoom={13}
-            ></GoogleMapReact>
-          </div>
 
           <div className="restaurant-generator details-container">
             {restaurant.categories.map((category) => (
