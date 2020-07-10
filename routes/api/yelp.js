@@ -13,8 +13,6 @@ router.post("/",
     const user = await User.findById(req.user.id);
     const { categories, latitude, longitude, radius } = req.body;
     const initialOffset = Math.floor(Math.random() * 1000);
-
-    debugger
     const result1 = await fetchRestaurant(
       categories, latitude, longitude, radius, initialOffset
     )
