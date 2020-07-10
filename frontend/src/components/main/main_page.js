@@ -103,7 +103,7 @@ function MainPage() {
     e.preventDefault();
     dispatch(fetchYelpRestaurant({ 
       categories: category, latitude, longitude, radius
-    }));
+    })).catch(err => setSpinToggle(false));
     setSpinToggle(true);
   }
 
@@ -149,7 +149,7 @@ function MainPage() {
         e.preventDefault();
 
         if (!autoCompleteCategories.length) break;
-        
+
         setAutoCompleteCategories([]);
         setCategoryInput('');
         setCategoryDisplay(
@@ -247,7 +247,7 @@ function MainPage() {
         >
         </input>
       </div>
-      
+
       <Roulette class={handleToggle()} handleSubmit={handleSubmit} />
       
       <footer className='footer'>Copyright &copy; 2020 Restaurant Roulette</footer>

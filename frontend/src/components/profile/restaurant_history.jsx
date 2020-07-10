@@ -21,11 +21,20 @@ class RestaurantHistory extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
+    let stars = 5;
+    // let stars = Number(this.props.restaurant.rating)
+
+    let rating = [...Array(stars).keys()].map((i) => (
+      <FontAwesomeIcon key={i} icon={faStar} />
+    ));
+=======
     // let stars = 5;
     // // let stars = Number(this.props.restaurant.rating)
     // let rating = [...Array(stars).keys()].map((i) => (
     //   <FontAwesomeIcon key={i} icon={faStar} />
     // ));
+>>>>>>> master
 
      let toggleClass;
         if (!this.state.hover) {
