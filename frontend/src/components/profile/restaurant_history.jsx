@@ -22,7 +22,6 @@ class RestaurantHistory extends React.Component {
   render() {
     let stars = 5;
     // let stars = Number(this.props.restaurant.rating)
-    //  debugger
     let rating = [...Array(stars).keys()].map((i) => (
       <FontAwesomeIcon key={i} icon={faStar} />
     ));
