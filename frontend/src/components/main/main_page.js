@@ -188,12 +188,12 @@ function MainPage() {
       />
 
       <div className="main-page-headers">
-        <h1>Hungry Or Bored?</h1>
+        <h1 className="make-this-gray">Hungry Or Bored?</h1>
         <div className="shrug"></div>
       </div>
        
       <div className="category-container">
-        <div className="category-display-container">
+        <div className="category-display-container  make-this-gray">
           What are you craving?
           <div className="category-display">
             {`${categoryDisplay}`}
@@ -231,8 +231,8 @@ function MainPage() {
       </div>
 
       <div className="radius-container">
-        <div className="radius-display-container">
-          How far will you travel?
+        <div className="radius-display-container make-this-gray">
+            How far will you travel?
           <div className="radius-display">
             {Math.ceil(parseInt(radius) / 1610)} miles
           </div>

@@ -9,6 +9,7 @@ class Splash extends React.Component {
     return (
       <div id="splash-container">
         <Modal />
+        
         <div id="splash-info">
           <h2 className="splash-info-header">
             Decide on where to eat by using Restaurant Roulette.
@@ -44,8 +45,9 @@ class Splash extends React.Component {
             </span>
           </div>
         </div>
+
         <div className="roulette-container">
-          <Roulette style={"splash-inner-wheel"} />
+          <Roulette style={'splash-inner-wheel'} /> 
         </div>
       </div>
     );
