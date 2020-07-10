@@ -1,6 +1,8 @@
 @import "src/styles/main";
 
 .app {
-    margin: auto;
-    max-width: 80rem;
+  margin: auto;
+  max-width: 80rem;
+  display: flex;
+  justify-content: center;
 }

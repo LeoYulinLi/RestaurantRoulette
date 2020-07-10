@@ -40,7 +40,11 @@ function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
       
       <div className="restaurant-generator restaurant-container">
         <div className="restaurant-generator restaurant-name">
-          <a href={`${restaurant.url}`}>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`${restaurant.url}`}
+          >
             {`${restaurant.name}`}
           </a>
         </div>
