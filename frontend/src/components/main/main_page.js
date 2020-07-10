@@ -16,7 +16,8 @@ function MainPage() {
   const [categoryInput, setCategoryInput] = useState("");
   const [categoryDisplay, setCategoryDisplay] = useState("");
   const [category, setCategory] = useState("");
-  const [[latitude, longitude], setLocation] = useState([]);
+  const [[latitude, longitude], setLocation] = useState([37, -122]);
+  const [radius, setRadius] = useState(3000);
   const [autoCompleteCategories, setAutoCompleteCategories] = useState([]);
   const [autoCompleteDisplay, toggleAutoCompleteDisplay] = useState('hidden')
   const [autoCompleteIdList, setAutoCompleteIdList] = useState([]);
@@ -49,7 +50,7 @@ function MainPage() {
           [position.coords.latitude, position.coords.longitude]),
           () => dispatch(openModal('geo')
         )
-      ); 
+      );
     } else {
       dispatch(openModal('geo'))
     }
@@ -101,7 +102,7 @@ function MainPage() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(fetchYelpRestaurant({ 
-      categories: category, latitude, longitude
+      categories: category, latitude, longitude, radius
     }));
     setSpinToggle(true);
   }
@@ -178,6 +179,7 @@ function MainPage() {
               categories: category,
               latitude,
               longitude,
+              radius
             })
           );
         }}
