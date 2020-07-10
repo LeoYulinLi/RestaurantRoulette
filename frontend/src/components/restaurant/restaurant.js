@@ -2,6 +2,7 @@ import React/* , { useState, useEffect, useCallback } */ from "react";
 // import { useSelector, useDispatch } from "react-redux";
 import { acceptRestaurant } from '../../util/restaurant_api_util';
 import "./restaurant.scss"
+// import Roulette from '../roulette/roulette.jsx'
 
 function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
   if (!restaurant.name.length) return null;
@@ -49,60 +50,52 @@ function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
           </a>
         </div>
 
-        <div className="restaurant-generator rating-container">
-          <div
-            className=
-              {`stars n${restaurant.rating.toString().split('.').join('-')}`}>
+        <div className="restaurant-generator restaurant-container">
+          <div className="restaurant-generator restaurant-name">
+            <a href={`${restaurant.url}`}>{`${restaurant.name}`}</a>
           </div>
-          {` based on ${restaurant.review_count} Yelp reviews`}
-        </div>
-
-        <div className="restaurant-generator details-container">
-            {
-              restaurant.categories.map( category =>
-                <div
-                  key={category.alias}
-                  className="restaurant-generator category"
-                >
-                  {category.title}
-                </div>
-              )
-            }
-
-          <div className={`restaurant-generator price-container ${priceBorder}`}>
-            <div>
-              {restaurant.price ? `${restaurant.price}` : ''}
-            </div>
-
-            <div className="restaurant-generator price-denominator">
-              {`${priceDenominator}`}
-            </div>
-          </div>
-        </div>
-
-        <div className="restaurant-generator contact-details-container">
-          <div>
-            {`${restaurant.display_phone}`}
+          <div className="restaurant-generator rating-container">
+            <div
+              className={`stars n${restaurant.rating
+                .toString()
+                .split(".")
+                .join("-")}`}
+            ></div>
+            {` based on ${restaurant.review_count} Yelp reviews`}
           </div>
 
-          <div>
-            {`${restaurant.location.display_address}`}
-          </div>
-        </div>
+          <div className="restaurant-generator details-container">
+            {restaurant.categories.map((category) => (
+              <div key={category.alias} className="restaurant-generator category">
+                {category.title}
+              </div>
+            ))}
 
-        <div className="restaurant-generator buttons-container">
-          <div className="restaurant-generator accept button-container">
-            <button
-              onClick={handleAccept}
+            <div
+              className={`restaurant-generator price-container ${priceBorder}`}
             >
-              Accept
-            </button>
+              <div>{restaurant.price ? `${restaurant.price}` : ""}</div>
+
+              <div className="restaurant-generator price-denominator">
+                {`${priceDenominator}`}
+              </div>
+            </div>
           </div>
 
-          <div className="restaurant-generator reroll button-container">
-            <button onClick={reroll}>
-              Reroll
-            </button>
+          <div className="restaurant-generator contact-details-container">
+            <div>{`${restaurant.display_phone}`}</div>
+
+            <div>{`${restaurant.location.display_address}`}</div>
+          </div>
+
+          <div className="restaurant-generator buttons-container">
+            <div className="restaurant-generator accept button-container">
+              <button onClick={handleAccept}>Accept</button>
+            </div>
+
+            <div className="restaurant-generator reroll button-container">
+              <button onClick={reroll}>Reroll</button>
+            </div>
           </div>
         </div>
       </div>

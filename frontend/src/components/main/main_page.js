@@ -6,6 +6,7 @@ import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
 import { fetchCategories } from "../../actions/category_actions"
 import Modal from "../modal/modal";
 import { openModal } from "../../actions/modal_actions";
+import Roulette from '../roulette/roulette'
 
 import "./main_page.scss"
 
@@ -20,11 +21,15 @@ function MainPage() {
   const [autoCompleteDisplay, toggleAutoCompleteDisplay] = useState('hide')
   const [autoCompleteIdList, setAutoCompleteIdList] = useState([]);
   const [autoCompleteFocusId, setAutoCompleteFocusId] = useState('');
+  const [spinToggle, setSpinToggle] = useState(false);
 
   function selectCategories(state) {
     return state.categories;
   }
-  
+  function selectRestaurant(state) {
+    return state.generatedRestaurant;
+  }
+  const restaurant = useSelector(selectRestaurant);
   const categories = useSelector(selectCategories);
 
   function hideAutoComplete(e) {
@@ -55,6 +60,13 @@ function MainPage() {
       document.removeEventListener('click', hideAutoComplete)
     }
   }, []);
+
+  useEffect(() => {
+    if (restaurant.name){
+      setSpinToggle(false);
+      dispatch(openModal("restaurant"));
+    }
+  }, [restaurant])
 
   const updateAutoComplete = (input, categories) => {
     if (input.length && Object.values(categories).length) {
@@ -91,7 +103,18 @@ function MainPage() {
     dispatch(fetchYelpRestaurant({ 
       categories: category, latitude, longitude
     }));
-    dispatch(openModal('restaurant'));
+    setSpinToggle(true);
+  }
+
+  function handleToggle() {
+    let toggleClass;
+    if (spinToggle) {
+      toggleClass = 'inner-wheel';
+      // setSpinToggle(true)
+    } else {
+      toggleClass = '';
+    }
+    return toggleClass;
   }
 
   function handleDropdown(e) {
@@ -150,9 +173,13 @@ function MainPage() {
     <div className="main-page">
       <Modal
         reroll={() => {
-          dispatch(fetchYelpRestaurant({ 
-            categories: category, latitude, longitude
-          }));
+          dispatch(
+            fetchYelpRestaurant({
+              categories: category,
+              latitude,
+              longitude,
+            })
+          );
         }}
       />
 
@@ -203,6 +230,7 @@ function MainPage() {
       <button onClick={handleSubmit}>
           Spin the Wheel
       </button>
+      <Roulette class={handleToggle()} />
       
       <footer>Copyright &copy; 2020 Restaurant Roulette</footer>
     </div>
