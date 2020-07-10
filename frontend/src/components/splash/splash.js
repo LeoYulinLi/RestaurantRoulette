@@ -6,7 +6,7 @@ import './splash.scss'
 
 class Splash extends React.Component {
   render() {
-    return(
+    return (
       <div id="splash-container">
         <Modal />
         
@@ -18,9 +18,9 @@ class Splash extends React.Component {
           <div className="splash-info-row-container">
             <div className="splash-info-icon restaurant"></div>
             <span className="splash-info-row">
-              <span
-                className="splash-info-row-header"
-              >Discover new restaurants</span>
+              <span className="splash-info-row-header">
+                Discover new restaurants
+              </span>
               <> with our random generator.</>
             </span>
           </div>
@@ -28,7 +28,8 @@ class Splash extends React.Component {
           <div className="splash-info-row-container">
             <div className="splash-info-icon salad"></div>
             <span className="splash-info-row">
-              <span className="splash-info-row-header">Satisfy your cravings
+              <span className="splash-info-row-header">
+                Satisfy your cravings
               </span>
               <> by selecting a category.</>
             </span>
@@ -37,7 +38,8 @@ class Splash extends React.Component {
           <div className="splash-info-row-container">
             <div className="splash-info-icon agree"></div>
             <span className="splash-info-row">
-              <span className="splash-info-row-header">Agree on a restaurant
+              <span className="splash-info-row-header">
+                Agree on a restaurant
               </span>
               <> with the click of a button.</>
             </span>
@@ -48,7 +50,7 @@ class Splash extends React.Component {
           <Roulette style={'splash-inner-wheel'} /> 
         </div>
       </div>
-    )
+    );
   }
 }
 
