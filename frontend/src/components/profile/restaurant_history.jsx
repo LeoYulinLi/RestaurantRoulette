@@ -4,6 +4,9 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import { faYelp } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import GoogleMapReact from "google-map-react";
+
+
 
 class RestaurantHistory extends React.Component {
   constructor(props) {
@@ -51,11 +54,20 @@ class RestaurantHistory extends React.Component {
       </div>
     </div>;
 
+    const { latitude, longitude } = this.props.restaurant.coordinates;
     return (
+    
       <>
         <div className="h-restaurant-container">
           <div className="h-restaurant-picture">
-            <FontAwesomeIcon className="temp-map" icon={faMapPin} />
+            <GoogleMapReact
+              bootstrapURLKeys={{
+                key: "AIzaSyAIn0asMMg9dj0Uz7Bc5MdKknWqBad78DE",
+              }}
+              defaultCenter={{lat: latitude, lng: longitude }}
+              defaultZoom={ 13 }
+            ></GoogleMapReact>
+
           </div>
           <div className="h-restaurant-name">{this.props.restaurant.name}</div>
           <div className="h-restaurant-rating">{rating}</div>
@@ -70,9 +82,7 @@ class RestaurantHistory extends React.Component {
                 </li>
               );
             })}
-            <div id="h-restaurant-price">
-               {price}
-            </div>
+            <div id="h-restaurant-price">{price}</div>
           </div>
           <div className="contact">
             <div className="restaurant-phone">
