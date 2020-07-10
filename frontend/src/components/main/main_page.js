@@ -111,7 +111,6 @@ function MainPage() {
     let toggleClass;
     if (spinToggle) {
       toggleClass = 'inner-wheel';
-      // setSpinToggle(true)
     } else {
       toggleClass = '';
     }
