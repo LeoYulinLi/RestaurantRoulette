@@ -7,6 +7,7 @@ import NavBarContainer from "./nav/navbar_container";
 import Modal from "./modal/modal";
 import MainPage from "./main/main_page";
 import ProfileContainer from "./profile/profile_container";
+import Splash from '../components/splash/splash'
 
 import "./app.scss"
 
@@ -16,7 +17,7 @@ const App = () => (
     <div className="app">
     <Switch>
       <ProtectedRoute exact path="/main" component={MainPage} />
-      <AuthRoute exact path="/" component={Modal} />
+      <AuthRoute exact path="/" component={Splash} />
       <ProtectedRoute exact path="/profile" component={ProfileContainer} />
       <Redirect to="/" />
     </Switch>

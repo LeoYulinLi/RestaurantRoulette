@@ -232,7 +232,7 @@ function MainPage() {
       </button>
       <Roulette class={handleToggle()} />
       
-      <footer>Copyright &copy; 2020 Restaurant Roulette</footer>
+      <footer className='footer'>Copyright &copy; 2020 Restaurant Roulette</footer>
     </div>
   );
 }

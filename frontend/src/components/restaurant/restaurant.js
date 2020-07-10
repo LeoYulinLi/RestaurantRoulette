@@ -51,9 +51,6 @@ function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
         </div>
 
         <div className="restaurant-generator restaurant-container">
-          <div className="restaurant-generator restaurant-name">
-            <a href={`${restaurant.url}`}>{`${restaurant.name}`}</a>
-          </div>
           <div className="restaurant-generator rating-container">
             <div
               className={`stars n${restaurant.rating
