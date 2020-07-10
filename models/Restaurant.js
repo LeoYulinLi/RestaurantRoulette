@@ -42,6 +42,10 @@ const RestaurantSchema = new Schema({
     type: Object,
     required: true,
   },
+  coordinates: {
+    type: Object,
+    required: true
+  },
   createdAt: { type: Date, default: Date.now(), index: { expireAfterSeconds: 24 * 60 * 60 } }
 });
 
