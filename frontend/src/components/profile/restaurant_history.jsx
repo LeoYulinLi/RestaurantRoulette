@@ -5,6 +5,7 @@ import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import { faYelp } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import GoogleMapReact from "google-map-react";
+import { Link } from 'react-router-dom'
 
 
 
@@ -20,11 +21,11 @@ class RestaurantHistory extends React.Component {
   }
 
   render() {
-    let stars = 5;
-    // let stars = Number(this.props.restaurant.rating)
-    let rating = [...Array(stars).keys()].map((i) => (
-      <FontAwesomeIcon key={i} icon={faStar} />
-    ));
+    // let stars = 5;
+    // // let stars = Number(this.props.restaurant.rating)
+    // let rating = [...Array(stars).keys()].map((i) => (
+    //   <FontAwesomeIcon key={i} icon={faStar} />
+    // ));
 
      let toggleClass;
         if (!this.state.hover) {
@@ -55,7 +56,6 @@ class RestaurantHistory extends React.Component {
 
     const { latitude, longitude } = this.props.restaurant.coordinates;
     return (
-    
       <>
         <div className="h-restaurant-container">
           <div className="h-restaurant-picture">
@@ -63,13 +63,18 @@ class RestaurantHistory extends React.Component {
               bootstrapURLKeys={{
                 key: "AIzaSyAIn0asMMg9dj0Uz7Bc5MdKknWqBad78DE",
               }}
-              defaultCenter={{lat: latitude, lng: longitude }}
-              defaultZoom={ 13 }
+              defaultCenter={{ lat: latitude, lng: longitude }}
+              defaultZoom={13}
             ></GoogleMapReact>
-
           </div>
           <div className="h-restaurant-name">{this.props.restaurant.name}</div>
-          <div className="h-restaurant-rating">{rating}</div>
+          <div
+            id="profile-stars"
+            className={`stars n${this.props.restaurant.rating
+              .toString()
+              .split(".")
+              .join("-")}`}
+          ></div>
           <div className="h-restaurant-reviews">
             based on {this.props.restaurant.review_count} Yelp reviews
           </div>
@@ -94,16 +99,16 @@ class RestaurantHistory extends React.Component {
               {this.props.restaurant.location.country}
             </div>
           </div>
-          <div className="yelp-icon">
+          <div className="yelp-icon" onClick={ () => <Link to={this.props.restaurant.url}/>} >
             <div className={toggleClass}>read more on yelp &nbsp;</div>
-            <a href={this.props.restaurant.url}>
+            
               <FontAwesomeIcon
                 className="yelp"
                 icon={faYelp}
                 onMouseEnter={this.toggleHover}
                 onMouseLeave={this.toggleHover}
               />
-            </a>
+
           </div>
         </div>
       </>
