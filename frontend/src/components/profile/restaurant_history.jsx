@@ -54,7 +54,7 @@ class RestaurantHistory extends React.Component {
     return (
       <>
         <div className="h-restaurant-container">
-          <div className="h-restaurant-picture">
+          <div className="h-restaurant-picture" >
             <FontAwesomeIcon className="temp-map" icon={faMapPin} />
           </div>
           <div className="h-restaurant-name">{this.props.restaurant.name}</div>

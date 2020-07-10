@@ -6,6 +6,7 @@ import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
 import { fetchCategories } from "../../actions/category_actions"
 import Modal from "../modal/modal";
 import { openModal } from "../../actions/modal_actions";
+import Roulette from '../roulette/roulette'
 
 import "./main_page.scss"
 
@@ -17,11 +18,15 @@ function MainPage() {
   const [category, setCategory] = useState("");
   const [[latitude, longitude], setLocation] = useState([37.78, -122.39]);
   const [autoComplete, setAutoComplete] = useState([]);
+  const [spinToggle, setSpinToggle] = useState(false);
 
   function selectCategories(state) {
     return state.categories;
   }
-  
+  function selectRestaurant(state) {
+    return state.generatedRestaurant;
+  }
+  const restaurant = useSelector(selectRestaurant);
   const categories = useSelector(selectCategories);
 
   useEffect(() => {
@@ -29,6 +34,13 @@ function MainPage() {
       dispatch(fetchCategories());
     }
   }, []);
+
+  useEffect(() => {
+    if (restaurant.name){
+      setSpinToggle(false);
+      dispatch(openModal("restaurant"));
+    }
+  }, [restaurant])
 
   const updateAutoComplete = (input, categories) => {
     if (input.length && Object.values(categories).length) {
@@ -57,7 +69,18 @@ function MainPage() {
     dispatch(fetchYelpRestaurant({ 
       categories: category, latitude, longitude
     }));
-    dispatch(openModal('restaurant'));
+    setSpinToggle(true);
+  }
+
+  function handleToggle() {
+    let toggleClass;
+    if (spinToggle) {
+      toggleClass = 'inner-wheel';
+      // setSpinToggle(true)
+    } else {
+      toggleClass = '';
+    }
+    return toggleClass;
   }
   
   function handleAutoCompleteClick(category) {
@@ -79,47 +102,46 @@ function MainPage() {
     <div className="main-page">
       <Modal
         reroll={() => {
-          dispatch(fetchYelpRestaurant({ 
-            categories: category, latitude, longitude
-          }));
+          dispatch(
+            fetchYelpRestaurant({
+              categories: category,
+              latitude,
+              longitude,
+            })
+          );
         }}
       />
 
       <h1>RR Incorporated</h1>
 
       <div>
-        <div>
-          Category: {`${categoryDisplay}`}
-        </div>
-        
+        <div>Category: {`${categoryDisplay}`}</div>
+
         <form>
           <input
             value={categoryInput}
-            onChange={e => setCategoryInput(e.target.value.toLowerCase())}
+            onChange={(e) => setCategoryInput(e.target.value.toLowerCase())}
           />
 
           <ul>
-            {
-              autoComplete.map( category => {
-                return (
-                  <li
-                    key={category.title}
-                    onClick={handleAutoCompleteClick(category)}
-                    onKeyPress={handleAutoCompleteSelection}
-                  >
-                    {`${category.title} (${category.alias})`}
-                  </li>
-                )
-              })
-            }
+            {autoComplete.map((category) => {
+              return (
+                <li
+                  key={category.title}
+                  onClick={handleAutoCompleteClick(category)}
+                  onKeyPress={handleAutoCompleteSelection}
+                >
+                  {`${category.title} (${category.alias})`}
+                </li>
+              );
+            })}
           </ul>
         </form>
 
-        <button onClick={handleSubmit}>
-            Spin the Wheel
-        </button>
+        <button onClick={handleSubmit}>Spin the Wheel</button>
+        <Roulette class={handleToggle()} />
       </div>
-      
+
       <footer>Copyright &copy; 2020 Restaurant Roulette</footer>
     </div>
   );
