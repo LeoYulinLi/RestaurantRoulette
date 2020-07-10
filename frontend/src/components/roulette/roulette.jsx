@@ -11,7 +11,7 @@ class Roulette extends React.Component {
 // let toggleClass;
 // if (this.state.spinToggle) {
 //   toggleClass = "inner-wheel";
-//   // setSpinToggle(true)
+// setSpinToggle(true)
 // } else {
 //   toggleClass = "";
 // }

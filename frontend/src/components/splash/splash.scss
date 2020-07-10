@@ -9,6 +9,7 @@
   flex-direction:column;
   align-items: center;
   width: 480px;
+
   .splash-info-header{
     font-family: 'Freight Sans Bold', Helvetica, Arial, sans-serif;
     font-size: 28px;
@@ -72,4 +73,8 @@
     line-height: 22px;
     margin-right: 2px;
   }
+}
+
+  .roulette-container {
+  margin-top: 42px;
 }
