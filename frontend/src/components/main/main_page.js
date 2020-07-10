@@ -16,7 +16,7 @@ function MainPage() {
   const [categoryDisplay, setCategoryDisplay] = useState("");
   const [category, setCategory] = useState("");
   const [[latitude, longitude], setLocation] = useState([37, -122]);
-  const [radius, setRadius] = useState(3000);
+  const [radius, setRadius] = useState(8050);
   const [autoCompleteCategories, setAutoCompleteCategories] = useState([]);
   const [autoCompleteDisplay, toggleAutoCompleteDisplay] = useState('hidden')
   const [autoCompleteIdList, setAutoCompleteIdList] = useState([]);
@@ -148,6 +148,9 @@ function MainPage() {
         break;
       case 'Enter':
         e.preventDefault();
+
+        if (!autoCompleteCategories.length) break;
+        
         setAutoCompleteCategories([]);
         setCategoryInput('');
         setCategoryDisplay(
@@ -192,7 +195,7 @@ function MainPage() {
        
       <div className="category-container">
         <div className="category-display-container">
-          Select a Category:
+          What are you craving?
           <div className="category-display">
             {`${categoryDisplay}`}
           </div>
@@ -226,12 +229,26 @@ function MainPage() {
             }
           </ul>
         </div>
-
       </div>
 
-      {/* <button onClick={handleSubmit}>
-          Spin the Wheel
-      </button> */}
+      <div className="radius-container">
+        <div className="radius-display-container">
+          How far will you travel?
+          <div className="radius-display">
+            {Math.ceil(parseInt(radius) / 1610)} miles
+          </div>
+        </div>
+        <input
+          className="radius-input"
+          type="range"
+          min="1610"
+          max="40000"
+          value={radius}
+          onChange={(e) => setRadius(e.target.value)}
+        >
+        </input>
+      </div>
+      
       <Roulette class={handleToggle()} handleSubmit={handleSubmit} />
       
       <footer className='footer'>Copyright &copy; 2020 Restaurant Roulette</footer>
