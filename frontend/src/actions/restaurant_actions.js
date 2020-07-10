@@ -8,7 +8,7 @@ const receiveRestaurantHistory = (restaurants) => ({
   restaurants
 });
 
-const receiveYelpRestaurant = (restaurant) => ({
+export const receiveYelpRestaurant = (restaurant) => ({
   type: RECEIVE_YELP_RESTAURANT,
   restaurant
 });

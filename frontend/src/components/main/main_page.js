@@ -1,8 +1,9 @@
 // src/components/main/main_page.js
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
+import io from 'socket.io-client';
+import { fetchYelpRestaurant, receiveYelpRestaurant } from "../../actions/restaurant_actions";
 import { fetchCategories } from "../../actions/category_actions"
 import Modal from "../modal/modal";
 import { openModal } from "../../actions/modal_actions";
@@ -21,6 +22,8 @@ function MainPage() {
   function selectCategories(state) {
     return state.categories;
   }
+
+  const socket = useRef(null);
   
   const categories = useSelector(selectCategories);
 
@@ -28,7 +31,15 @@ function MainPage() {
     if (!Object.values(categories).length) {
       dispatch(fetchCategories());
     }
+    const thing = io.connect("/");
+    socket.current = thing;
+    thing.on("newRestaurant", function (restaurant) {
+      console.log("yes this is socket");
+      dispatch(receiveYelpRestaurant(restaurant));
+    })
+    return () => thing.disconnect();
   }, []);
+
 
   const updateAutoComplete = (input, categories) => {
     if (input.length && Object.values(categories).length) {
@@ -54,9 +65,7 @@ function MainPage() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(fetchYelpRestaurant({ 
-      categories: category, latitude, longitude
-    }));
+    socket.current.emit("fetchRestaurant", { categories: category, latitude, longitude });
     dispatch(openModal('restaurant'));
   }
   
