@@ -16,7 +16,7 @@ function MainPage() {
   const [categoryInput, setCategoryInput] = useState("");
   const [categoryDisplay, setCategoryDisplay] = useState("");
   const [category, setCategory] = useState("");
-  const [[latitude, longitude], setLocation] = useState([37.78, -122.39]);
+  const [[latitude, longitude], setLocation] = useState([]);
   const [autoCompleteCategories, setAutoCompleteCategories] = useState([]);
   const [autoCompleteDisplay, toggleAutoCompleteDisplay] = useState('hidden')
   const [autoCompleteIdList, setAutoCompleteIdList] = useState([]);
@@ -102,7 +102,7 @@ function MainPage() {
     e.preventDefault();
     dispatch(fetchYelpRestaurant({ 
       categories: category, latitude, longitude
-    }));
+    })).catch(err => setSpinToggle(false));
     setSpinToggle(true);
   }
 
