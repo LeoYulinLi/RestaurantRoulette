@@ -176,6 +176,7 @@ function MainPage() {
     <div className="main-page">
       <Modal
         reroll={() => {
+          setSpinToggle(true)
           dispatch(
             fetchYelpRestaurant({
               categories: category,
