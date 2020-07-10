@@ -7,7 +7,6 @@ import { fetchCategories } from "../../actions/category_actions"
 import Modal from "../modal/modal";
 import { openModal } from "../../actions/modal_actions";
 import Roulette from '../roulette/roulette'
-
 import "./main_page.scss"
 
 function MainPage() {
@@ -99,6 +98,7 @@ function MainPage() {
   }, [autoCompleteCategories]);
 
   function handleSubmit(e) {
+    console.log(e)
     e.preventDefault();
     dispatch(fetchYelpRestaurant({ 
       categories: category, latitude, longitude
@@ -227,10 +227,10 @@ function MainPage() {
 
       </div>
 
-      <button onClick={handleSubmit}>
+      {/* <button onClick={handleSubmit}>
           Spin the Wheel
-      </button>
-      <Roulette class={handleToggle()} />
+      </button> */}
+      <Roulette class={handleToggle()} handleSubmit={handleSubmit} />
       
       <footer className='footer'>Copyright &copy; 2020 Restaurant Roulette</footer>
     </div>
