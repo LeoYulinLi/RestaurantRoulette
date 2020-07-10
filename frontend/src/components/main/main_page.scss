@@ -1,3 +1,91 @@
+.main-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+}
+
+.main-page-headers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+  h1 {
+    margin: 5px 0px;
+  }
+  .shrug {
+    height: 104px;
+    width: 100px;
+    background-size: 100%;
+    background-image: url(/shrug.png);
+    background-repeat: no-repeat;
+  }
+}
+
+.category-container {
+  // border: 1px solid #e6e6e6;
+  // border-radius: 4px;
+  // box-shadow: 0 1px 2px var(--shadow-2);
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid #eeeeef;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.category-display-container {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.category-display {
+  font-size: 16px;
+  font-weight: 500;
+  padding-top: 10px;
+}
+
+.autocomplete-container {
+  position: relative;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.autocomplete-input {
+  border-radius: 0;
+  width: 200px;
+}
+
+.autocomplete-dropdown-list {
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  position: absolute;
+  top: 80%;
+  min-width: 200px;
+  &.hidden {
+    display: none;
+  }
+}
+
+.autocomplete-dropdown-item {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  background-color: white;
+  border: 1px solid rgb(163, 163, 163);
+  border-top: none;
+  height: 30px;
+  padding: 0.5em;
+  &.focus {
+    background-color: lightcyan;
+  }
+  &:first-child {
+    border-top: 1px solid rgb(163, 163, 163);
+  }
+}
+
 .geo-container {
   display: block;
   background-color: white;

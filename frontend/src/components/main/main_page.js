@@ -16,7 +16,10 @@ function MainPage() {
   const [categoryDisplay, setCategoryDisplay] = useState("");
   const [category, setCategory] = useState("");
   const [[latitude, longitude], setLocation] = useState([]);
-  const [autoComplete, setAutoComplete] = useState([]);
+  const [autoCompleteCategories, setAutoCompleteCategories] = useState([]);
+  const [autoCompleteDisplay, toggleAutoCompleteDisplay] = useState('hide')
+  const [autoCompleteIdList, setAutoCompleteIdList] = useState([]);
+  const [autoCompleteFocusId, setAutoCompleteFocusId] = useState('');
 
   function selectCategories(state) {
     return state.categories;
@@ -24,22 +27,34 @@ function MainPage() {
   
   const categories = useSelector(selectCategories);
 
+  function hideAutoComplete(e) {
+    if (!e.target.className.includes('autocomplete')) {
+      toggleAutoCompleteDisplay('hide');
+    }
+  }
+
   useEffect(() => {
     if (!Object.values(categories).length) {
       dispatch(fetchCategories());
-    } 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) =>
-        setLocation([position.coords.latitude, position.coords.longitude]),
-        () => dispatch(openModal('geo'))
-      );  
     }
-    else {
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition( position =>
+        setLocation(
+          [position.coords.latitude, position.coords.longitude]),
+          () => dispatch(openModal('geo')
+        )
+      ); 
+    } else {
       dispatch(openModal('geo'))
     }
-    ;
-  }, []);
+    
+    document.addEventListener("click", hideAutoComplete);
 
+    return function cleanup() {
+      document.removeEventListener('click', hideAutoComplete)
+    }
+  }, []);
 
   const updateAutoComplete = (input, categories) => {
     if (input.length && Object.values(categories).length) {
@@ -53,17 +68,23 @@ function MainPage() {
         }
       }
       
-      setAutoComplete(similarCategories);
+      setAutoCompleteCategories(similarCategories);
+    } else {
+      setAutoCompleteCategories([]);
     }
-
-    return input;
   };
 
   useEffect(() => {
     updateAutoComplete(categoryInput, categories);
   }, [categoryInput]);
-
-
+  
+  useEffect(() => {
+    const nodeList = document.querySelectorAll(".autocomplete-dropdown-item");
+    const listItems = Array.from(nodeList);
+    const listItemIds = listItems.map( item => item.id );
+    setAutoCompleteIdList(listItemIds);
+    
+  }, [autoCompleteCategories]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -73,22 +94,58 @@ function MainPage() {
     dispatch(openModal('restaurant'));
   }
 
+  function handleDropdown(e) {
+    const activeItem = autoCompleteFocusId;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        if (activeItem) {
+          const currIdx = autoCompleteIdList.indexOf(activeItem);
+          const nextIdx = currIdx + 1;
+          const nextId = autoCompleteIdList[nextIdx] || '';
+          setAutoCompleteFocusId(nextId);
+        } else {
+          setAutoCompleteFocusId(autoCompleteIdList[0]);
+        }
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        if (activeItem) {
+          const currIdx = autoCompleteIdList.indexOf(activeItem);
+          const prevIdx = currIdx - 1;
+          const prevId = autoCompleteIdList[prevIdx] || '';
+          setAutoCompleteFocusId(prevId);
+        } else {
+          const lastIdx = autoCompleteIdList.length - 1;
+          const lastId = autoCompleteIdList[lastIdx];
+          setAutoCompleteFocusId(lastId);
+        }
+        break;
+      case 'Enter':
+        e.preventDefault();
+        setAutoCompleteCategories([]);
+        setCategoryInput('');
+        setCategoryDisplay(
+          document.getElementById(autoCompleteFocusId).textContent
+        );
+        setCategory(autoCompleteFocusId);
+        break;
+      case 'Escape':
+        e.preventDefault();
+        e.currentTarget.blur();
+    }
+  }
   
-  function handleAutoCompleteClick(category) {
+  function handleDropdownClick(category) {
     return (e) => {
-      setAutoComplete([]);
+      setAutoCompleteCategories([]);
       setCategoryInput('');
       setCategoryDisplay(e.target.textContent);
-      setCategory(`${category.alias}`);
+      setCategory(category.alias);
     }
   }
   
-  function handleAutoCompleteSelection(e) {
-    if (e.key === 'Enter') {
-      setCategoryInput(e.target.value.toLowerCase())
-    }
-  }
-
   return (
     <div className="main-page">
       <Modal
@@ -99,27 +156,39 @@ function MainPage() {
         }}
       />
 
-      <h1>RR Incorporated</h1>
+      <div className="main-page-headers">
+        <h1>Hungry Or Bored?</h1>
+        <div className="shrug"></div>
+      </div>
        
-      <div>
-        <div>
-          Category: {`${categoryDisplay}`}
+      <div className="category-container">
+        <div className="category-display-container">
+          Select a Category:
+          <div className="category-display">
+            {`${categoryDisplay}`}
+          </div>
         </div>
         
-        <form>
+        <div className="autocomplete-container">
           <input
+            className="autocomplete-input"
             value={categoryInput}
             onChange={e => setCategoryInput(e.target.value.toLowerCase())}
+            onKeyDown={handleDropdown}
+            onClick={() => toggleAutoCompleteDisplay('')}
           />
 
-          <ul>
+          <ul className={`autocomplete-dropdown-list ${autoCompleteDisplay}`}>
             {
-              autoComplete.map( category => {
+              autoCompleteCategories.map( category => {
+                let focus = '';
+                if (category.alias === autoCompleteFocusId) focus = 'focus';
                 return (
                   <li
-                    key={category.title}
-                    onClick={handleAutoCompleteClick(category)}
-                    onKeyPress={handleAutoCompleteSelection}
+                    id={category.alias}
+                    key={category.alias}
+                    className={`autocomplete-dropdown-item ${focus}`}
+                    onClick={handleDropdownClick(category)}
                   >
                     {`${category.title} (${category.alias})`}
                   </li>
@@ -127,12 +196,13 @@ function MainPage() {
               })
             }
           </ul>
-        </form>
+        </div>
 
-        <button onClick={handleSubmit}>
-            Spin the Wheel
-        </button>
       </div>
+
+      <button onClick={handleSubmit}>
+          Spin the Wheel
+      </button>
       
       <footer>Copyright &copy; 2020 Restaurant Roulette</footer>
     </div>
