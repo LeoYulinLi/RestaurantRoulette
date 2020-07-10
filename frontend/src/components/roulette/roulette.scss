@@ -13,9 +13,10 @@ a{
 
 /*WRAPPER*/
 #wrapper{ 
-	margin: 40px auto 0;	
-	width:266px; 
-	position:relative;
+	// margin: 40px auto 0;
+	width: 266px; 
+	position: relative;
+	z-index: 1;
 }
 
 #txt{
@@ -73,7 +74,7 @@ a{
 .splash-inner-wheel {
     width: 54px;
     height: 54px;
-    position: absolute;
+	position: absolute;
     top: 50%;
     left: 50%;
     margin: -27px 0 0 -27px;
@@ -201,8 +202,9 @@ a{
 
 
 #spin:after{
-	content:"R / R";	
+	content:"Roll!";	
 	text-align:center;
+	letter-spacing: .5px;
 	line-height:68px;
 	color: #353535;
 	// text-shadow: 0 2px 0 #fff, 0 -2px 0 rgba(0,0,0,0.3) ;

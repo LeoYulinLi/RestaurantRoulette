@@ -7,7 +7,6 @@ import { fetchCategories } from "../../actions/category_actions"
 import Modal from "../modal/modal";
 import { openModal } from "../../actions/modal_actions";
 import Roulette from '../roulette/roulette'
-
 import "./main_page.scss"
 
 function MainPage() {
@@ -16,9 +15,10 @@ function MainPage() {
   const [categoryInput, setCategoryInput] = useState("");
   const [categoryDisplay, setCategoryDisplay] = useState("");
   const [category, setCategory] = useState("");
-  const [[latitude, longitude], setLocation] = useState([37.78, -122.39]);
+  const [[latitude, longitude], setLocation] = useState([37, -122]);
+  const [radius, setRadius] = useState(8050);
   const [autoCompleteCategories, setAutoCompleteCategories] = useState([]);
-  const [autoCompleteDisplay, toggleAutoCompleteDisplay] = useState('hide')
+  const [autoCompleteDisplay, toggleAutoCompleteDisplay] = useState('hidden')
   const [autoCompleteIdList, setAutoCompleteIdList] = useState([]);
   const [autoCompleteFocusId, setAutoCompleteFocusId] = useState('');
   const [spinToggle, setSpinToggle] = useState(false);
@@ -34,7 +34,7 @@ function MainPage() {
 
   function hideAutoComplete(e) {
     if (!e.target.className.includes('autocomplete')) {
-      toggleAutoCompleteDisplay('hide');
+      toggleAutoCompleteDisplay('hidden');
     }
   }
 
@@ -49,12 +49,12 @@ function MainPage() {
           [position.coords.latitude, position.coords.longitude]),
           () => dispatch(openModal('geo')
         )
-      ); 
+      );
     } else {
       dispatch(openModal('geo'))
     }
     
-    document.addEventListener("click", hideAutoComplete);
+    document.addEventListener('click', hideAutoComplete);
 
     return function cleanup() {
       document.removeEventListener('click', hideAutoComplete)
@@ -99,10 +99,11 @@ function MainPage() {
   }, [autoCompleteCategories]);
 
   function handleSubmit(e) {
+    console.log(e)
     e.preventDefault();
     dispatch(fetchYelpRestaurant({ 
-      categories: category, latitude, longitude
-    }));
+      categories: category, latitude, longitude, radius
+    })).catch(err => setSpinToggle(false));
     setSpinToggle(true);
   }
 
@@ -110,7 +111,6 @@ function MainPage() {
     let toggleClass;
     if (spinToggle) {
       toggleClass = 'inner-wheel';
-      // setSpinToggle(true)
     } else {
       toggleClass = '';
     }
@@ -147,6 +147,9 @@ function MainPage() {
         break;
       case 'Enter':
         e.preventDefault();
+
+        if (!autoCompleteCategories.length) break;
+
         setAutoCompleteCategories([]);
         setCategoryInput('');
         setCategoryDisplay(
@@ -178,19 +181,20 @@ function MainPage() {
               categories: category,
               latitude,
               longitude,
+              radius
             })
           );
         }}
       />
 
       <div className="main-page-headers">
-        <h1>Hungry Or Bored?</h1>
+        <h1 className="make-this-gray">Hungry Or Bored?</h1>
         <div className="shrug"></div>
       </div>
        
       <div className="category-container">
-        <div className="category-display-container">
-          Select a Category:
+        <div className="category-display-container  make-this-gray">
+          What are you craving?
           <div className="category-display">
             {`${categoryDisplay}`}
           </div>
@@ -224,13 +228,27 @@ function MainPage() {
             }
           </ul>
         </div>
-
       </div>
 
-      <button onClick={handleSubmit}>
-          Spin the Wheel
-      </button>
-      <Roulette class={handleToggle()} />
+      <div className="radius-container">
+        <div className="radius-display-container make-this-gray">
+            How far will you travel?
+          <div className="radius-display">
+            {Math.ceil(parseInt(radius) / 1610)} miles
+          </div>
+        </div>
+        <input
+          className="radius-input"
+          type="range"
+          min="1610"
+          max="40000"
+          value={radius}
+          onChange={(e) => setRadius(e.target.value)}
+        >
+        </input>
+      </div>
+
+      <Roulette class={handleToggle()} handleSubmit={handleSubmit} />
       
       <footer className='footer'>Copyright &copy; 2020 Restaurant Roulette</footer>
     </div>

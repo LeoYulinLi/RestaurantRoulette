@@ -5,12 +5,13 @@ const config = {
   headers: { Authorization: `Bearer ${yelp}` }
 };
 
-async function fetchRestaurant(categories, latitude, longitude, offset) {
+async function fetchRestaurant(categories, latitude, longitude, radius, offset) {
   return axios.get(
     "https://api.yelp.com/v3/businesses/search",
     {
       ...config,
-      params: { categories, latitude, longitude, open_now: true, offset, limit: 1 }
+      params: {
+        categories, latitude, longitude, radius, open_now: true, offset, limit: 1 }
     }
   )
 }

@@ -9,7 +9,7 @@
 }
 
 .h-restaurant-container {
-    height: 150px;
+    height: 180px;
     margin-bottom: 25px;
     width: -webkit-fill-available;
     border: 1px solid #dedddd;
@@ -67,6 +67,12 @@ font-weight: 900;
 //     padding-top: 5px;
 //     letter-spacing: 1.5px;
 // padding-bottom: 10px;
+}
+
+#profile-stars {
+    margin-left: 170px;
+    height: 20px;
+    width: 108px;
 }
 
 .restaurant-generator.price-container {
@@ -137,7 +143,6 @@ margin-bottom: 10px;
     font-size: 60px;
 }
 
-
 .contact {
     position: absolute;
     margin-top: 20px;
@@ -145,6 +150,7 @@ margin-bottom: 10px;
     font-size: 13px;
     color: #737180;
     text-transform: capitalize;
+    z-index: 5;
 }
 
 .yelp {
@@ -155,49 +161,40 @@ margin-bottom: 10px;
     padding-left: 14px;
     padding-right: 14px;
     cursor: pointer;
+    z-index: 5
+    
 }
 .yelp:active {
     color: rgb(247, 199, 7);
 }
 
 .yelp-icon {
-    color: #d32324;
-    /* background-color: pink; */
+color: #d32324;
     display: flex;
     justify-content: flex-end;
     margin-top: 1%;
     font-size: 28px;
+    z-index: -3;
 }
 
 
 .yelp-text {
-    background-color: #f43939;
+background-color: #f43939;
     color: white;
     border-radius: 34px 38px 38px 34px;
     padding: 10px;
     padding-left: 14px;
     padding-right: 40px;
     position: absolute;
-    z-index: -1;
     cursor: pointer;
     text-decoration: none;
     font-size: 16px;
     padding-top: 15px;
     height: 23px;
-    // animation: fadeInRight .5s;
 }
+
 .yelp-text-off {
     display: none;
 }
 
 
-// @keyframes fadeInRight {
-//    0% {
-//       opacity: .5;
-//       transform: translateX(5px);
-//    }
-//    100% {
-//       opacity: 1;
-//       transform: translateX(5px);
-//    }
-// } 

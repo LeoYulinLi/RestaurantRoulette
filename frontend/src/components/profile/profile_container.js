@@ -7,7 +7,7 @@ const mapStateToProps = (state) => {
   return {
     currentUser: state.session.user,
     restaurants: state.historyRestaurant
-    //may need to changhe that
+    //may need to change that 
   };
 };
 

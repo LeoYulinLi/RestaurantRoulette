@@ -6,14 +6,12 @@ class Roulette extends React.Component {
     super(props);
     // this.state = { spinToggle: false };
   }
-
- 
   
   render() {
 // let toggleClass;
 // if (this.state.spinToggle) {
 //   toggleClass = "inner-wheel";
-//   // setSpinToggle(true)
+// setSpinToggle(true)
 // } else {
 //   toggleClass = "";
 // }
@@ -26,25 +24,25 @@ class Roulette extends React.Component {
         <div id="wrapper">
           <div id="wheel">
             <div id={this.props.style ? this.props.style : this.props.class}>
-              <div className="sec">{/* <span className="fa fa-beer"></span> */}</div>
+              <div className="sec">{/* <span class="fa fa-beer"></span> */}</div>
               <div className="sec">
-                {/* <span className="fas fa-cocktail"></span> */}
+                {/* <span class="fas fa-cocktail"></span> */}
               </div>
-              <div className="sec">{/* <span className="fa fa-smile-o"></span> */}</div>
-              <div className="sec">{/* <span className="fa fa-heart-o"></span> */}</div>
-              <div className="sec">{/* <span className="fa fa-star-o"></span> */}</div>
+              <div className="sec">{/* <span class="fa fa-smile-o"></span> */}</div>
+              <div className="sec">{/* <span class="fa fa-heart-o"></span> */}</div>
+              <div className="sec">{/* <span class="fa fa-star-o"></span> */}</div>
               <div className="sec">
-                {/* <span className="fa fa-lightbulb-o"></span> */}
+                {/* <span class="fa fa-lightbulb-o"></span> */}
               </div>
             </div>
 
-            <div id="spin">
+            <div id="spin" onClick={this.props.handleSubmit}>
               <div
                 id={this.props.style ? "" : 'inner-spin'}
                 className={this.props.style ? this.props.style : ""}
-                onClick={this.wheelSpin}
+                
               ></div>
-            </div>
+            </div >
 
             <div id="shine"></div>
           </div>

@@ -63,7 +63,11 @@ class NavBar extends React.Component {
     return (
       <div className="main-nav-container">
         <div className="main-nav-content">
-          <Link to="/">Restaurant Roulette</Link>
+          <Link to="/">
+            <div className="main-nav-content logo">
+              Restaurant Roulette
+            </div>
+          </Link>
           {this.getLinks()}
         </div>
       </div>
