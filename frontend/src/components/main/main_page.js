@@ -16,7 +16,7 @@ function MainPage() {
   const [categoryInput, setCategoryInput] = useState("");
   const [categoryDisplay, setCategoryDisplay] = useState("");
   const [category, setCategory] = useState("");
-  const [[latitude, longitude], setLocation] = useState([]);
+  const [[latitude, longitude], setLocation] = useState([37.78, -122.39]);
   const [autoCompleteCategories, setAutoCompleteCategories] = useState([]);
   const [autoCompleteDisplay, toggleAutoCompleteDisplay] = useState('hidden')
   const [autoCompleteIdList, setAutoCompleteIdList] = useState([]);
