@@ -2,6 +2,8 @@
 
 .main-nav-container {
     height: 3rem;
+        z-index: 1;
+
     position: sticky;
     width: 100%;
     top: 0;
@@ -19,6 +21,7 @@
         align-items: center;
         max-width: 80rem;
         margin: auto;
+        padding: 0px 1em;
         & > a {
             color: $text-default;
             text-decoration: none;
