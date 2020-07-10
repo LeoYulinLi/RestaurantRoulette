@@ -22,14 +22,12 @@ router.post("/",
     let offset = Math.floor(Math.random() * 1000);
 
     try {
-      let result = await fetchRestaurant(categories, latitude, longitude, offset, radius)
+      let result = await fetchRestaurant(categories, latitude, longitude, radius, offset)
       offset = result.data.total;
       for (let i = 0; i < 5; i++) {
         console.log(`try ${i}: fetching restaurant`);
         if (result.data.businesses.length && !historiesIndex[result.data.businesses[0].id]) {
           const business = result.data.businesses[0];
-          console.log(historiesIndex);
-          console.log(business.id);
           const restaurant = new Restaurant({ ...business, yelp_id: business.id });
           try {
             await restaurant.save();
@@ -41,7 +39,7 @@ router.post("/",
           return res.json(business);
 
         } else {
-          result = await fetchRestaurant(categories, latitude, longitude, offset, radius);
+          result = await fetchRestaurant(categories, latitude, longitude, radius, offset);
           offset = Math.floor(Math.random() * result.data.total);
         }
       }
