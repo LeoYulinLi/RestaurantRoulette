@@ -3,6 +3,13 @@
   flex-direction: column;
   align-items: center;
   width: 600px;
+  margin-top: 32px;
+  background-color: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  -webkit-box-shadow: 3px 5px 5px 0px rgba(184,184,184,1);
+  -moz-box-shadow: 3px 5px 5px 0px rgba(184,184,184,1);
+  box-shadow: 3px 5px 5px 0px rgba(184,184,184,1);
 }
 
 .main-page-headers {
@@ -17,19 +24,16 @@
     height: 104px;
     width: 100px;
     background-size: 100%;
-    background-image: url(/shrug.png);
+    background-image: url('/shrug.png');
     background-repeat: no-repeat;
   }
 }
 
 .category-container {
-  // border: 1px solid #e6e6e6;
-  // border-radius: 4px;
-  // box-shadow: 0 1px 2px var(--shadow-2);
   margin-top: 32px;
   padding-top: 32px;
-  border-top: 1px solid #eeeeef;
-  width: 100%;
+  border-top: 1px solid #cdc9c9;
+  width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,6 +59,7 @@
 .autocomplete-input {
   border-radius: 0;
   width: 200px;
+  box-sizing: border-box;
 }
 
 .autocomplete-dropdown-list {
@@ -64,6 +69,7 @@
   position: absolute;
   top: 80%;
   min-width: 200px;
+  z-index: 2;
   &.hidden {
     display: none;
   }
@@ -77,8 +83,10 @@
   border: 1px solid rgb(163, 163, 163);
   border-top: none;
   height: 30px;
+  width: 200px;
   padding: 0.5em;
-  &.focus {
+  box-sizing: border-box;
+  &.focus, &:hover {
     background-color: lightcyan;
   }
   &:first-child {
