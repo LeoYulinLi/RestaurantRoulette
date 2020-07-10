@@ -31,15 +31,23 @@ function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
   }
 
   return (
-    <>
-      <div className="restaurant-generator container">
-        <div className="restaurant-generator close-modal-button-container">
-          <button
-            className="restaurant-generator close-modal-button"
-            onClick={close}
+    <div className="restaurant-generator container">
+      <div className="restaurant-generator close-modal-button-container">
+        <button
+          className="restaurant-generator close-modal-button"
+          onClick={close}
+        >X</button>
+      </div>
+      
+      <div className="restaurant-generator restaurant-container">
+        <div className="restaurant-generator restaurant-name">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`${restaurant.url}`}
           >
-            X
-          </button>
+            {`${restaurant.name}`}
+          </a>
         </div>
 
         <div className="restaurant-generator restaurant-container">
@@ -91,7 +99,7 @@ function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
           </div>
         </div>
       </div>
-      </>
+    </div>
   );
 }
 
