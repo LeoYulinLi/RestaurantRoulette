@@ -6,8 +6,6 @@ class Roulette extends React.Component {
     super(props);
     // this.state = { spinToggle: false };
   }
-
- 
   
   render() {
 // let toggleClass;
@@ -38,13 +36,13 @@ class Roulette extends React.Component {
               </div>
             </div>
 
-            <div id="spin">
+            <div id="spin" onClick={this.props.handleSubmit}>
               <div
                 id={this.props.style ? "" : 'inner-spin'}
                 className={this.props.style ? this.props.style : ""}
-                onClick={this.wheelSpin}
+                
               ></div>
-            </div>
+            </div >
 
             <div id="shine"></div>
           </div>
