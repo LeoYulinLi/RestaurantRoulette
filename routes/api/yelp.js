@@ -11,16 +11,21 @@ router.post("/",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     const user = await User.findById(req.user.id);
-    const { categories, latitude, longitude } = req.body;
+    const { categories, latitude, longitude, radius } = req.body;
     const initialOffset = Math.floor(Math.random() * 1000);
-    const result1 = await fetchRestaurant(categories, latitude, longitude, initialOffset)
 
+    debugger
+    const result1 = await fetchRestaurant(
+      categories, latitude, longitude, radius, initialOffset
+    )
 
     if (result1.data.businesses.length === 0) {
       const total = result1.data.total;
       const offset = Math.floor(Math.random() * total);
 
-      const result2 = await fetchRestaurant(categories, latitude, longitude, offset)
+      const result2 = await fetchRestaurant(
+        categories, latitude, longitude, radius, offset
+      )
       const business = result2.data.businesses[0];
       const restaurant = new Restaurant({ ...business, yelp_id: business.id });
       restaurant.save();
@@ -37,22 +42,6 @@ router.post("/",
       res.json(business);
 
     }
-
   });
 
 module.exports = router;
-
-/**
- * restaurant_actions
- *   creating a thunk action
- *   this thunk action will then dispatch an action creator
- * restaurant_api_util
- *   ajax call
- *   filters
- * backend that we create
- *   filters
- *   ajax call to the yelp database (yelp.js)
- *   This will return a bunch of restaurants
- *   Use a promise chain to check if that restaurant matches our filters
- *
- */
