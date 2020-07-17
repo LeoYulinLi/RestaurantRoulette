@@ -1,9 +1,3 @@
-routes:
--users
--restaurant history (actual user selections/results)
+# RestaurantRoulette
 
-home page:
-options:
-    - categories [+/-]
-    - 
-    - minimum rating
+[Wiki](https://github.com/LeoYulinLi/RestaurantRoulette/wiki) | [Live Demo](https://rrc-app.herokuapp.com/) 
