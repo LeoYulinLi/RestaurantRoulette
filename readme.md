@@ -1,6 +1,6 @@
 # RestaurantRoulette
 
-A web application is here solving for "what should we eat for today?" base on login user's current location and different preference crities, returning a list of potenital local food restaurnts that best matches user input, and saving user's accepted restaurant to the profile.    
+A web application is here solving for "what should we eat for today?" base on login user's current location and different preference criteria, returning a list of potenital local food restaurnts that best matches user input, and saving user's accepted restaurant to the profile.    
 
 [Wiki](https://github.com/LeoYulinLi/RestaurantRoulette/wiki) | [Live Demo](https://rrc-app.herokuapp.com/) 
 
