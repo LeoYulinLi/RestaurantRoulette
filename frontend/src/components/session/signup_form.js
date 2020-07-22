@@ -13,7 +13,9 @@ class SignupForm extends React.Component {
       password2: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.renderErrors = this.renderErrors.bind(this);
+    this.usernameErrors = this.usernameErrors.bind(this);
+    this.passwordErrors = this.passwordErrors.bind(this);
+    this.passwordTwoErrors = this.passwordTwoErrors.bind(this);
   }
 
   componentWillUnmount() {
@@ -38,13 +40,27 @@ class SignupForm extends React.Component {
     this.props.signup(user);
   }
 
-  renderErrors() {
+  usernameErrors() {
     return (
-      <ul>
-        {Object.keys(this.props.errors).map((error, i) => (
-          <li key={`error-${i}`}>{this.props.errors[error]}</li>
-        ))}
-      </ul>
+      <div className="render-errors">
+        {this.props.errors.username}
+      </div>
+    );
+  }
+
+  passwordErrors() {
+    return (
+      <div className="render-errors">
+        {this.props.errors.password}
+      </div>
+    );
+  }
+
+  passwordTwoErrors() {
+    return (
+      <div className="render-errors">
+        {this.props.errors.password2}
+      </div>
     );
   }
 
@@ -66,7 +82,7 @@ class SignupForm extends React.Component {
                 <h1>Sign up for Restaurant Roulette</h1>
               </div>
             </header>
-            <br />
+     
             <input
               className="input"
               type="text"
@@ -74,7 +90,8 @@ class SignupForm extends React.Component {
               onChange={this.update("username")}
               placeholder="Username"
             />
-            <br />
+            {this.usernameErrors()}
+           
             <input
               className="input"
               type="password"
@@ -82,7 +99,8 @@ class SignupForm extends React.Component {
               onChange={this.update("password")}
               placeholder="Password"
             />
-            <br />
+            {this.passwordErrors()}
+           
             <input
               className="input"
               type="password"
@@ -90,11 +108,12 @@ class SignupForm extends React.Component {
               onChange={this.update("password2")}
               placeholder="Confirm Password"
             />
-            <br />
+         
+            {this.passwordTwoErrors()}
             <button className="form-button" onClick={this.handleSubmit}>
               Sign up
             </button>
-            {this.renderErrors()}
+
           </div>
           <div
             className="form-link"

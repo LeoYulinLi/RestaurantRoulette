@@ -24,7 +24,7 @@
   box-sizing: border-box;
   border: 2px solid #ddd;
   border-radius: 12px;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   min-height: 48px;
   padding: 10px 16px;
   font-size: 16px;
@@ -35,10 +35,6 @@
 .input:hover {
   border: 2px solid rgb(205, 205, 205);
 }
-
-// .input:focus {
-//   border: 4px solid rgb(158, 220, 199);
-// }
 
 .form-button,
 .demo-login {
@@ -104,4 +100,10 @@
 .close-button:hover{
   cursor: pointer;
   filter: brightness(80%)
+}
+
+.render-errors {
+  font-size: 11px;
+  color: #f34242;
+  min-height: 1.3em;
 }

@@ -13,7 +13,8 @@ class LoginForm extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDemoLogin = this.handleDemoLogin.bind(this);
-    this.renderErrors = this.renderErrors.bind(this);
+    this.usernameErrors = this.usernameErrors.bind(this);
+    this.passwordErrors = this.passwordErrors.bind(this);
   }
 
   componentWillUnmount() {
@@ -43,17 +44,22 @@ class LoginForm extends React.Component {
     e.preventDefault();
     this.props.login({ username: "bilbo", password: "123456" });
   }
-
-  renderErrors() {
+  
+  usernameErrors() {
     return (
-      <ul>
-        {Object.keys(this.props.errors).map((error, i) => (
-          <li key={`error-${i}`}>{this.props.errors[error]}</li>
-        ))}
-      </ul>
+      <div className="render-errors">
+        {this.props.errors.username}
+      </div>
     );
   }
 
+  passwordErrors() {
+    return (
+      <div className="render-errors">
+        {this.props.errors.password}
+      </div>
+    );
+  }
   render() {
  
     return (
@@ -81,8 +87,9 @@ class LoginForm extends React.Component {
               value={this.state.username}
               onChange={this.update("username")}
               placeholder="Username"
-            />
-            <br />
+            /> 
+            {this.usernameErrors()}
+           
             <input
               className="input"
               type="password"
@@ -90,8 +97,9 @@ class LoginForm extends React.Component {
               onChange={this.update("password")}
               placeholder="Password"
             />
+            {this.passwordErrors()}
           </div>
-          <br />
+         
           <button className="form-button" onClick={this.handleSubmit}>
             Log in
           </button>
@@ -102,7 +110,6 @@ class LoginForm extends React.Component {
             >
             Demo Login
           </button>
-          {this.renderErrors()}
 
           <div
             className="form-link"
