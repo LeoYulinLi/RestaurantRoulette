@@ -16,25 +16,21 @@ async function fetchRestaurants(disjointYelpId) {
   const results = [];
   try {
     for (const ids of chunks) {
+      let index = chunks.indexOf(ids);
       results.push(await Promise.all(ids.map(async id => {
         console.log(`fetching ${id}`);
-        return fetchRestaurantById(id);
+        const result = await fetchRestaurantById(id);
+        const business = result.data;
+        console.log(`saving ${business.id}`);
+        const restaurant = new Restaurant({ ...business, yelp_id: business.id });
+        await restaurant.save();
+        return result;
       })));
-      await timer(2000);
+      await timer(2000 * index);
     }
   } catch (e) {
-    console.log(e);
+    console.log("Something went wrong when fetching restaurant from yelp");
   }
-  await chunks.map(async ids => await Promise.all(ids.map(async id => {
-    console.log(`fetching ${id}`);
-    return fetchRestaurantById(id);
-  })));
-  await Promise.all(results.map(async result => {
-    const business = result.data;
-    console.log(`saving ${business.id}`);
-    const restaurant = new Restaurant({ ...business, yelp_id: business.id });
-    return restaurant.save();
-  }));
   return results.map(result => result.data);
 }
 
@@ -45,7 +41,7 @@ async function fetchHistory(yelp_ids) {
   const fetchedRestaurants = await fetchRestaurants(idsToFetch);
   const unsorted = databaseRestaurants.concat(fetchedRestaurants);
   let obj = {};
-  unsorted.forEach(x => obj[x.yelp_id || x.id] = x)
+  unsorted.forEach(x => { if (x) obj[x.yelp_id || x.id] = x; })
   let ordered = yelp_ids.map(key => obj[key])
   return ordered;
 }
