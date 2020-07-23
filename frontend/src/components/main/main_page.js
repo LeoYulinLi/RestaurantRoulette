@@ -249,9 +249,9 @@ function MainPage() {
         </input>
       </div>
 
-      <Roulette class={handleToggle()} handleSubmit={handleSubmit} />
-      
-      <footer className='footer'>Copyright &copy; 2020 Restaurant Roulette</footer>
+      <div className="main-roulette-container">
+        <Roulette class={handleToggle()} handleSubmit={handleSubmit} />
+      </div>
     </div>
   );
 }
