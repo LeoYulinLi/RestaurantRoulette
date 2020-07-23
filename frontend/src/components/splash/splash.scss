@@ -77,5 +77,8 @@
 }
 
 .roulette-container {
-  margin-top: 42px;
+  margin: 42px 0;
+  #wrapper {
+    z-index: 0;
+  }
 }

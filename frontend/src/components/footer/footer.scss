@@ -1,0 +1,38 @@
+.footer-container {
+  height: 3rem;
+      z-index: 1;
+
+  position: sticky;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: white;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  .button-group {
+      display: flex;
+      flex-direction: row;
+  }
+  .footer-content {
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 80rem;
+      margin: auto;
+      padding: 0px 1em;
+      & > a {
+          color: $text-default;
+          text-decoration: none;
+          :hover {
+              color: $text-default-secondary;
+              text-decoration: none;
+          }
+      }
+      .logo {
+          color:#f43939;
+          font-family: 'Yellowtail', cursive;
+          font-size: 32px;
+          font-weight: 900;
+      }
+  }
+}

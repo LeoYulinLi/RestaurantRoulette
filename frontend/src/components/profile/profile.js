@@ -5,10 +5,6 @@ import RestaurantHistory from "./restaurant_history.jsx";
 
 
 class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     // console.log(this.props.currentUser.id);
     // this.props.fetchRestaurantHistory(this.props.currentUser.id);
