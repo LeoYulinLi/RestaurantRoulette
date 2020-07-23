@@ -5,7 +5,7 @@ const AboutPage = () => {
   return (
     <section className="about-page container">
       <h1 className="about-page header">
-        Get to know the team
+        The team behind the project
       </h1>
       
       <div className="about-members-container">
