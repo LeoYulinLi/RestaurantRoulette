@@ -25,7 +25,7 @@ const AboutPage = () => {
           github="https://github.com/LeoYulinLi"
           linkedIn="https://www.linkedin.com/in/leoyulinli/"
           angelList="https://angel.co/u/leoyulinli"
-          details="Serving as the lead back end engineer of the project, Leo is a software engineer experienced in React, Ruby on Rails, and Java/Kotlin development. He is passionate about using his skills to solve problems that positively impact every day life. As such, he tapped into his extensive programming knowledge, and played an integral part in building the back end. Utilizing async requests in parallel to fetch data from the API to improve overall load time, is one such example."
+          details="Serving as the lead back end engineer of the project, Leo is a software engineer experienced in React, Ruby on Rails, and Java/Kotlin development. Utilizing his extensive programming knowledge, he played an integral part in building the back end and utilizing async requests in parallel to improve load times. He is passionate about solving problems that positively impact every day life, and continues to seek out such projects."
           />
 
         <About
@@ -34,7 +34,7 @@ const AboutPage = () => {
           github="https://github.com/Jingwenkuang"
           linkedIn="https://www.linkedin.com/in/jingwen-wendy-kuang-169a1b52/"
           angelList="https://angel.co/u/jingwen-kuang"
-          details="Wendy is a software engineer with a background in biochemistry. In her previous line of work, she piloted analytic investigations in laboratories. Now, she is focused on developing web based applications through her fluency in Javascript, React, Ruby on Rails, MongoDB, HTML5 and CSS."
+          details="Wendy is a software engineer with a background in biochemistry. In her previous career, she piloted analytic investigations in laboratories. Now, she is focused on developing web based applications through her fluency in Javascript, React, Ruby on Rails, MongoDB, HTML5 and CSS."
         />
 
         <About
@@ -43,7 +43,7 @@ const AboutPage = () => {
           github="https://github.com/amendoza514"
           linkedIn="https://www.linkedin.com/in/alex-mendoza-aa4615b5/"
           angelList="https://angel.co/u/alexander-jordan-mendoza"
-          details="Alex is a data analyst turned software developer. He used his experience and knowledge of industry standards such as JavaScript, React, HTML, and CSS to channel his analytical and creative problem solving skills to support the project."
+          details="Alex is a data analyst turned software developer. He used his experience and knowledge of industry standards such as JavaScript, React, HTML, and CSS to channel his analytical and creative problem solving skills to support the project. Switching between the front end and back end, his contributions were essential in creating Restaurant Roulette."
           // Using my experience in tools like JavaScript, Ruby and React to channel his analytical and creative problem solving skills to support the project.
         />
       </div>
