@@ -14,9 +14,6 @@ io.sockets
   .on('connection', socketioJwt.authorize({
     secret: require('./config/keys').secretOrKey
   }))
-  .on('authenticate', (data) => {
-    console.log(data);
-  })
   .on('authenticated', (socket) => {
     // console.log(socket.decoded_token);
     console.log("HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");

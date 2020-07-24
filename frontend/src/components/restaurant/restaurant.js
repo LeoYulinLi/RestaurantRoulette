@@ -1,17 +1,10 @@
-import React/* , { useState, useEffect, useCallback } */ from "react";
-// import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import { acceptRestaurant } from '../../util/restaurant_api_util';
 import "./restaurant.scss";
 import GoogleMapReact from "google-map-react";
-// import Roulette from '../roulette/roulette.jsx'
 
 function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
   if (!restaurant.name.length) return null;
-  // if (!restaurant.name.length) {
-  //   return (
-  //     <Roulette />
-  //   );
-  // }
   
   function handleAccept() {
     acceptRestaurant().then(close);
@@ -89,34 +82,31 @@ function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
                 {` based on ${restaurant.review_count} Yelp reviews`}
               </div>
 
-            <div className="restaurant-generator restaurant-info">
-              <div className="restaurant-generator details-container">
-                {restaurant.categories.map((category) => (
+              <div className="restaurant-generator restaurant-info">
+                <div className="restaurant-generator details-container">
+                  {restaurant.categories.map((category) => (
+                    <div
+                      key={category.alias}
+                      className="restaurant-generator category"
+                    >
+                      {category.title}
+                    </div>
+                  ))}
+
                   <div
-                    key={category.alias}
-                    className="restaurant-generator category"
+                    className={`restaurant-generator price-container ${priceBorder}`}
                   >
-                    {category.title}
-                  </div>
-                ))}
+                    <div>{restaurant.price ? `${restaurant.price}` : ""}</div>
 
-                <div
-                  className={`restaurant-generator price-container ${priceBorder}`}
-                >
-                  <div>{restaurant.price ? `${restaurant.price}` : ""}</div>
-
-                  <div className="restaurant-generator price-denominator">
-                    {`${priceDenominator}`}
+                    <div className="restaurant-generator price-denominator">
+                      {`${priceDenominator}`}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-        
-
 
         <div className="restaurant-generator buttons-container">
           <div className="restaurant-generator accept button-container">
@@ -127,7 +117,9 @@ function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
             <button onClick={reroll}>Reroll</button>
           </div>
         </div>
+        
       </div>
+      
     </div>
   );
 }

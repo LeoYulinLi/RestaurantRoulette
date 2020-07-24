@@ -61,11 +61,9 @@ function MainPage() {
     socketRef.current = socket;
     const token = localStorage.getItem('jwtToken').substring(7);
     socket.on('connect', () => {
-      console.log('hello');
       socket
         .emit('authenticate', { token: token })
         .on('authenticated', () => {
-          console.log("yes this is socket");
           socket.on("newRestaurant", function(restaurant) {
             dispatch(receiveYelpRestaurant(restaurant));
           })
