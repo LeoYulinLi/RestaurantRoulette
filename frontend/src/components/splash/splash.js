@@ -1,6 +1,7 @@
 import React from 'react'
-import Roulette from '../roulette/roulette'
 import Modal from '../modal/modal'
+import Roulette from '../roulette/roulette'
+import AboutContainer from '../about/about_container'
 
 import './splash.scss'
 
@@ -49,6 +50,8 @@ class Splash extends React.Component {
         <div className="roulette-container">
           <Roulette style={'splash-inner-wheel'} /> 
         </div>
+
+        <AboutContainer/>
       </div>
     );
   }

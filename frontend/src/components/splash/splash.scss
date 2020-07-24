@@ -78,4 +78,11 @@
 
 .roulette-container {
   margin-top: 42px;
+  padding-bottom: 10px;
+  #wrapper {
+    z-index: 0;
+  }
+  #spin, #spin > * {
+    cursor: default;
+  }
 }
