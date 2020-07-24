@@ -24,10 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (decodedUser.exp < currentTime) {
       store.dispatch(logout());
-<<<<<<< HEAD
       window.location.href = '/';
-=======
->>>>>>> master
     }
   } else {
     store = configureStore({});
