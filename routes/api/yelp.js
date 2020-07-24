@@ -6,7 +6,7 @@ const passport = require("passport");
 const User = require("../../models/User");
 const fetchRestaurant = require("../../utils/restaurant_api_util").fetchRestaurant
 
-const fetchRandomRestaurant = (socket) => (
+const fetchRandomRestaurant = (socket, io) => (
   async ({ categories, latitude, longitude, excludeHistories = 1, radius }) => {
     const userId = socket.decoded_token.id;
     const findUsers = User.findById(userId);
@@ -32,13 +32,19 @@ const fetchRandomRestaurant = (socket) => (
           }
 
           await user.update({ $set: { rolled_restaurant: business.id } });
-          return socket.emit("newRestaurant", business);
+          const rooms = Object.keys(socket.rooms);
+          if (rooms.length > 0) {
+            return io.in(rooms[0]).emit("newRestaurant", business);
+          } else {
+            return io.emit("newRestaurant", business);
+          }
 
         } else {
           result = await fetchRestaurant(categories, latitude, longitude, radius, offset);
           offset = Math.floor(Math.random() * result.data.total);
         }
       }
+      console.log("no restaurant");
       return socket.emit("noRestaurant", { msg: "Maybe no restaurant" })
     } catch (e) {
       console.log(e);

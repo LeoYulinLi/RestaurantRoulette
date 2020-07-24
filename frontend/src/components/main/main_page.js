@@ -1,6 +1,7 @@
 // src/components/main/main_page.js
 
 import React, { useState, useEffect, useRef } from "react";
+import { useRouteMatch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 // import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
 import { receiveYelpRestaurant } from '../../actions/restaurant_actions';
@@ -25,6 +26,7 @@ function MainPage() {
   const [autoCompleteFocusId, setAutoCompleteFocusId] = useState('');
   const [spinToggle, setSpinToggle] = useState(false);
   const socketRef = useRef(null);
+  const matches = useRouteMatch();
 
   function selectCategories(state) {
     return state.categories;
@@ -66,16 +68,18 @@ function MainPage() {
         .on('authenticated', () => {
           socket.on("newRestaurant", function(restaurant) {
             dispatch(receiveYelpRestaurant(restaurant));
-          })
+          });
           socket.on("noRestaurant", () => {
             setSpinToggle(false);
-          })
+          });
+          if (matches.params.id) socket.emit("join", matches.params.id);
+
         })
         .on('unauthorized', (msg) => {
           console.log(`unauthorized: ${JSON.stringify(msg.data)}`);
         })
     })
-    
+
     document.addEventListener('click', hideAutoComplete);
 
     return function cleanup() {

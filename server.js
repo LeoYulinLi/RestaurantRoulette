@@ -17,12 +17,18 @@ io.sockets
   .on('authenticated', (socket) => {
     // console.log(socket.decoded_token);
     console.log("HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    const fetch = fetchRandomRestaurant(socket);
+    const fetch = fetchRandomRestaurant(socket, io);
 
     socket.on('fetchRestaurant', fetch);
     socket.on('disconnect', () => {
       console.log('Client disconnected');
     });
+    socket.on('join', (roomId) => {
+      console.log(JSON.stringify(socket.rooms));
+      Object.keys(socket.rooms).forEach(r => socket.leave(r));
+      console.log(`joinning ${roomId}`);
+      socket.join(roomId);
+    })
   });
 
 const db = require('./config/keys').mongoURI;
