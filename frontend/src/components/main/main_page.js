@@ -59,7 +59,7 @@ function MainPage() {
 
     const socket = io.connect('/');
     socketRef.current = socket;
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem('jwtToken').substring(7);
     socket.on('connect', () => {
       console.log('hello');
       socket

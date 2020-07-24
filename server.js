@@ -8,6 +8,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 const socketioJwt = require('socketio-jwt');
+const fetchRandomRestaurant = require("./routes/api/yelp");
 
 io.sockets
   .on('connection', socketioJwt.authorize({
