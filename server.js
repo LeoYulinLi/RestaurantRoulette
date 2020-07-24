@@ -1,8 +1,32 @@
 const axios = require('axios');
 const path = require('path');
+const http = require('http');
+const socketio = require('socket.io');
 
 const express = require("express");
 const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
+const socketioJwt = require('socketio-jwt');
+
+io.sockets
+  .on('connection', socketioJwt.authorize({
+    secret: require('./config/keys').secretOrKey
+  }))
+  .on('authenticate', (data) => {
+    console.log(data);
+  })
+  .on('authenticated', (socket) => {
+    // console.log(socket.decoded_token);
+    console.log("HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    const fetch = fetchRandomRestaurant(socket);
+
+    socket.on('fetchRestaurant', fetch);
+    socket.on('disconnect', () => {
+      console.log('Client disconnected');
+    });
+  });
+
 const db = require('./config/keys').mongoURI;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -43,4 +67,4 @@ app.use("/api/fetchYelpRestaurant", yelp);
 app.use("/api/acceptRestaurant", acceptRestaurant);
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server is running on port ${ port }`));
+server.listen(port, () => console.log(`Server is running on port ${ port }`));
