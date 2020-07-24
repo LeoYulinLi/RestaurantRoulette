@@ -67,6 +67,9 @@ function MainPage() {
           socket.on("newRestaurant", function(restaurant) {
             dispatch(receiveYelpRestaurant(restaurant));
           })
+          socket.on("noRestaurant", () => {
+            setSpinToggle(false);
+          })
         })
         .on('unauthorized', (msg) => {
           console.log(`unauthorized: ${JSON.stringify(msg.data)}`);
