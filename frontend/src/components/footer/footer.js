@@ -6,11 +6,18 @@ const Footer = () => {
   return (
     <footer className="footer-container">
       <div className="footer-content">
-        <Link to="/about">
-          <div className="footer-content about">
-            Meet the Team
-          </div>
-        </Link>
+        <div className="footer-contact">
+          <Link to="/about">
+            <div className="footer-content about">
+              Meet the Team
+            </div>
+          </Link>
+          <a href="https://github.com/LeoYulinLi/RestaurantRoulette">
+            <div className="footer-content">
+              Github
+            </div>
+          </a>
+        </div>
         <div>
             Copyright &copy; 2020 Restaurant Roulette
           </div>
