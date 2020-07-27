@@ -25,6 +25,7 @@ function MainPage() {
   const [autoCompleteIdList, setAutoCompleteIdList] = useState([]);
   const [autoCompleteFocusId, setAutoCompleteFocusId] = useState('');
   const [spinToggle, setSpinToggle] = useState(false);
+  const [roomId, setRoomId] = useState("");
   const socketRef = useRef(null);
   const matches = useRouteMatch();
 
@@ -73,6 +74,9 @@ function MainPage() {
             setSpinToggle(false);
           });
           if (matches.params.id) socket.emit("join", matches.params.id);
+          socket.on("joined", (id) => {
+            setRoomId(id);
+          });
 
         })
         .on('unauthorized', (msg) => {
@@ -127,6 +131,7 @@ function MainPage() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (spinToggle) return;
     socketRef.current.emit(
       "fetchRestaurant",
       { categories: category, latitude, longitude }
@@ -198,7 +203,11 @@ function MainPage() {
       setCategory(category.alias);
     }
   }
-  
+
+  function handleCopy(event) {
+    event.currentTarget.select();
+  }
+
   return (
     <div className="main-page">
       <Modal
@@ -279,7 +288,12 @@ function MainPage() {
         >
         </input>
       </div>
-
+      <div className="join">
+        { (matches.params.id) ? <h2>You have joined a room</h2> : <>
+          <h2 className="make-this-gray">Ask a friend to join</h2>
+          <input value={ `${document.location.href}/${roomId}` } readOnly onClick={handleCopy}/>
+        </>}
+      </div>
       <div className="main-roulette-container">
         <Roulette class={handleToggle()} handleSubmit={handleSubmit} />
       </div>

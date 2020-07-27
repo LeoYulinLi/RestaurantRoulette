@@ -15,10 +15,8 @@ io.sockets
     secret: require('./config/keys').secretOrKey
   }))
   .on('authenticated', (socket) => {
-    // console.log(socket.decoded_token);
-    console.log("HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     const fetch = fetchRandomRestaurant(socket, io);
-
+    socket.emit("joined", Object.keys(socket.rooms)[0]);
     socket.on('fetchRestaurant', fetch);
     socket.on('disconnect', () => {
       console.log('Client disconnected');
@@ -28,6 +26,7 @@ io.sockets
       Object.keys(socket.rooms).forEach(r => socket.leave(r));
       console.log(`joinning ${roomId}`);
       socket.join(roomId);
+      socket.emit("joined", roomId);
     })
   });
 
