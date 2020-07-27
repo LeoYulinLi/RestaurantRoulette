@@ -101,6 +101,22 @@
   }
 }
 
+.join {
+  width: 50%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1em;
+  h2 {
+    margin-bottom: 0.25em;
+  }
+  input {
+    border-radius: 0;
+    width: 100%;
+  }
+}
+
 .radius-container {
   margin: 32px 0;
   padding: 32px 0;
