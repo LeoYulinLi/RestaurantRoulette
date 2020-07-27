@@ -1,9 +1,12 @@
 // src/components/main/main_page.js
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useRouteMatch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
-import { fetchCategories } from "../../actions/category_actions"
+// import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
+import { receiveYelpRestaurant } from '../../actions/restaurant_actions';
+import { fetchCategories } from "../../actions/category_actions";
+import io from 'socket.io-client';
 import Modal from "../modal/modal";
 import { openModal } from "../../actions/modal_actions";
 import Roulette from '../roulette/roulette'
@@ -22,6 +25,8 @@ function MainPage() {
   const [autoCompleteIdList, setAutoCompleteIdList] = useState([]);
   const [autoCompleteFocusId, setAutoCompleteFocusId] = useState('');
   const [spinToggle, setSpinToggle] = useState(false);
+  const socketRef = useRef(null);
+  const matches = useRouteMatch();
 
   function selectCategories(state) {
     return state.categories;
@@ -53,11 +58,33 @@ function MainPage() {
     } else {
       dispatch(openModal('geo'))
     }
-    
+
+    const socket = io.connect('/');
+    socketRef.current = socket;
+    const token = localStorage.getItem('jwtToken').substring(7);
+    socket.on('connect', () => {
+      socket
+        .emit('authenticate', { token: token })
+        .on('authenticated', () => {
+          socket.on("newRestaurant", function(restaurant) {
+            dispatch(receiveYelpRestaurant(restaurant));
+          });
+          socket.on("noRestaurant", () => {
+            setSpinToggle(false);
+          });
+          if (matches.params.id) socket.emit("join", matches.params.id);
+
+        })
+        .on('unauthorized', (msg) => {
+          console.log(`unauthorized: ${JSON.stringify(msg.data)}`);
+        })
+    })
+
     document.addEventListener('click', hideAutoComplete);
 
     return function cleanup() {
-      document.removeEventListener('click', hideAutoComplete)
+      document.removeEventListener('click', hideAutoComplete);
+      socket.disconnect();
     }
   }, []);
 
@@ -99,11 +126,11 @@ function MainPage() {
   }, [autoCompleteCategories]);
 
   function handleSubmit(e) {
-    console.log(e)
     e.preventDefault();
-    dispatch(fetchYelpRestaurant({ 
-      categories: category, latitude, longitude, radius
-    })).catch(err => setSpinToggle(false));
+    socketRef.current.emit(
+      "fetchRestaurant",
+      { categories: category, latitude, longitude }
+    );
     setSpinToggle(true);
   }
 
@@ -177,13 +204,17 @@ function MainPage() {
       <Modal
         reroll={() => {
           setSpinToggle(true)
-          dispatch(
-            fetchYelpRestaurant({
-              categories: category,
-              latitude,
-              longitude,
-              radius
-            })
+          // dispatch(
+          //   fetchYelpRestaurant({
+          //     categories: category,
+          //     latitude,
+          //     longitude,
+          //     radius
+          //   })
+          // );
+          socketRef.current.emit(
+            "fetchRestaurant",
+            { categories: category, latitude, longitude }
           );
         }}
       />

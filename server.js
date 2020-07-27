@@ -1,8 +1,36 @@
 const axios = require('axios');
 const path = require('path');
+const http = require('http');
+const socketio = require('socket.io');
 
 const express = require("express");
 const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
+const socketioJwt = require('socketio-jwt');
+const fetchRandomRestaurant = require("./routes/api/yelp");
+
+io.sockets
+  .on('connection', socketioJwt.authorize({
+    secret: require('./config/keys').secretOrKey
+  }))
+  .on('authenticated', (socket) => {
+    // console.log(socket.decoded_token);
+    console.log("HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    const fetch = fetchRandomRestaurant(socket, io);
+
+    socket.on('fetchRestaurant', fetch);
+    socket.on('disconnect', () => {
+      console.log('Client disconnected');
+    });
+    socket.on('join', (roomId) => {
+      console.log(JSON.stringify(socket.rooms));
+      Object.keys(socket.rooms).forEach(r => socket.leave(r));
+      console.log(`joinning ${roomId}`);
+      socket.join(roomId);
+    })
+  });
+
 const db = require('./config/keys').mongoURI;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -43,4 +71,4 @@ app.use("/api/fetchYelpRestaurant", yelp);
 app.use("/api/acceptRestaurant", acceptRestaurant);
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server is running on port ${ port }`));
+server.listen(port, () => console.log(`Server is running on port ${ port }`));
