@@ -67,6 +67,7 @@ function MainPage() {
       socket
         .emit('authenticate', { token: token })
         .on('authenticated', () => {
+          socket.on("spun", () => setSpinToggle(true));
           socket.on("newRestaurant", function(restaurant) {
             dispatch(receiveYelpRestaurant(restaurant));
           });

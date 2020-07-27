@@ -8,6 +8,17 @@ const fetchRestaurant = require("../../utils/restaurant_api_util").fetchRestaura
 
 const fetchRandomRestaurant = (socket, io) => (
   async ({ categories, latitude, longitude, excludeHistories = 1, radius }) => {
+
+    const rooms = Object.keys(socket.rooms);
+    if (rooms.length < 1) {
+      console.log("Bad Socket (no room)");
+      return;
+    }
+
+    const room = rooms[0];
+
+    io.in(room).emit("spun", true);
+
     const userId = socket.decoded_token.id;
     const findUsers = User.findById(userId);
     const findHistories = excludeHistories && History.find({ user: userId }).sort({ createdAt: -1 }).limit(excludeHistories);
@@ -32,12 +43,7 @@ const fetchRandomRestaurant = (socket, io) => (
           }
 
           await user.update({ $set: { rolled_restaurant: business.id } });
-          const rooms = Object.keys(socket.rooms);
-          if (rooms.length > 0) {
-            return io.in(rooms[0]).emit("newRestaurant", business);
-          } else {
-            return io.emit("newRestaurant", business);
-          }
+          return io.in(room).emit("newRestaurant", business);
 
         } else {
           result = await fetchRestaurant(categories, latitude, longitude, radius, offset);
@@ -45,10 +51,10 @@ const fetchRandomRestaurant = (socket, io) => (
         }
       }
       console.log("no restaurant");
-      return socket.emit("noRestaurant", { msg: "Maybe no restaurant" })
+      return socket.in(room).emit("noRestaurant", { msg: "Maybe no restaurant" })
     } catch (e) {
       console.log(e);
-      return socket.emit("noRestaurant", { msg: "Something went wrong" })
+      return socket.in(room).emit("noRestaurant", { msg: "Something went wrong" })
     }
   }
 );
