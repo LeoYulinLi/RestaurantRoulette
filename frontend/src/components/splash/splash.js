@@ -50,8 +50,6 @@ class Splash extends React.Component {
         <div className="roulette-container">
           <Roulette style={'splash-inner-wheel'} /> 
         </div>
-
-        <AboutContainer/>
       </div>
     );
   }
