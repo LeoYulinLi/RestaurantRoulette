@@ -8,10 +8,9 @@ import GoogleMapReact from "google-map-react";
 import { Link } from 'react-router-dom'
 
 
-const MarkerComponent = ({ marker }) => (
+const MarkerComponent = () => (
   <div className="map-marker">
     <FontAwesomeIcon className="marker" icon={faMapPin} />
-    {marker}
   </div>
 );
 
@@ -67,10 +66,8 @@ class RestaurantHistory extends React.Component {
               defaultZoom={13}
             >
               <MarkerComponent
-                position={{
-                  lat: latitude,
-                  lng: longitude,
-                }}
+                lat={latitude}
+                lng={longitude}
               />
             </GoogleMapReact>
           </div>
