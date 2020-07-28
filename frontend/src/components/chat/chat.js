@@ -20,16 +20,38 @@ function Chat({ socket }) {
 
   const [hover, setHover] = useState(false);
   const toggleScrollbar = hover ? 'revealed' : 'hidden';
-  let msgContainer, scrollHeight, bottomHeight;
-  useEffect(() => {
-    // msgContainer = document.querySelector('.message-container');
-    // scrollHeight = msgContainer.scrollHeight;
-    // bottomHeight = scrollHeight - msgContainer.clientHeight;
-    const temp = document.querySelector('.message-container');
-    debugger
-    temp.dispatchEvent(new KeyboardEvent('keypress',  {'key':'h'}));
-  });
 
+  const [activeScroll, setActiveScroll] = useState(false);
+  const [scrollTop, setScrollTop] = useState(0);
+  const [bottomHeight, setBottomHeight] = useState(0);
+  const [scrollMessage, setScrollMessage] = useState('');
+
+  const msgContainer = useRef(null);
+  useEffect(() => {
+    msgContainer.current = document.querySelector('.message-container');
+  }, [])
+
+  useEffect(() => {
+    if (!activeScroll &&
+        msgContainer.current.scrollHeight > msgContainer.current.clientHeight
+    ) {
+      setActiveScroll(true);
+    }
+
+    if (activeScroll) {
+      setBottomHeight(
+        msgContainer.current.scrollHeight - msgContainer.current.clientHeight
+      );
+
+      if (msgContainer.current.scrollTop) {
+        setScrollMessage('Go to top');
+        setScrollTop(0);
+      } else {
+        setScrollMessage('Go to bottom');
+        setScrollTop(bottomHeight);
+      }
+    }
+  }, [messages]);
   
   return (
     <div
@@ -38,27 +60,30 @@ function Chat({ socket }) {
       onMouseLeave={ () => setHover(false) }
     >
       <h1>Messages</h1>
-      <div className={`message-container ${toggleScrollbar}`}
-        onKeyDown={
-          e => {
-            debugger
-          }
-        }
-      >
+      <div className={`message-container ${toggleScrollbar}`}>
         <div
           onClick={
             (e) => {
               e.preventDefault();
-              e.target.parentElement.dispatchEvent(new Event('focus'));
-              e.target.parentElement.dispatchEvent(
-                new KeyboardEvent('keydown', {'key': 'Home'})
-              );
+              msgContainer.current.scrollTop = scrollTop;
             }
           }
         >
-          Go to the top
+          { scrollMessage }
         </div>
+        
         { displayMessages }
+        
+        <div
+          onClick={
+            (e) => {
+              e.preventDefault();
+              msgContainer.current.scrollTop = scrollTop;
+            }
+          }
+        >
+          { scrollMessage }
+        </div>
       </div>
 
       <div className="message-input-container">
