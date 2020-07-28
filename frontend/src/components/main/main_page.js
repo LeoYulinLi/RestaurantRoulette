@@ -222,14 +222,6 @@ function MainPage() {
       <Modal
         reroll={() => {
           setSpinToggle(true)
-          // dispatch(
-          //   fetchYelpRestaurant({
-          //     categories: category,
-          //     latitude,
-          //     longitude,
-          //     radius
-          //   })
-          // );
           socketRef.current.emit(
             "fetchRestaurant",
             { categories: category, latitude, longitude }
