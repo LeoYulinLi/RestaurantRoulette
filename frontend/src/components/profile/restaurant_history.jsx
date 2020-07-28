@@ -8,6 +8,11 @@ import GoogleMapReact from "google-map-react";
 import { Link } from 'react-router-dom'
 
 
+const MarkerComponent = () => (
+  <div className="map-marker">
+    <FontAwesomeIcon className="marker" icon={faMapPin} />
+  </div>
+);
 
 class RestaurantHistory extends React.Component {
   constructor(props) {
@@ -59,7 +64,12 @@ class RestaurantHistory extends React.Component {
               }}
               defaultCenter={{ lat: latitude, lng: longitude }}
               defaultZoom={13}
-            ></GoogleMapReact>
+            >
+              <MarkerComponent
+                lat={latitude}
+                lng={longitude}
+              />
+            </GoogleMapReact>
           </div>
           <div className="h-restaurant-name">{this.props.restaurant.name}</div>
           <div
@@ -93,16 +103,18 @@ class RestaurantHistory extends React.Component {
               {this.props.restaurant.location.country}
             </div>
           </div>
-          <div className="yelp-icon" onClick={ () => <Link to={this.props.restaurant.url}/>} >
+          <div
+            className="yelp-icon"
+            onClick={() => <Link to={this.props.restaurant.url} />}
+          >
             <div className={toggleClass}>read more on yelp &nbsp;</div>
-            
-              <FontAwesomeIcon
-                className="yelp"
-                icon={faYelp}
-                onMouseEnter={this.toggleHover}
-                onMouseLeave={this.toggleHover}
-              />
 
+            <FontAwesomeIcon
+              className="yelp"
+              icon={faYelp}
+              onMouseEnter={this.toggleHover}
+              onMouseLeave={this.toggleHover}
+            />
           </div>
         </div>
       </>

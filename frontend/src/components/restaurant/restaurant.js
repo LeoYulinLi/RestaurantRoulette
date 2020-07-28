@@ -2,6 +2,14 @@ import React from "react";
 import { acceptRestaurant } from '../../util/restaurant_api_util';
 import "./restaurant.scss";
 import GoogleMapReact from "google-map-react";
+import { faMapPin } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+const MarkerComponent = () => (
+  <div className="map-marker">
+    <FontAwesomeIcon className="marker" icon={faMapPin} />
+  </div>
+);
 
 function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
   if (!restaurant.name.length) return null;
@@ -60,7 +68,12 @@ function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
                   lng: restaurant.coordinates.longitude,
                 }}
                 defaultZoom={13}
-              ></GoogleMapReact>
+              >
+                <MarkerComponent
+                  lat={restaurant.coordinates.latitude}
+                  lng={restaurant.coordinates.longitude}
+                />
+              </GoogleMapReact>
             </div>
 
             <div className="restaurant-generator contact-details-container">
@@ -117,9 +130,7 @@ function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
             <button onClick={reroll}>Reroll</button>
           </div>
         </div>
-        
       </div>
-      
     </div>
   );
 }
