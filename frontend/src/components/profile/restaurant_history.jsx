@@ -18,19 +18,37 @@ class RestaurantHistory extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hover: false };
-    this.toggleHover = this.toggleHover.bind(this)
+    this.toggleHover = this.toggleHover.bind(this);
+    this.addFilter = this.addFilter.bind(this);
+    this.addPrice = this.addPrice.bind(this);
   }
 
   toggleHover() {
     this.setState({ hover: !this.state.hover });
   }
 
+  addFilter(category) {
+    this.props.filterChange(category);
+  }
+
+  addPrice() { 
+    if (this.props.restaurant.price) {
+    let price = this.props.restaurant.price;
+      this.props.filterChange(price);
+    }
+  }
+
   render() {
+    let hoverOff;
+    this.props.restaurant.price
+       ? (hoverOff = '')
+      : (hoverOff = 'noHover');
+    
     let toggleClass;
     if (!this.state.hover) {
-        toggleClass = 'yelp-text-off'
+      toggleClass = "yelp-text-off";
     } else {
-        toggleClass = 'yelp-text'
+      toggleClass = "yelp-text";
     }
 
     let priceDenominator;
@@ -42,16 +60,21 @@ class RestaurantHistory extends React.Component {
       priceBorder = "gray";
     }
 
-    let price = 
-    <div className={`restaurant-generator price-ind-container ${priceBorder}`}>
-      <div>
-        {this.props.restaurant.price ? `${this.props.restaurant.price}` : ""}
-      </div>
+    let price = (
+      <div
+        id={hoverOff}
+        className={`restaurant-generator price-ind-container ${priceBorder}`}
+        onClick={this.addPrice}
+      >
+        <div>
+          {this.props.restaurant.price ? `${this.props.restaurant.price}` : ""}
+        </div>
 
-      <div className="restaurant-generator price-denominator">
-        {`${priceDenominator}`}
+        <div className="restaurant-generator price-denominator">
+          {`${priceDenominator}`}
+        </div>
       </div>
-    </div>;
+    );
 
     const { latitude, longitude } = this.props.restaurant.coordinates;
     return (
@@ -85,7 +108,11 @@ class RestaurantHistory extends React.Component {
           <div className="h-restaurant-cats">
             {this.props.restaurant.categories.map((category, idx) => {
               return (
-                <li className="category-ind" key={idx}>
+                <li
+                  className="category-ind"
+                  key={idx}
+                  onClick={() => this.addFilter(category.title)}
+                >
                   {category.title}
                 </li>
               );
