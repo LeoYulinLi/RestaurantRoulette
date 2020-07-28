@@ -302,9 +302,9 @@ function MainPage() {
         </div>
         
         <div className="join">
-          { (matches.params.id) ? <h2>You have joined a room</h2> : <>
+          { (invitationRoomId) ? <h2>You have joined a room</h2> : <>
             <h2 className="make-this-gray">Ask a friend to join</h2>
-            <input value={ `${document.location.href}/${roomId}` } readOnly onClick={handleCopy}/>
+            <input value={`${window.location.href.split("/#")[0]}/#/join/${joinedRoomId}`} readOnly onClick={handleCopy}/>
           </>}
         </div>
 
