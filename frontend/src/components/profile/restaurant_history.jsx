@@ -88,10 +88,7 @@ class RestaurantHistory extends React.Component {
               defaultCenter={{ lat: latitude, lng: longitude }}
               defaultZoom={13}
             >
-              <MarkerComponent
-                lat={latitude}
-                lng={longitude}
-              />
+              <MarkerComponent lat={latitude} lng={longitude} />
             </GoogleMapReact>
           </div>
           <div className="h-restaurant-name">{this.props.restaurant.name}</div>
@@ -130,11 +127,7 @@ class RestaurantHistory extends React.Component {
               {this.props.restaurant.location.country}
             </div>
           </div>
-          <div
-            className="yelp-icon"
-            // onClick={() => <Link to={this.props.restaurant.url} />}
-              onClick={() => window.location.href= this.props.restaurant.url}
-          >
+          <div className="yelp-icon">
             <div className={toggleClass}>read more on yelp &nbsp;</div>
 
             <FontAwesomeIcon
@@ -142,6 +135,7 @@ class RestaurantHistory extends React.Component {
               icon={faYelp}
               onMouseEnter={this.toggleHover}
               onMouseLeave={this.toggleHover}
+              onClick={() => (window.location.href = this.props.restaurant.url)}
             />
           </div>
         </div>
