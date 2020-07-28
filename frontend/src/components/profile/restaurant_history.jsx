@@ -44,7 +44,7 @@ class RestaurantHistory extends React.Component {
     }
 
     let price = 
-    <div className={`restaurant-generator price-container ${priceBorder}`}>
+    <div className={`restaurant-generator price-ind-container ${priceBorder}`}>
       <div>
         {this.props.restaurant.price ? `${this.props.restaurant.price}` : ""}
       </div>
@@ -85,15 +85,15 @@ class RestaurantHistory extends React.Component {
           <div className="h-restaurant-reviews">
             based on {this.props.restaurant.review_count} Yelp reviews
           </div>
-          <div className="h-restaurant-categories">
+          <div className="h-restaurant-cats">
             {this.props.restaurant.categories.map((category, idx) => {
               return (
-                <li className="category" key={idx}>
+                <li className="category-ind" key={idx}>
                   {category.title}
                 </li>
               );
             })}
-            <div id="h-restaurant-price">{price}</div>
+            <div id="h-restaurant-price-ind">{price}</div>
           </div>
           <div className="contact">
             <div className="restaurant-phone">

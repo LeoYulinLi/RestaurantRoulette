@@ -1,7 +1,7 @@
 // src/components/main/main_page.js
 
 import React, { useState, useEffect, useRef } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 // import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
 import { receiveYelpRestaurant } from '../../actions/restaurant_actions';
@@ -11,6 +11,7 @@ import Modal from "../modal/modal";
 import { openModal } from "../../actions/modal_actions";
 import Roulette from '../roulette/roulette'
 import "./main_page.scss"
+import { joinRoom } from "../../actions/join_actions";
 
 function MainPage() {
   const dispatch = useDispatch();
@@ -25,9 +26,12 @@ function MainPage() {
   const [autoCompleteIdList, setAutoCompleteIdList] = useState([]);
   const [autoCompleteFocusId, setAutoCompleteFocusId] = useState('');
   const [spinToggle, setSpinToggle] = useState(false);
-  const [roomId, setRoomId] = useState("");
+  const [joinedRoomId, setJoinedRoomId] = useState("");
   const socketRef = useRef(null);
-  const matches = useRouteMatch();
+
+  function roomSelector(state) {
+    return state.join.roomId;
+  }
 
   function selectCategories(state) {
     return state.categories;
@@ -35,6 +39,8 @@ function MainPage() {
   function selectRestaurant(state) {
     return state.generatedRestaurant;
   }
+
+  const invitationRoomId = useSelector(roomSelector);
   const restaurant = useSelector(selectRestaurant);
   const categories = useSelector(selectCategories);
 
@@ -74,9 +80,9 @@ function MainPage() {
           socket.on("noRestaurant", () => {
             setSpinToggle(false);
           });
-          if (matches.params.id) socket.emit("join", matches.params.id);
+          if (invitationRoomId) socket.emit("join", invitationRoomId);
           socket.on("joined", (id) => {
-            setRoomId(id);
+            setJoinedRoomId(id);
           });
 
         })
@@ -90,6 +96,7 @@ function MainPage() {
     return function cleanup() {
       document.removeEventListener('click', hideAutoComplete);
       socket.disconnect();
+      dispatch(joinRoom(null));
     }
   }, []);
 
@@ -290,9 +297,9 @@ function MainPage() {
         </input>
       </div>
       <div className="join">
-        { (matches.params.id) ? <h2>You have joined a room</h2> : <>
+        { (invitationRoomId) ? <h2>You have joined a room</h2> : <>
           <h2 className="make-this-gray">Ask a friend to join</h2>
-          <input value={ `${document.location.href}/${roomId}` } readOnly onClick={handleCopy}/>
+          <input value={`${window.location.href.split("/#")[0]}/#/join/${joinedRoomId}`} readOnly onClick={handleCopy}/>
         </>}
       </div>
       <div className="main-roulette-container">
