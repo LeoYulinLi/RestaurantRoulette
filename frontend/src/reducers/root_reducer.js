@@ -7,6 +7,7 @@ import generatedRestaurant from './generated_reducer';
 import historyRestaurant from "./history_reducer";
 import categories from './category_reducer';
 import ui from "./ui_reducer";
+import join from "./join_reducer";
 
 const RootReducer = combineReducers({
   session,
@@ -15,6 +16,7 @@ const RootReducer = combineReducers({
   historyRestaurant,
   categories,
   ui,
+  join
 });
 
 export default RootReducer;
