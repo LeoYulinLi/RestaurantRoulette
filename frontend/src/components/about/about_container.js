@@ -1,9 +1,12 @@
 import React from 'react';
 import About from './about';
+import Modal from '../modal/modal';
 
 const AboutPage = () => {
   return (
     <section className="about-page container">
+      <Modal />
+      
       <h1 className="about-page header">
         The team behind the project
       </h1>
