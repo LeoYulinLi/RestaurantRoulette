@@ -5,10 +5,9 @@ import GoogleMapReact from "google-map-react";
 import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const MarkerComponent = ({ marker }) => (
+const MarkerComponent = () => (
   <div className="map-marker">
     <FontAwesomeIcon className="marker" icon={faMapPin} />
-    {marker}
   </div>
 );
 
@@ -71,10 +70,8 @@ function Restaurant({ restaurant, reroll, clearRestaurant, closeModal }) {
                 defaultZoom={13}
               >
                 <MarkerComponent
-                  position={{
-                    lat: restaurant.coordinates.latitude,
-                    lng: restaurant.coordinates.longitude,
-                  }}
+                  lat={restaurant.coordinates.latitude}
+                  lng={restaurant.coordinates.longitude}
                 />
               </GoogleMapReact>
             </div>
