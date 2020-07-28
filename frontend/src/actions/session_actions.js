@@ -27,8 +27,12 @@ export const clearErrors = () => ({
 
 export const signup = (user) => (dispatch) =>
   APIUtil.signup(user)
-    .then((user) => {
-      dispatch(receiveCurrentUser(user));
+    .then((res) => {
+      const { token } = res.data;
+      localStorage.setItem("jwtToken", token);
+      APIUtil.setAuthToken(token);
+      const decoded = jwt_decode(token);
+      dispatch(receiveCurrentUser(decoded));
       dispatch(closeModal());
     })
     .catch((err) => {

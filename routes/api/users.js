@@ -31,15 +31,14 @@ router.post("/register", (req, res) => {
   // Check to make sure nobody has already registered with a duplicate email
   User.findOne({ username: req.body.username }).then((user) => {
     if (user) {
-      // Throw a 400 error if the username address already exists
+      // Throw a 400 error if the username already exists
       return res
         .status(400)
-        .json({ username: "A user has already registered with this address" });
+        .json({ username: "A user has already registered with this username" });
     } else {
       // Otherwise create a new user
       const newUser = new User({
         username: req.body.username,
-        // email: req.body.email,
         password: req.body.password,
       });
 
@@ -49,7 +48,20 @@ router.post("/register", (req, res) => {
           newUser.password = hash;
           newUser
             .save()
-            .then((user) => res.json(user))
+            .then((user) => {
+              jwt.sign(
+                { id: user.id, name: user.name },
+                keys.secretOrKey,
+                // Tell the key to expire in one hour
+                { expiresIn: 3600 },
+                (err, token) => {
+                  res.json({
+                    success: true,
+                    token: "Bearer " + token,
+                  });
+                }
+              );
+            })
             .catch((err) => console.log(err));
         });
       });
