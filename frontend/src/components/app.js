@@ -11,6 +11,7 @@ import Footer from "./footer/footer";
 
 import "./app.scss"
 import AboutPage from "./about/about_container";
+import Join from "./join";
 
 const App = () => (
   <>
@@ -19,7 +20,7 @@ const App = () => (
       <Switch>
         <AuthRoute exact path="/" component={Splash} />
         <ProtectedRoute exact path="/main" component={MainPage} />
-        <ProtectedRoute exact path="/main/:id" component={MainPage} />
+        <Route exact path="/join/:id" component={Join} />
         <ProtectedRoute exact path="/profile" component={ProfileContainer} />
         <Route exact path="/about">
           <AboutPage />
