@@ -4,20 +4,35 @@
     margin: 20px;
 }
 
+#filter-text {
+    display: inline;
+    font-style: italic;
+    font-weight: 100;
+    color: #3333336b;
+}
+
 .history-title {
     margin: 25px;
+    margin-bottom: 10px;
 }
 
 .h-restaurant-container {
     height: 180px;
     margin-bottom: 25px;
-    width: -webkit-fill-available;
+    /* margin-left: 15%; */
+    width: 850px;
     border: 1px solid #dedddd;
     padding: 20px;
-    float: left;
+    /* float: left; */
     border-radius: 4px;
-    margin-right: 20px;
+    /* margin-right: 20px; */
     background-color: white;
+}
+
+.history-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .h-restaurant-picture {
@@ -30,7 +45,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #49adad;
+    // background-color: #49adad;
 }
 
 .h-restaurant-name {
@@ -42,7 +57,7 @@
     padding-bottom: 2px;
     margin-bottom: 3px;
     font-family: Poppins,Helvetica Neue,Helvetica,Arial,sans-serif;
-font-weight: 900;
+    font-weight: 900;
 }
 
 .h-restaurant-rating {
@@ -91,21 +106,22 @@ font-weight: 900;
     cursor: pointer;
 }
 
+
 .restaurant-generator.price-ind-container:hover {
     background-color: #4CAF50;
     color: white;
 }
 
-// .restaurant-generator.price-container:active {
-//     background-color: #f43939;
-//     color: white;
-//     border: 2px solid #f43939;
-// }
-
 .h-restaurant-reviews {
     font-size: 14px;
     color: #737180;
     margin-top: 2px;
+}
+
+#filters {
+    margin-top: auto;
+    font-weight: 900;
+    color: #333333;
 }
 
 .h-restaurant-cats {
@@ -128,16 +144,105 @@ margin-bottom: 10px;
     cursor: pointer;
 }
 
+.filter-ind {
+margin-bottom: 10px;
+    margin-right: 10px;
+    border: 2px solid #f43939;
+    background-color: #f43939;
+    color: white;
+    border-radius: 28px;
+    padding: 6px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.filter-ind-price {
+margin-bottom: 10px;
+    margin-right: 10px;
+    border: 2px solid #4CAF50;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 28px;
+    padding: 6px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+#current-filters {
+    font-weight: 900;
+    padding-top: 7px;
+    margin-right: 10px;
+}
+
+#reset {
+margin-bottom: 10px;
+    margin-right: 10px;
+    border: 2px solid #333333;
+    background-color: #edf0f5;
+    color: #333333;
+    border-radius: 28px;
+    padding: 6px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#reset:hover {
+margin-bottom: 10px;
+    margin-right: 10px;
+    border: 2px solid #333333;
+    background-color: #333333;
+    color: white;
+    border-radius: 28px;
+    padding: 6px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.filter-ind:hover {
+margin-bottom: 10px;
+    margin-right: 10px;
+    border: 2px solid #f43939;
+    background-color: #edf0f5;
+    color: #f43939;
+    border-radius: 28px;
+    padding: 6px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.filter-ind-price:hover {
+margin-bottom: 10px;
+    margin-right: 10px;
+    background-color: #edf0f5;
+    border: 2px solid #4CAF50;
+    color: #4CAF50;
+    border-radius: 28px;
+    padding: 6px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
 .category-ind:hover {
     background-color: #f43939;
     color: white;
 }
-
-// .category:active {
-//     background-color: #49adae;
-//     color: white;
-//     border: 2px solid #49adae;
-// }
 
 .temp-map {
     color: #f43939;
