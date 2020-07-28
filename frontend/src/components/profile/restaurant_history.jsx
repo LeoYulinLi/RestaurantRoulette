@@ -132,7 +132,8 @@ class RestaurantHistory extends React.Component {
           </div>
           <div
             className="yelp-icon"
-            onClick={() => <Link to={this.props.restaurant.url} />}
+            // onClick={() => <Link to={this.props.restaurant.url} />}
+              onClick={() => window.location.href= this.props.restaurant.url}
           >
             <div className={toggleClass}>read more on yelp &nbsp;</div>
 
