@@ -85,7 +85,6 @@ function MainPage() {
           socket.on("joined", (id) => {
             setJoinedRoomId(id);
           });
-
         })
         .on('unauthorized', (msg) => {
           console.log(`unauthorized: ${JSON.stringify(msg.data)}`);
@@ -229,82 +228,83 @@ function MainPage() {
         }}
       />
 
-      <Chat />
-      
-      <div className="main-page">
-        <div className="main-page-headers">
-          <h1 className="make-this-gray">Hungry Or Bored?</h1>
-          <div className="shrug"></div>
-        </div>
-        
-        <div className="category-container">
-          <div className="category-display-container  make-this-gray">
-            What are you craving?
-            <div className="category-display">
-              {`${categoryDisplay}`}
+      {/* <div className="main-page-header">
+        <h1 className="make-this-gray">Hungry Or Bored?</h1>
+        <div className="shrug"></div>
+      </div> */}
+
+      <section className="main-section">
+        <div className="options-container">
+          <div className="category-container">
+            <div className="category-display-container  make-this-gray">
+              What are you craving?
+              <div className="category-display">
+                {`${categoryDisplay}`}
+              </div>
             </div>
+            
+            <div className="autocomplete-container">
+              <input
+                className="autocomplete-input"
+                value={categoryInput}
+                onChange={e => setCategoryInput(e.target.value.toLowerCase())}
+                onKeyDown={handleDropdown}
+                onClick={() => toggleAutoCompleteDisplay('')}
+              />
+
+              <ul className={`autocomplete-dropdown-list ${autoCompleteDisplay}`}>
+                {
+                  autoCompleteCategories.map( category => {
+                    let focus = '';
+                    if (category.alias === autoCompleteFocusId) focus = 'focus';
+                    return (
+                      <li
+                        id={category.alias}
+                        key={category.alias}
+                        className={`autocomplete-dropdown-item ${focus}`}
+                        onClick={handleDropdownClick(category)}
+                      >
+                        {`${category.title} (${category.alias})`}
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+            </div>
+          </div>
+
+          <div className="radius-container">
+            <div className="radius-display-container make-this-gray">
+                How far will you travel?
+              <div className="radius-display">
+                {Math.ceil(parseInt(radius) / 1610)} miles
+              </div>
+            </div>
+            <input
+              className="radius-input"
+              type="range"
+              min="1610"
+              max="40000"
+              value={radius}
+              onChange={(e) => setRadius(e.target.value)}
+            >
+            </input>
           </div>
           
-          <div className="autocomplete-container">
-            <input
-              className="autocomplete-input"
-              value={categoryInput}
-              onChange={e => setCategoryInput(e.target.value.toLowerCase())}
-              onKeyDown={handleDropdown}
-              onClick={() => toggleAutoCompleteDisplay('')}
-            />
+          <div className="join">
+            { (invitationRoomId) ? <h2>You have joined a room</h2> : <>
+              <h2 className="make-this-gray">Ask a friend to join</h2>
+              <input value={`${window.location.href.split("/#")[0]}/#/join/${joinedRoomId}`} readOnly onClick={handleCopy}/>
+            </>}
+          </div>
 
-            <ul className={`autocomplete-dropdown-list ${autoCompleteDisplay}`}>
-              {
-                autoCompleteCategories.map( category => {
-                  let focus = '';
-                  if (category.alias === autoCompleteFocusId) focus = 'focus';
-                  return (
-                    <li
-                      id={category.alias}
-                      key={category.alias}
-                      className={`autocomplete-dropdown-item ${focus}`}
-                      onClick={handleDropdownClick(category)}
-                    >
-                      {`${category.title} (${category.alias})`}
-                    </li>
-                  )
-                })
-              }
-            </ul>
+          <div className="main-roulette-container">
+            <Roulette class={handleToggle()} handleSubmit={handleSubmit} />
           </div>
         </div>
 
-        <div className="radius-container">
-          <div className="radius-display-container make-this-gray">
-              How far will you travel?
-            <div className="radius-display">
-              {Math.ceil(parseInt(radius) / 1610)} miles
-            </div>
-          </div>
-          <input
-            className="radius-input"
-            type="range"
-            min="1610"
-            max="40000"
-            value={radius}
-            onChange={(e) => setRadius(e.target.value)}
-          >
-          </input>
-        </div>
-        
-        <div className="join">
-          { (invitationRoomId) ? <h2>You have joined a room</h2> : <>
-            <h2 className="make-this-gray">Ask a friend to join</h2>
-            <input value={`${window.location.href.split("/#")[0]}/#/join/${joinedRoomId}`} readOnly onClick={handleCopy}/>
-          </>}
-        </div>
-
-        <div className="main-roulette-container">
-          <Roulette class={handleToggle()} handleSubmit={handleSubmit} />
-        </div>
-      </div>
-
+        <Chat />
+      </section>
 
     </div>
   );

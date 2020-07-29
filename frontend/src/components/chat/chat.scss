@@ -3,18 +3,21 @@
   flex-flow: column nowrap;
   justify-content: flex-end;
   width: 300px;
-  height: 905px;
-  margin: 32px 16px;
+  height: 695px;
+  margin: 32px 0 32px 16px;
+  box-sizing: border-box;
   background-color: white;
   border: 1px solid #e6e6e6;
   border-radius: 8px;
   box-shadow: 3px 5px 5px 0px #b8b8b8;
   position: relative;
-  h1 {
+  .messages-header {
     display: flex;
+    align-items: center;
     justify-content: center;
+    height: 50px;
+    box-sizing: border-box;
     color: #f43939;
-    padding: 16px 10px;
     background-color: #f5f6f7;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -24,10 +27,10 @@
     display: flex;
     flex-direction: column-reverse;
     width: 100%;
-    height: 870px;
+    height: 580px;
     overflow-y: auto;
-    margin: 16px 0;
-    padding: 0 16px;
+    margin-bottom: 15px;
+    padding: 0 15px;
     box-sizing: border-box;
   }
   .message-container::-webkit-scrollbar {
@@ -46,7 +49,7 @@
   .message, .message-input {
     display: inline-block;
     overflow-wrap: break-word;
-    margin-bottom: 16px;
+    margin-bottom: 15px;
     padding: 10px;
     bottom: 0;
     border: none;
@@ -63,7 +66,9 @@
     margin: 0;
   }
   .message-input-container {
-    padding: 0 16px;
+    height: 50px;
+    padding: 0 15px;
+    box-sizing: border-box;
     .message-input {
       width: 100%;
     }
@@ -86,7 +91,7 @@
   width: 18px;
   height: 18px;
   padding: 8px;
-  margin: 16px 0 16px -17px;
+  margin: 15px 0 15px -17px;
   border-radius: 50%;
   color: white;
   background-color: #f43939;
@@ -96,9 +101,9 @@
     display: none;
   }
   &.to-top {
-    top: 64px;
+    top: 50px;
   }
   &.to-bottom {
-    bottom: 51px;
+    bottom: 50px;
   }
 }

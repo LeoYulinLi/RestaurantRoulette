@@ -87,7 +87,9 @@ function Chat({ socket }) {
       onMouseEnter={ () => setHover(true) }
       onMouseLeave={ () => setHover(false) }
     >
-      <h1>Messages</h1>
+      <div className="messages-header">
+        <h1>Messages</h1>
+      </div>
       
       <div
         className={`scroll-button to-top ${toggleTopButton}`}
