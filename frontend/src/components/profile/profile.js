@@ -9,6 +9,7 @@ class Profile extends React.Component {
     super(props) 
     this.state = { filters: [] };
     this.filterChange = this.filterChange.bind(this);
+    this.deleteFilter = this.deleteFilter.bind(this);
   }
 
   componentWillMount() {
@@ -30,24 +31,31 @@ class Profile extends React.Component {
     }
   }
 
+  deleteFilter(idx) {
+    let newFilters = this.state.filters
+      .slice(0, idx)
+      .concat(this.state.filters.slice(idx + 1));
+      this.setState({ filters: newFilters});
+  }
+
   render() {
     let filterText = this.state.filters.length === 0 ? <div id='filter-text'>none, click categories to add!</div> : '';
 
     let filterArray;
     if (this.state.filters !== []) {
     filterArray = 
-      this.state.filters.map(category => {
+      this.state.filters.map((category, idx) => {
         if (!category.includes('$')) {
-          return <div className="filter-ind">{category}</div>
+          return <div key={idx} className="filter-ind" onClick={() => this.deleteFilter(idx)}>{category}</div>
         } else {
-          return <div className="filter-ind-price">{category}</div>;
+          return <div key={idx} className="filter-ind-price" onClick={() => this.deleteFilter(idx)}>{category}</div>;
         }
       })
     } 
 
     let reset;
     if (this.state.filters.length !== 0){
-      reset = <button id='reset' onClick={() =>  this.setState({ filters: [] })}>Reset</button>
+      reset = <button id='reset' onClick={() =>  this.setState({ filters: [] })}>Reset All</button>
     }
 
     let filteredResults = [];
