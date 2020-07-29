@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Message from './message';
 import './chat.scss';
 
-function Chat({ socket }) {
+function Chat(props) {
   const [messages, setMessages] = useState([]);
   let displayMessages = messages.map((message, idx) => {
     const messageLocation = 
@@ -75,7 +75,8 @@ function Chat({ socket }) {
     if (e.key === 'Enter') {
       e.preventDefault();
       if (e.target.textContent) {
-        setMessages( [e.target.textContent].concat(messages) );
+        // socket.emit('message', { message: e.target.textContent });
+        // setMessages( [e.target.textContent].concat(messages) );
         e.target.textContent = '';
       }
     }

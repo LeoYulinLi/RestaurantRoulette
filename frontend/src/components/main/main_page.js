@@ -303,7 +303,14 @@ function MainPage() {
           </div>
         </div>
 
-        <Chat />
+        <Chat
+          emitMessage={ (message) =>
+            socketRef.current.emit('message', { message })
+          }
+          onMessage={ (cb) =>
+            socketRef.current.on('message', ({ message }) => cb(message))
+          }
+        />
       </section>
 
     </div>
