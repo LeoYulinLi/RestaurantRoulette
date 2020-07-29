@@ -9,8 +9,7 @@ function Chat({ socket }) {
     const messageLocation = 
       idx === messages.length - 1 ? 'top-message'    :
       idx ===                   0 ? 'bottom-message' : '';
-
-
+    
     return (
       <span key={idx} id={messageLocation} className="message">
         {message}
@@ -22,9 +21,9 @@ function Chat({ socket }) {
   const toggleScrollbar = hover ? 'revealed' : 'hidden';
 
   const [activeScroll, setActiveScroll] = useState(false);
-  const [scrollTop, setScrollTop] = useState(0);
   const [bottomHeight, setBottomHeight] = useState(0);
-  const [scrollMessage, setScrollMessage] = useState('');
+  const [toggleTopButton, setTopButton] = useState('hidden');
+  const [toggleBottomButton, setBottomButton] = useState('hidden');
 
   const msgContainer = useRef(null);
   useEffect(() => {
@@ -36,22 +35,51 @@ function Chat({ socket }) {
         msgContainer.current.scrollHeight > msgContainer.current.clientHeight
     ) {
       setActiveScroll(true);
-    }
-
-    if (activeScroll) {
-      setBottomHeight(
-        msgContainer.current.scrollHeight - msgContainer.current.clientHeight
-      );
-
-      if (msgContainer.current.scrollTop) {
-        setScrollMessage('Go to top');
-        setScrollTop(0);
-      } else {
-        setScrollMessage('Go to bottom');
-        setScrollTop(bottomHeight);
-      }
+      setTopButton('revealed');
     }
   }, [messages]);
+
+  function handleScroll() {
+    if (activeScroll) {
+      const bottomHeight = 
+        msgContainer.current.scrollHeight - msgContainer.current.clientHeight;
+      setBottomHeight(bottomHeight);
+
+      if (msgContainer.current.scrollTop === 0) {
+        setTopButton('hidden');
+        setBottomButton('revealed');
+      } else if (msgContainer.current.scrollTop === bottomHeight) {
+        setTopButton('revealed');
+        setBottomButton('hidden');
+      } else {
+        setTopButton('revealed');
+        setBottomButton('revealed');
+      }
+    }
+  }
+
+  function scroll(location) {
+    return e => {
+      e.preventDefault();
+      if (location === 'top') {
+        msgContainer.current.scrollTop = 0;
+        setTopButton('hidden')
+      } else {
+        msgContainer.current.scrollTop = bottomHeight;
+        setBottomButton('hidden');
+      }
+    }
+  }
+  
+  function sendMessage(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (e.target.textContent) {
+        setMessages( [e.target.textContent].concat(messages) );
+        e.target.textContent = '';
+      }
+    }
+  }
   
   return (
     <div
@@ -60,30 +88,25 @@ function Chat({ socket }) {
       onMouseLeave={ () => setHover(false) }
     >
       <h1>Messages</h1>
-      <div className={`message-container ${toggleScrollbar}`}>
-        <div
-          onClick={
-            (e) => {
-              e.preventDefault();
-              msgContainer.current.scrollTop = scrollTop;
-            }
-          }
+      
+      <div
+        className={`scroll-button to-top ${toggleTopButton}`}
+        onClick={scroll('top')}
         >
-          { scrollMessage }
-        </div>
-        
+        ⬆
+      </div>
+
+      <div className={`message-container ${toggleScrollbar}`}
+        onScroll={handleScroll}
+        >
         { displayMessages }
-        
-        <div
-          onClick={
-            (e) => {
-              e.preventDefault();
-              msgContainer.current.scrollTop = scrollTop;
-            }
-          }
-        >
-          { scrollMessage }
-        </div>
+      </div>
+
+      <div
+        className={`scroll-button to-bottom ${toggleBottomButton}`}
+        onClick={scroll('bottom')}
+      >
+        ⬇
       </div>
 
       <div className="message-input-container">
@@ -91,19 +114,7 @@ function Chat({ socket }) {
           className="message-input"
           contentEditable="true"
           placeholder="Type a message..."
-          onKeyDown={
-            (e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                if (e.target.textContent) {
-                  setMessages(
-                    [e.target.textContent].concat(messages)
-                  );
-                  e.target.textContent = '';
-                }
-              }
-            }
-          }
+          onKeyDown={sendMessage}
         />
       </div>
     </div>

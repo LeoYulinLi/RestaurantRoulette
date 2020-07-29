@@ -36,15 +36,15 @@ class LoginForm extends React.Component {
       password: this.state.password,
     };
 
-    this.props.history.push('/main');
     this.props.login(user);
+    this.props.history.push('/main');
   }
 
 
   handleDemoLogin(e) {
     e.preventDefault();
-    this.props.history.push('/main');
     this.props.login({ username: "bilbo", password: "123456" });
+    this.props.history.push('/main');
   }
   
   usernameErrors() {

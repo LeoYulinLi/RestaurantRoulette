@@ -4,12 +4,12 @@
   justify-content: flex-end;
   width: 300px;
   height: 905px;
-  box-sizing: border-box;
   margin: 32px 16px;
   background-color: white;
   border: 1px solid #e6e6e6;
   border-radius: 8px;
   box-shadow: 3px 5px 5px 0px #b8b8b8;
+  position: relative;
   h1 {
     display: flex;
     justify-content: center;
@@ -26,7 +26,7 @@
     width: 100%;
     height: 870px;
     overflow-y: auto;
-    margin-bottom: 16px;
+    margin: 16px 0;
     padding: 0 16px;
     box-sizing: border-box;
   }
@@ -43,13 +43,6 @@
   .message-container.revealed::-webkit-scrollbar-thumb {
     display: block;
   }
-  .message {
-    width: fit-content;
-    max-width: 100%;
-  }
-  .message:first-child {
-    margin-bottom: 0;
-  }
   .message, .message-input {
     display: inline-block;
     overflow-wrap: break-word;
@@ -62,6 +55,13 @@
     box-sizing: border-box;
     outline: none;
   }
+  .message {
+    width: fit-content;
+    max-width: 100%;
+  }
+  .message:first-of-type {
+    margin: 0;
+  }
   .message-input-container {
     padding: 0 16px;
     .message-input {
@@ -69,8 +69,36 @@
     }
   }
 }
+
 [contentEditable=true]:empty::before {
   color: #90949b;
   cursor: text;
   content: attr(placeholder)
+}
+
+
+.scroll-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  padding: 8px;
+  margin: 16px 0 16px -17px;
+  border-radius: 50%;
+  color: white;
+  background-color: #f43939;
+  font-size: 18px;
+  cursor: pointer;
+  &.hidden {
+    display: none;
+  }
+  &.to-top {
+    top: 64px;
+  }
+  &.to-bottom {
+    bottom: 51px;
+  }
 }
