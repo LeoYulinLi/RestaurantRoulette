@@ -32,36 +32,38 @@ const Splash = () => {
         <div className="splash-info-row-container">
           <div className="splash-info-icon restaurant"></div>
           <span className="splash-info-row">
-              <span className="splash-info-row-header">
-                Discover new restaurants
-              </span>
-              <> with our random generator.</>
+            <span className="splash-info-row-header">
+              Discover new restaurants
             </span>
+            <> with our random generator.</>
+          </span>
         </div>
 
         <div className="splash-info-row-container">
           <div className="splash-info-icon salad"></div>
           <span className="splash-info-row">
-              <span className="splash-info-row-header">
-                Satisfy your cravings
-              </span>
-              <> by selecting a category.</>
+            <span className="splash-info-row-header">
+              Satisfy your cravings
             </span>
+            <> by selecting a category.</>
+          </span>
         </div>
 
         <div className="splash-info-row-container">
           <div className="splash-info-icon agree"></div>
           <span className="splash-info-row">
-              <span className="splash-info-row-header">
-                Agree on a restaurant
-              </span>
-              <> with the click of a button.</>
+            <span className="splash-info-row-header">
+              Agree on a restaurant
             </span>
+            <> with the click of a button.</>
+          </span>
         </div>
       </div>
 
       <div className="roulette-container">
-        <Roulette style={'splash-inner-wheel'} />
+        <Roulette style={"splash-inner-wheel"} />
+        <div id="rr-logo">R</div>
+        <div id="rr-logo2">R</div>
       </div>
     </div>
   );

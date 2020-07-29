@@ -80,11 +80,38 @@ a{
     margin: -27px 0 0 -27px;
     border-radius: 50%;
     background: red;
-    z-index: 999;
+	z-index: 100001;
+	
     /* box-shadow: white 0px -2px 0px inset, white 0px 2px 0px inset, rgba(0, 0, 0, 0.4) 0px 0px 5px; */
-    background: white;
+	background: white;
     /* background: radial-gradient(ellipse at center, white 0%, #eaeaea 100%); */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eaeaea',GradientType=1 );
+}
+
+#rr-logo {
+ 	position: absolute;
+    /* display: flex; */
+    /* text-align: center; */
+    justify-content: center;
+    margin-top: -151px;
+    margin-left: 115px;
+    font-family: 'Yellowtail', cursive;
+    color: #F43939;
+    font-weight: bolder;
+    font-size: 22px;
+}
+
+#rr-logo2 {
+     position: absolute;
+    /* display: flex; */
+    /* text-align: center; */
+    justify-content: center;
+    margin-top: -144px;
+    margin-left: 129px;
+    font-family: 'Yellowtail', cursive;
+    color: #F43939;
+    font-weight: bolder;
+    font-size: 22px;
 }
 
 @keyframes rotate {
