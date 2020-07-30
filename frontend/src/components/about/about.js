@@ -21,18 +21,21 @@ const About = ({ name, imagePath, github, linkedIn, angelList, details }) => {
         <a href={github}>
           <img className="github"
             src='githubIcon.svg'
+            alt={`${name} github`}
             />
         </a>
 
         <a href={linkedIn}>
           <img className="github"
             src='linkedInIcon.svg'
+            alt={`${name} linkedIn`}
             />
         </a>
 
         <a href={angelList}>
           <img className="github"
             src='angelListIcon.svg'
+            alt={`${name} AngelList`}
           />
         </a>
       </div>

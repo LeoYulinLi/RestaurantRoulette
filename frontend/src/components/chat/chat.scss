@@ -76,6 +76,13 @@
       overflow-y: auto;
     }
   }
+  .message-username {
+    margin-top: 10px;
+  }
+  .chat-connection {
+    margin-bottom: 15px;
+    align-self: center;
+  }
 }
 
 [contentEditable=true]:empty::before {

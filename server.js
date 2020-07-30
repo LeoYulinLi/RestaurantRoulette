@@ -18,9 +18,13 @@ io.sockets
   .on('authenticated', async (socket) => {
     const fetch = fetchRandomRestaurant(socket, io);
     const user = User.findById(socket.decoded_token.id);
+    let currentRoom;
 
     socket.on('fetchRestaurant', fetch);
     socket.on('disconnect', () => {
+      user.then(user => {
+        io.to(currentRoom).emit('leaveChat', user.username);
+      })
       console.log('Client disconnected');
     });
     socket.on('join', (roomId) => {
@@ -33,6 +37,8 @@ io.sockets
           roomId: Object.keys(socket.rooms)[0],
           username: user.username
         });
+        io.to(Object.keys(socket.rooms)[0]).emit('joinChat', user.username);
+        currentRoom = Object.keys(socket.rooms)[0];
         console.log(`${user.username} joined ${Object.keys(socket.rooms)[0]}`);
       });
     });
