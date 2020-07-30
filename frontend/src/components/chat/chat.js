@@ -101,13 +101,15 @@ function Chat({ socket, username, roomId, emitMessage, onMessage }) {
     }
   }
 
-  if (socket) {
-    socket.on('chat', (data) => {
-      setMessages(
-        [{ username: data.username, message: data.message }].concat(messages)
-      );
-    });
-  }
+  useEffect(() => {
+    if (socket) {
+      socket.on('chat', (data) => {
+        setMessages(messages =>
+          [{ username: data.username, message: data.message }].concat(messages)
+        );
+      });
+    }
+  }, [socket]);
   
   return (
     <div
