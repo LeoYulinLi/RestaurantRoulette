@@ -91,11 +91,7 @@ function Chat({ socket, username, roomId, emitMessage, onMessage }) {
     if (e.key === 'Enter') {
       e.preventDefault();
       if (e.target.textContent) {
-        socket.emit('message', {
-          roomId: roomId,
-          username: username,
-          message: e.target.textContent
-        });
+        socket.emit('message', e.target.textContent);
         e.target.textContent = '';
       }
     }
@@ -104,6 +100,7 @@ function Chat({ socket, username, roomId, emitMessage, onMessage }) {
   useEffect(() => {
     if (socket) {
       socket.on('chat', (data) => {
+        console.log(data);
         setMessages(messages =>
           [{ username: data.username, message: data.message }].concat(messages)
         );

@@ -87,6 +87,7 @@ function MainPage() {
           });
           if (invitationRoomId) socket.emit("join", invitationRoomId);
           socket.on("joined", ({roomId, username}) => {
+            console.log(username, roomId);
             setJoinedRoomId(roomId);
             setUsername(username);
           });
