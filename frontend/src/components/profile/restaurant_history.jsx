@@ -1,11 +1,9 @@
 import "./history.scss";
 import React from "react";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import { faYelp } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import GoogleMapReact from "google-map-react";
-import { Link } from 'react-router-dom'
 
 
 const MarkerComponent = () => (

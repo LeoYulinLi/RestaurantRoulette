@@ -1,9 +1,7 @@
 // src/components/main/main_page.js
 
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// import { fetchYelpRestaurant } from "../../actions/restaurant_actions";
 import { receiveYelpRestaurant } from '../../actions/restaurant_actions';
 import { fetchCategories } from "../../actions/category_actions";
 import io from 'socket.io-client';
@@ -75,9 +73,6 @@ function MainPage() {
       socket
         .emit('authenticate', { token: token })
         .on('authenticated', () => {
-          // socket.emit('connectToChat', {
-
-          // })
           socket.on("spun", () => setSpinToggle(true));
           socket.on("newRestaurant", function(restaurant) {
             dispatch(receiveYelpRestaurant(restaurant));
@@ -205,6 +200,9 @@ function MainPage() {
       case 'Escape':
         e.preventDefault();
         e.currentTarget.blur();
+        break;
+      default:
+        e.preventDefault();
     }
   }
   

@@ -1,6 +1,5 @@
 // src/components/profile/profile.js
 import React from "react";
-import { Link } from 'react-router-dom'
 import RestaurantHistory from "./restaurant_history.jsx";
 
 
@@ -13,8 +12,6 @@ class Profile extends React.Component {
   }
 
   componentWillMount() {
-    // console.log(this.props.currentUser.id);
-    // this.props.fetchRestaurantHistory(this.props.currentUser.id);
     this.props.fetchRestaurantHistory();
   }
 
@@ -84,7 +81,7 @@ class Profile extends React.Component {
       history = (
         <div className="history-container">
           <h2 className="history-title">Your Past Spins</h2>
-          <div className="filters" className="h-restaurant-cats">
+          <div className="filters h-restaurant-cats">
             <div id="current-filters">Current Filters: {filterText} </div>
             {filterArray}
             {reset}

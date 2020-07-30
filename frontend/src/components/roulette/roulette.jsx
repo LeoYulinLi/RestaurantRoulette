@@ -2,19 +2,7 @@ import React from 'react';
 import "./roulette.scss";
 
 class Roulette extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.state = { spinToggle: false };
-  }
-  
   render() {
-// let toggleClass;
-// if (this.state.spinToggle) {
-//   toggleClass = "inner-wheel";
-// setSpinToggle(true)
-// } else {
-//   toggleClass = "";
-// }
     return (
       <>
         <link

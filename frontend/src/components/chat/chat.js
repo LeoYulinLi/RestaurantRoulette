@@ -1,9 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './chat.scss';
 
-function Chat({ socket, username, roomId, emitMessage, onMessage }) {
+function Chat({ socket, username }) {
   const [messages, setMessages] = useState([]);
   let displayMessages = messages.map((message, idx) => {
+    if (message.connection) {
+      if (message.connecter === username) {
+        return (
+          <div key={idx} className="chat-connection">
+            you have {message.connection} the chat
+          </div>
+        );
+      }
+
+      return (
+        <div key={idx} className="chat-connection">
+          {message.connecter} has {message.connection} the chat
+        </div>
+      );
+    }
+    
     if (message.username === username) {
       return (
         <span key={idx} className="message sent">
@@ -12,24 +28,24 @@ function Chat({ socket, username, roomId, emitMessage, onMessage }) {
       );
     }
     
-    if (messages.length > 1 &&
-        idx < messages.length - 1 && 
-        messages[idx + 1].username === message.username
+    if (
+      idx < messages.length - 1 && 
+      messages[idx + 1].username === message.username
     ) {
       return (
-        <span className="message received">
+        <span key={idx} className="message received">
           {message.message}
         </span>
       );
     }
 
     return (
-      <>
+      <React.Fragment key={idx}>
         <span className="message received">
           {message.message}
         </span>
-        <div>{message.username}</div>
-      </>
+        <div className="message-username">{message.username}</div>
+      </React.Fragment>
     )
   });
 
@@ -103,6 +119,16 @@ function Chat({ socket, username, roomId, emitMessage, onMessage }) {
         setMessages(messages =>
           [{ username: data.username, message: data.message }].concat(messages)
         );
+      });
+      socket.on('joinChat', (username) => {
+        setMessages(messages =>
+          [{ connecter: username, connection: 'joined' }].concat(messages)
+        )
+      });
+      socket.on('leaveChat', (username) => {
+        setMessages(messages =>
+          [{ connecter: username, connection: 'left' }].concat(messages)
+        )
       });
     }
   }, [socket]);
