@@ -28,6 +28,7 @@ function MainPage() {
   const [autoCompleteFocusId, setAutoCompleteFocusId] = useState('');
   const [spinToggle, setSpinToggle] = useState(false);
   const [joinedRoomId, setJoinedRoomId] = useState("");
+  const [username, setUsername] = useState('');
   const socketRef = useRef(null);
 
   function roomSelector(state) {
@@ -74,6 +75,9 @@ function MainPage() {
       socket
         .emit('authenticate', { token: token })
         .on('authenticated', () => {
+          // socket.emit('connectToChat', {
+
+          // })
           socket.on("spun", () => setSpinToggle(true));
           socket.on("newRestaurant", function(restaurant) {
             dispatch(receiveYelpRestaurant(restaurant));
@@ -82,8 +86,9 @@ function MainPage() {
             setSpinToggle(false);
           });
           if (invitationRoomId) socket.emit("join", invitationRoomId);
-          socket.on("joined", (id) => {
-            setJoinedRoomId(id);
+          socket.on("joined", ({roomId, username}) => {
+            setJoinedRoomId(roomId);
+            setUsername(username);
           });
         })
         .on('unauthorized', (msg) => {
@@ -228,11 +233,6 @@ function MainPage() {
         }}
       />
 
-      {/* <div className="main-page-header">
-        <h1 className="make-this-gray">Hungry Or Bored?</h1>
-        <div className="shrug"></div>
-      </div> */}
-
       <section className="main-section">
         <div className="options-container">
           <div className="category-container">
@@ -304,12 +304,9 @@ function MainPage() {
         </div>
 
         <Chat
-          emitMessage={ (message) =>
-            socketRef.current.emit('message', { message })
-          }
-          onMessage={ (cb) =>
-            socketRef.current.on('message', ({ message }) => cb(message))
-          }
+          socket={socketRef.current}
+          username={username}
+          roomId={joinedRoomId}
         />
       </section>
 

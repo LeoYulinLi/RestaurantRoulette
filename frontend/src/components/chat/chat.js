@@ -1,20 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import Message from './message';
 import './chat.scss';
 
-function Chat(props) {
+function Chat({ socket, username, roomId, emitMessage, onMessage }) {
   const [messages, setMessages] = useState([]);
   let displayMessages = messages.map((message, idx) => {
-    const messageLocation = 
-      idx === messages.length - 1 ? 'top-message'    :
-      idx ===                   0 ? 'bottom-message' : '';
+    if (message.username === username) {
+      return (
+        <span key={idx} className="message sent">
+          {message.message}
+        </span>
+      );
+    }
     
+    if (messages.length > 1 &&
+        idx < messages.length - 1 && 
+        messages[idx + 1].username === message.username
+    ) {
+      return (
+        <span className="message received">
+          {message.message}
+        </span>
+      );
+    }
+
     return (
-      <span key={idx} id={messageLocation} className="message">
-        {message}
-      </span>
-    );
+      <>
+        <span className="message received">
+          {message.message}
+        </span>
+        <div>{message.username}</div>
+      </>
+    )
   });
 
   const [hover, setHover] = useState(false);
@@ -75,11 +91,22 @@ function Chat(props) {
     if (e.key === 'Enter') {
       e.preventDefault();
       if (e.target.textContent) {
-        // socket.emit('message', { message: e.target.textContent });
-        // setMessages( [e.target.textContent].concat(messages) );
+        socket.emit('message', {
+          roomId: roomId,
+          username: username,
+          message: e.target.textContent
+        });
         e.target.textContent = '';
       }
     }
+  }
+
+  if (socket) {
+    socket.on('chat', (data) => {
+      setMessages(
+        [{ username: data.username, message: data.message }].concat(messages)
+      );
+    });
   }
   
   return (

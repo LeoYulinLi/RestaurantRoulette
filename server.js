@@ -9,6 +9,7 @@ const server = http.createServer(app);
 const io = socketio(server);
 const socketioJwt = require('socketio-jwt');
 const fetchRandomRestaurant = require("./routes/api/yelp");
+const User = require('./models/User');
 
 io.sockets
   .on('connection', socketioJwt.authorize({
@@ -16,7 +17,13 @@ io.sockets
   }))
   .on('authenticated', (socket) => {
     const fetch = fetchRandomRestaurant(socket, io);
-    socket.emit("joined", Object.keys(socket.rooms)[0]);
+    User.findById(socket.decoded_token.id)
+      .then((user) => {
+        socket.emit("joined", {
+          roomId: Object.keys(socket.rooms)[0],
+          username: user.username
+        });
+      });
     socket.on('fetchRestaurant', fetch);
     socket.on('disconnect', () => {
       console.log('Client disconnected');
@@ -27,7 +34,10 @@ io.sockets
       console.log(`joinning ${roomId}`);
       socket.join(roomId);
       socket.emit("joined", roomId);
-    })
+    });
+    socket.on('message', (data) => {
+      io.to(data.roomId).emit('chat', data)
+    });
   });
 
 const db = require('./config/keys').mongoURI;
