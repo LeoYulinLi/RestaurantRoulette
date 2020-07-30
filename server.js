@@ -15,15 +15,15 @@ io.sockets
   .on('connection', socketioJwt.authorize({
     secret: require('./config/keys').secretOrKey
   }))
-  .on('authenticated', (socket) => {
+  .on('authenticated', async (socket) => {
     const fetch = fetchRandomRestaurant(socket, io);
-    User.findById(socket.decoded_token.id)
-      .then((user) => {
-        socket.emit("joined", {
-          roomId: Object.keys(socket.rooms)[0],
-          username: user.username
-        });
+    const user = User.findById(socket.decoded_token.id);
+    user.then(user => {
+      socket.emit("joined", {
+        roomId: Object.keys(socket.rooms)[0],
+        username: user.username
       });
+    });
     socket.on('fetchRestaurant', fetch);
     socket.on('disconnect', () => {
       console.log('Client disconnected');
@@ -35,8 +35,9 @@ io.sockets
       socket.join(roomId);
       socket.emit("joined", roomId);
     });
-    socket.on('message', (data) => {
-      io.to(data.roomId).emit('chat', data)
+    socket.on('message', async (message) => {
+      const { username } = await user;
+      io.to(Object.keys(socket.rooms)[0]).emit('chat', { message, username })
     });
   });
 
