@@ -85,9 +85,8 @@ function MainPage() {
           socket.on("noRestaurant", () => {
             setSpinToggle(false);
           });
-          if (invitationRoomId) socket.emit("join", invitationRoomId);
+          socket.emit("join", invitationRoomId);
           socket.on("joined", ({roomId, username}) => {
-            console.log(username, roomId);
             setJoinedRoomId(roomId);
             setUsername(username);
           });
@@ -295,7 +294,10 @@ function MainPage() {
           <div className="join">
             { (invitationRoomId) ? <h2>You have joined a room</h2> : <>
               <h2 className="make-this-gray">Ask a friend to join</h2>
-              <input value={`${window.location.href.split("/#")[0]}/#/join/${joinedRoomId}`} readOnly onClick={handleCopy}/>
+              <input
+                value={joinedRoomId && `${window.location.href.split("/#")[0]}/#/join/${joinedRoomId}`}
+                readOnly onClick={handleCopy}
+              />
             </>}
           </div>
 

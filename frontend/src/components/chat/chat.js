@@ -100,7 +100,6 @@ function Chat({ socket, username, roomId, emitMessage, onMessage }) {
   useEffect(() => {
     if (socket) {
       socket.on('chat', (data) => {
-        console.log(data);
         setMessages(messages =>
           [{ username: data.username, message: data.message }].concat(messages)
         );

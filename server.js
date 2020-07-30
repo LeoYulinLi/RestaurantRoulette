@@ -18,22 +18,23 @@ io.sockets
   .on('authenticated', async (socket) => {
     const fetch = fetchRandomRestaurant(socket, io);
     const user = User.findById(socket.decoded_token.id);
-    user.then(user => {
-      socket.emit("joined", {
-        roomId: Object.keys(socket.rooms)[0],
-        username: user.username
-      });
-    });
+
     socket.on('fetchRestaurant', fetch);
     socket.on('disconnect', () => {
       console.log('Client disconnected');
     });
     socket.on('join', (roomId) => {
-      console.log(JSON.stringify(socket.rooms));
-      Object.keys(socket.rooms).forEach(r => socket.leave(r));
-      console.log(`joinning ${roomId}`);
-      socket.join(roomId);
-      socket.emit("joined", roomId);
+      if (roomId) {
+        Object.keys(socket.rooms).forEach(r => socket.leave(r));
+        socket.join(roomId);
+      }
+      user.then(user => {
+        socket.emit("joined", {
+          roomId: Object.keys(socket.rooms)[0],
+          username: user.username
+        });
+        console.log(`${user.username} joined ${Object.keys(socket.rooms)[0]}`);
+      });
     });
     socket.on('message', async (message) => {
       const { username } = await user;
