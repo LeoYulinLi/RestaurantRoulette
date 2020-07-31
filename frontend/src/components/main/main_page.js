@@ -201,8 +201,6 @@ function MainPage() {
         e.preventDefault();
         e.currentTarget.blur();
         break;
-      default:
-        e.preventDefault();
     }
   }
   
