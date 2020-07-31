@@ -142,7 +142,7 @@ function MainPage() {
     if (spinToggle) return;
     socketRef.current.emit(
       "fetchRestaurant",
-      { categories: category, latitude, longitude }
+      { categories: category, latitude, longitude, radius }
     );
     setSpinToggle(true);
   }
@@ -224,7 +224,7 @@ function MainPage() {
           setSpinToggle(true)
           socketRef.current.emit(
             "fetchRestaurant",
-            { categories: category, latitude, longitude }
+            { categories: category, latitude, longitude, radius }
           );
         }}
       />
