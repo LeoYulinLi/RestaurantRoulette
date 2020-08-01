@@ -37,5 +37,98 @@ A list of user's accepted restaurant saved in the profile page.
 
 <img style="max-width: 100%;" height="460" src="https://restaurant-roulette-seeds.s3-us-west-1.amazonaws.com/past-spin.png">
 
-## Coming Soon 
-* Live chat
+### Live Chat
+Live chat, allowing users to join the same room, and select a restaurant together.
+
+![live_chat](frontend/public/live_chat.gif)
+
+## Code Snippets
+
+### Custom Autocomplete Search Bar
+Utilized React state, and a combination of event handlers to create a custom Search Bar complete with an autocomplete dropdown, and keyboard controlled inputs.
+Using React state, the search bar will cross reference the user's input to our database of categories, and update the dropdown in real time.
+Once the dropdown has been generated, the arrow keys have been bound using a keydown event listener to allow users to cycle through the suggestions.
+Pressing enter on a highlighted suggestion will then select, and update the local slice of state, and display the selected category.
+
+![autocomplete](frontend/public/autocomplete.gif)
+
+```javascript
+<div className="autocomplete-container">
+  <input
+    className="autocomplete-input"
+    value={categoryInput}
+    onChange={e => setCategoryInput(e.target.value.toLowerCase())}
+    onKeyDown={handleDropdown}
+    onClick={() => toggleAutoCompleteDisplay('')}
+  />
+
+  <ul className={`autocomplete-dropdown-list ${autoCompleteDisplay}`}>
+    {
+      autoCompleteCategories.map( category => {
+        let focus = '';
+        if (category.alias === autoCompleteFocusId) focus = 'focus';
+        return (
+          <li
+            id={category.alias}
+            key={category.alias}
+            className={`autocomplete-dropdown-item ${focus}`}
+            onClick={handleDropdownClick(category)}
+          >
+            {`${category.title} (${category.alias})`}
+          </li>
+        )
+      })
+    }
+  </ul>
+</div>
+```
+
+### Accepting a Restaurant
+The accept restaurant function doesn't accept a request body.
+Instead, it uses a database entry which records the user's latest roll.
+This prevents users from submitting a random yelp id into the database,
+ensuring that group votes, when implemented, will be fair.
+```javascript
+router.post("/",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const user = await User.findById(req.user.id);
+    if (user.rolled_restaurant) {
+        const history = new History({ user, yelp_id: user.rolled_restaurant });
+        await history.save();
+        await user.update({ $set: { rolled_restaurant: null }});
+        res.json({ msg: "ok" });
+    } else {
+        res.status(400).json({ msg: "not rolled" });
+    }
+  }
+);
+```
+
+### Filtering Restaurant History
+Using React's state management, this code snippet filters the restaurant history based on which categories / prices have been selected.
+```javascript
+let filteredResults = [];
+if (this.state.filters.length !== 0) {
+  let numFilters = this.state.filters.length;
+  for (let i = 0; i < this.props.restaurants.length; i++) {
+    let numApplied = 0;
+    let currentRestaurant = this.props.restaurants[i];
+    for (let j = 0; j < this.state.filters.length; j++) {
+      if (
+        currentRestaurant.categories
+          .map(category => category.title)
+          .includes(this.state.filters[j]) ||
+        currentRestaurant.price === this.state.filters[j]
+      ) {
+        numApplied += 1
+      }
+    } 
+    if (numApplied === numFilters) {
+      filteredResults.push(currentRestaurant);
+    }
+  }
+} else {
+  filteredResults = this.props.restaurants;
+}
+```
