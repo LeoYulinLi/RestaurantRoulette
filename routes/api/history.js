@@ -17,7 +17,7 @@ async function fetchRestaurants(disjointYelpId) {
   try {
     for (const ids of chunks) {
       let index = chunks.indexOf(ids);
-      results.push(await Promise.all(ids.map(async id => {
+      results.push(...await Promise.all(ids.map(async id => {
         console.log(`fetching ${id}`);
         const result = await fetchRestaurantById(id);
         const business = result.data;
