@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: http://ogp.me/ns#">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/wheel.png" />
@@ -25,6 +25,13 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Restaurant Roulette</title>
+    <meta property="og:title" content="Restaurant Roulette" />
+    <meta property='og:description'
+      content="A web application is here solving for 'what should we eat for today?' base on login user's current location and different preference criteria, returning a list of potenital local food restaurnts that best matches user input, and saving user's accepted restaurant to the profile." />
+    <meta property="og:url" 
+      content="https://rrc-app.herokuapp.com/#/" />
+    <meta property="og:image"  
+      content="https://raw.githubusercontent.com/LeoYulinLi/RestaurantRoulette/master/frontend/public/rr_social.png" />
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
